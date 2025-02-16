@@ -49,6 +49,7 @@ def game_loop(stdscr):
         time_left = max(10 - int(elapsed_time), 0)  # Ensure time_left doesn't go negative
         
         # Display time left at top-left (updates live)
+        stdscr.addstr(1, 2, " " * 15)  # Clear previous time text
         stdscr.addstr(1, 2, f"Time Left: {time_left}s", curses.color_pair(1))
         # Display score at top-right
         stdscr.addstr(1, 50, f"Score: {score}", curses.color_pair(1))
@@ -72,6 +73,7 @@ def game_loop(stdscr):
             # Continuously update time display while waiting
             elapsed_time = time.time() - start_time
             time_left = max(10 - int(elapsed_time), 0)
+            stdscr.addstr(1, 2, " " * 15)  # Clear previous time text
             stdscr.addstr(1, 2, f"Time Left: {time_left}s", curses.color_pair(1))  # Update countdown
             stdscr.refresh()
             time.sleep(0.1)  # Refresh every 0.1s
