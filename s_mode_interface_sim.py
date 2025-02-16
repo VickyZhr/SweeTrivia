@@ -4,13 +4,25 @@ import time
 
 # Define questions and answers
 QUESTIONS = [
-    ("What is the answer to 1+1?", {"A": "1", "B": "2", "C": "3", "D": "4"}, "B"),
-    ("What is the color of broccoli?", {"A": "red", "B": "blue", "C": "green", "D": "black"}, "C"),
+    ("What animal has the highest blood pressure?", {"A": "Giraffe", "B": "Dog", "C": "Elephant", "D": "Cheetah"}, "A"),
+    ("How many legs does a spider have?", {"A": "2", "B": "4", "C": "6", "D": "8"}, "D"),
+    ("How old was Harry Potter when he entered Hogwarts?", {"A": "11", "B": "13", "C": "15", "D": "8"}, "A"),
+    ("What country invented hot dogs?", {"A": "Italy", "B": "England", "C": "Germany", "D": "Spain"}, "C"),
+    ("What is the main color of the Smurfs?", {"A": "Yellow", "B": "Red", "C": "Green", "D": "Blue"}, "D"),
+    ("Which K-pop group released the song Dynamite?", {"A": "EXO", "B": "BTS", "C": "Seventeen", "D": "BLACKPINK"}, "B"),
+    ("How old did Queen Elizabeth II live to be?", {"A": "108", "B": "99", "C": "96", "D": "87"}, "C")
 ]
 
-def ask_question(win):
-    """Randomly selects a question and displays it."""
-    question, options, correct_answer = random.choice(QUESTIONS)
+def ask_question(win, used_questions):
+    """Selects a new question without repetition within a round."""
+    available_questions = [q for q in QUESTIONS if q[0] not in used_questions]
+    
+    if not available_questions:  # Reset if all questions have been used
+        used_questions.clear()
+        available_questions = QUESTIONS.copy()
+    
+    question, options, correct_answer = random.choice(available_questions)
+    used_questions.add(question)  # Store only the question text
     
     win.addstr(4, 2, question, curses.color_pair(1) | curses.A_BOLD)  # Bold question
     for i, (key, value) in enumerate(options.items(), start=6):
@@ -21,8 +33,11 @@ def ask_question(win):
 def game_loop(stdscr):
     """Main game logic using curses."""
     curses.start_color()  # Enable color support
+
+    # Define colors
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)  # Default: Black text, White background
-    curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_WHITE)  # Highlight Correct Answer (Green)
+    curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_WHITE)  # Green for correct answers
+    curses.init_pair(3, curses.COLOR_RED, curses.COLOR_WHITE)  # Red for incorrect messages
     stdscr.bkgd(curses.color_pair(1))  # Set background color
     stdscr.clear()
     
@@ -43,6 +58,7 @@ def game_loop(stdscr):
 
     score = 0
     start_time = time.time()
+    used_questions = set()  # Track used question texts for this round
 
     while True:
         stdscr.clear()
@@ -58,7 +74,7 @@ def game_loop(stdscr):
         if time_left == 0:  # Check if time is up
             break  # Exit the game loop
 
-        question, options, correct_answer = ask_question(stdscr)
+        question, options, correct_answer = ask_question(stdscr, used_questions)
         stdscr.refresh()
 
         user_input = None
@@ -87,16 +103,16 @@ def game_loop(stdscr):
 
         if user_input == correct_answer:
             score += 10
-            stdscr.addstr(10, 4, "Correct!", curses.color_pair(1) | curses.A_BOLD)
+            stdscr.addstr(10, 4, f"Correct! You chose: {user_input}", curses.color_pair(2) | curses.A_BOLD)  # Green for correct answer
         else:
-            stdscr.addstr(10, 4, "Incorrect!", curses.color_pair(1) | curses.A_BOLD)
+            stdscr.addstr(10, 4, f"Incorrect! You chose: {user_input}", curses.color_pair(3) | curses.A_BOLD)  # Red for incorrect answer
 
             # Re-display all choices but **highlight the correct answer**
             for i, (key, value) in enumerate(options.items(), start=6):
                 if key == correct_answer:
-                    stdscr.addstr(i, 4, f"  {key}. {value}", curses.color_pair(2) | curses.A_BOLD)  # Highlight Correct Answer
+                    stdscr.addstr(i, 4, f"  {key}. {value}", curses.color_pair(2) | curses.A_BOLD)  # Green highlight
                 else:
-                    stdscr.addstr(i, 4, f"  {key}. {value}", curses.color_pair(1) | curses.A_BOLD)  # Normal Color
+                    stdscr.addstr(i, 4, f"  {key}. {value}", curses.color_pair(1) | curses.A_BOLD)  # Normal color
 
         stdscr.refresh()
         time.sleep(1.5)  # Short delay before next question
