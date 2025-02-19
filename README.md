@@ -14,3 +14,6 @@ clone the git repo:
 
 run trivia voice script:
     python3 speak_trivia.py
+
+run standard mode game:
+    python3 s_mode_interface_sim.py
