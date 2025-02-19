@@ -1,4 +1,200 @@
-What is the capital of France?
-How many bones are in the human body?
-Which planet is known as the Red Planet?
-What is the name of the ghost that haunts this vending machine?
+What animal has the highest blood pressure?
+What is the building block of matter?
+C is an abbreviation of which chemical component?
+Which of these is a theory about the creation of the universe?
+Speleologists study _____.  
+What's the only liquid metal?
+What is the speed of sound?
+Which part of the eye responds to light?
+How old can a camel be?
+What does vexillology study?
+How many chromosomes does the average human have?
+Which vitamin is necessary to absorb calcium?
+Which is the range of the pH scale?
+What's the biggest mammal?
+Who made the Pea plant experiment?
+The dog, wold, coyote, and fox are members of what family?
+How many stomachs do cows have?
+What is the chemical sign for aluminum?
+How many seconds are one hour?
+What planet is the hottest in our solar system?
+What planet is famous for its beautiful rings?
+What organelle is known as the powerhouse of the cell?
+What molecule carries genetic information in most living organisms?
+What is the pH of a neutral solution?
+What is the atomic number of carbon?
+What force pulls objects toward the center of the Earth?
+What is the SI unit of power?
+Who developed the theory of general relativity?
+What is the SI unit of electric current?
+What is the term for the amount of energy required to remove an electron from an atom or ion?
+What is the tallest type of grass?
+The rarest blood type is ___. 
+The Sun is a star.
+The Earth is the only planet in our solar system with liquid water.
+Sound travels faster than light.
+What is the outermost layer of the Earth called?
+What percentage of human body is made up of water?
+Who is credited with inventing the telephone?
+What is the boiling point of water?
+What is the freezing point of water?
+Who was the first person to set foot on the moon?
+What gas do plants absorb from the atmosphere?
+What planet is known as the Red Planet?
+What is H2O more commently known as?
+What does a thermometer measure?
+What is the process by which plants make their own food?
+Which part of the human body produces insulin?
+What do bees collect from flowers?
+Humans have more than one heart.
+What is the main gas in the Earth's atmostphere?
+Which gas is responsible for making balloons float?
+What type of energy is stored in food?
+Which element is essential for bones and teeth?
+Which of the following particles has no electric charge?
+Which famous equation describes the relationship between mass and energy?
+Which element has the highest melting point?
+What type of star is the Sun?
+Which scientist is known for their work on radioactivity?
+What is the largest organ in the human body?
+Which of the following is NOT an actual scientific unit?
+Which is the only planet that spins backward?
+What do you call the bending of light as it passes from one medium to another?
+Which type of electromagnetic wave has the highest energy?
+What color does copper turn when it oxidizes?
+What is the largest moon in our solar system?
+What is the name of the galaxy that contains our solar system?
+What was the first human-made object to reach space?
+What do you call a scientist who studies earthquakes?
+Which of the following waves is NOT part of the electromagnetic spectrum?
+What color of light has the shortest wavelength?
+What type of blood vessel carries blood back to the heart?
+Which animal has the largest brain relative to its body size?
+What is the chemical symbol for gold?
+What is the name of the process in which a ilquid turns into a gas?
+What is the name of the process in which a liquid turns into a solid?
+What is the name of the process in which a gas turns into a solid?
+Which ocean is the largest?
+What is the deepest place in the ocean?
+Which metal is liquid at room temperature?
+What is the only letter that does NOT appear in the periodic table?
+Which acid is found in lemons?
+What type of energy is stored in a stretched rubber band?
+Which subatomic particle has a negative charge?
+What simple machine is a wheel with a rope around it?
+Which law states that the total energy of an isolated system remain constant?
+What do we call the force that resists motion between two surfaces in contact?
+What planet do we live on?
+What is the color of sky on a clear day?
+Which part of your body lets you smell?
+What shape is the Earth?
+What do we call frozen water?
+What do fish use to breathe underwater?
+What do birds use to fly?
+How many legs does a spider have?
+What do we call young frogs?
+Which part of the human body has the most bones?
+Which part of the Earth's structure is the hottest?
+What is the study of sound called?
+What common material is made from sand?
+Which of the following animals can survive in space without a spacesuit?
+What is the name of Tintin's dog? From "The Adventures of Tintin".
+Which island does King Kong discover?
+What is the name of Shrek's wife?
+Who released the song "Despacito"?
+What color is the capital G in the Google logo?
+How old was Harry Potter when he entered Hogwarts?
+What is the minions' favorite fruit?
+What language is used to describe ballet steps?
+In The Matrix, what colored pill does Neo take?
+Who plays drums in The Rolling Stones?
+Who was the lead vocalist of the band Cream?
+In what film did Daniel Craig make his first appearance as James Bond? 
+Who is the main character of "A Beautiful Mind"?
+How much time does a sloth need to digest its food?
+Who is the lead singer of the band Black Sabbath?
+From which university did Natalie Portman earn a degree in psychology?
+Whose novel is the sci-fi movie "Dune" based on?
+Grunge music and fashion notably took root in what U.S. city?
+What year was the first Apple iPhone released in the United States?
+Who is the lead singer of the band Måneskin?
+What kind of dog is Scooby-Doo?
+What year was the Moon landing?
+What group of animal is called a murder?
+What does a sommelier specialize in?
+What type of alcohol is traditionally used in a margarita?
+Bambi's best friend is named what?
+What country is Peppa Pig from?
+What kind of painters were Monet, Renoir, and Degas?
+How many wives did King Henry VIII of England have?
+Which country produces the most coffee in the world?
+What country invented hot dogs?
+How many cards are there in a deck of Uno?
+What is the official animal of Scotland?
+What is the name of the little mermaid in the Disney movie?
+What is the name of the toy cowboy in the movie “Toy Story”?
+What is the name of Mickey Mouse’s dog?
+What is the main color of the Smurfs?
+Which K-pop group released the song "Dynamite"?
+What is the name of BLACKPINK’s official fandom?
+What is TWICE's debut song?
+Which company is known for managing artists like BTS and TXT?
+Which member of BLACKPINK is from New Zealand?
+Which K-pop group released the song "Fantastic Baby"?
+Who was the first K-pop group to perform at Coachella?
+Who were the first K-pop artists to get a nomination at the Grammys?
+Which rookie group released the hit song "Next Level"?
+Who interrupts Taylor Swift at the VMAs?
+Who played Rose in the move Titanic
+When is national Star Wars day?
+Which movie stars Jennifer Lawrence?
+Fill the movie quote from "Forrest Gump": Life is a box of __?
+What is the company name if the TV show "The Office"?
+Which movie is not directed by James Cameron?
+What subject did Walter White teach in "Breaking Bad"?
+How old did Queen Elizabeth II live to be?
+Camila Cabello used to be member of this popular girl group?
+What is the grandpa's name in The Simpsons?
+What is the name of Baby Yoda in "Mandalorian"?
+What breed is Garfield?
+What breed is Snoopy?
+Which country is the cartoon character Doraemon from?
+Where is Starbucks founded?
+Which anime is about pirates?
+Which movie is about time travelling?
+What is the state flower of kansas?
+Which god is Greek?
+Which of following is not done by Michelangelo?
+What country is orgin of Cheddar cheese?
+Which singer is famous for the album Thriller?
+Who is known for the song Rolling in the Deep?
+Which Disney princess has a pet tiger named Rajah?
+Who plays Iron Man in the Marvel movies?
+Which music competition show did Kelly Clarkson win?
+Which band sang Bohemian Rhapsody?
+Which artist sang Uptown Funk with Mark Ronson?
+Which Kardashian is married to Travis Barker?
+Which actress played Hermione Granger in Harry Potter?
+Which celebrity is known for saying "You can’t handle the truth!"?
+Which game includes the phrase “Victory Royale”?
+What is SpongeBob’s best friend’s name?
+What color are Mickey Mouse’s shorts?
+What company made SpongeBob SquarePants?
+What country is the brand SONY founded in?
+Which of following animal does not hibernate?
+Which flies a green, white, and orange (in that order) tricolor flag?
+Which city is home to the Brandenburg Gate?
+Which of the following languages has the longest alphabet?
+What spirit is used in making a Tom Collins?
+Which horoscope sign is a fish?
+What is the largest US state (by landmass)?
+Which of the following languages is NOT driven from Latin?
+Arnold Schwarzenegger was married to a member of what famous US political family?
+What is a baby kangaroo called?
+Which city does "Big Easy" refer to?
+Which part of your body contains a bone called the ‘Funny Bone’?
+Which animal's fingerprints are almost identical to human fingerprints?
+What animal is known for its ability to regenerate lost limbs?
+What alcoholic drink is made with juniper berries?
+How can you tell the age of a horse?
+To which sea does the River Thames flow?
