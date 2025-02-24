@@ -1,13 +1,16 @@
 import os
+import json
 import random
 
-# Read trivia questions from file
-with open("trivia.txt", "r") as file:
-    trivia_questions = file.readlines()
+# Load questions from the JSON file
+with open('questions.json', 'r') as file:
+    trivia_questions = json.load(file)
+
+def narrate_question(question):
+    os.system(f'espeak-ng -v en+m3 -s 60 "{question}"')
 
 # Pick a random question
-question = random.choice(trivia_questions).strip()
+question = random.choice(trivia_questions)["question"].strip()
 
 # Speak the question
-os.system(f'espeak-ng -v en+m3 -s 60 "{question}"')
-
+narrate_question(question)
