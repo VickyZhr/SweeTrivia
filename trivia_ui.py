@@ -3,7 +3,7 @@ from screens.home_screen import HomeScreen
 
 # Initialize Pygame
 pygame.init()
-SCREEN_WIDTH, SCREEN_HEIGHT = 1024, 600
+SCREEN_WIDTH, SCREEN_HEIGHT = 1200, 620
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("SweeTrivia - Home Screen")
 
