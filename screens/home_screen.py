@@ -14,22 +14,22 @@ class HomeScreen:
         self.bg_shape_bottom = self.load_image("assets/bg_shape_bottom.png")
 
         self.bg_shape_top, self.bg_shape_top_rect = self.scale_image(
-            self.bg_shape_top, scale_factor=1, center_pos=(580, 100)
+            self.bg_shape_top, scale_factor=1, center_pos=(600, 100)
         )
         self.title, self.title_rect = self.scale_image(
-            self.title, scale_factor=0.80, center_pos=(580, 220)
+            self.title, scale_factor=0.80, center_pos=(600, 230)
         )
         self.select_mode, self.select_mode_rect = self.scale_image(
-            self.select_mode, scale_factor=0.80, center_pos=(580, 300)
+            self.select_mode, scale_factor=0.80, center_pos=(600, 310)
         )
         self.standard_button, self.standard_button_rect = self.scale_image(
-            self.standard_button, size=(250, 100), center_pos=(400, 400)
+            self.standard_button, size=(250, 100), center_pos=(350, 410)
         )
         self.challenge_button, self.challenge_button_rect = self.scale_image(
-            self.challenge_button, size=(250, 100), center_pos=(800, 400)
+            self.challenge_button, size=(250, 100), center_pos=(850, 410)
         )
         self.bg_shape_bottom, self.bg_shape_bottom_rect = self.scale_image(
-            self.bg_shape_bottom, scale_factor=1, center_pos=(580, 20)
+            self.bg_shape_bottom, scale_factor=0.90, center_pos=(600, 620)
         )
 
     def load_image(self, path):
