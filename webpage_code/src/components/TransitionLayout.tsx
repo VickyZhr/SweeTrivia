@@ -1,4 +1,3 @@
-
 import React, { ReactNode, useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -21,7 +20,7 @@ const TransitionLayout: React.FC<TransitionLayoutProps> = ({ children, className
   return (
     <div className={cn(
       'min-h-screen flex flex-col items-center justify-center p-6',
-      'bg-gradient-to-b from-blue-50 to-white',
+      'bg-green-900',
       className
     )}>
       <div
