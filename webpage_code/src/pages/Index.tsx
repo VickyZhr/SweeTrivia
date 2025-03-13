@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTrivia } from '@/context/TriviaContext';
@@ -35,11 +34,11 @@ const Index = () => {
     <TransitionLayout>
       <div className="flex flex-col items-center animate-slide-up">
         <div className="mb-10 text-center">
-          <h1 className="text-6xl font-bold text-primary tracking-tight mb-3">
+          <h1 className="text-6xl font-bold text-pink-500 tracking-tight mb-3">
             SweetTrivia
           </h1>
-          <div className="h-1 w-20 bg-primary/30 mx-auto rounded-full mb-1" />
-          <div className="h-1 w-10 bg-primary/20 mx-auto rounded-full" />
+          <div className="h-1 w-20 bg-pink-300 mx-auto rounded-full mb-1" />
+          <div className="h-1 w-10 bg-pink-200 mx-auto rounded-full" />
         </div>
         
         <TriviaCard>
@@ -64,7 +63,7 @@ const Index = () => {
             
             <Button 
               onClick={handleContinue}
-              className="w-full h-12 text-lg font-medium transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full h-12 text-lg font-medium transition-all bg-yellow-400 hover:bg-yellow-500 text-black hover:scale-[1.02] active:scale-[0.98]"
             >
               Continue
             </Button>
