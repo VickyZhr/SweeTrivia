@@ -22,6 +22,7 @@ export default {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
 				display: ['Playfair Display', 'serif'],
+				pixel: ['"Press Start 2P"', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -29,6 +30,7 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				'forest-green': '#1A3C20', // Darker forest green
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -58,8 +60,9 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				trivia: {
-					pink: '#FF5CAD',
+					pink: '#FF41B4', // Brighter pink for the title
 					darkGreen: '#004D40',
+					green: '#3A7B54',
 					yellow: '#FFEB3B',
 					lightGreen: '#00796B',
 					cream: '#FFF8E1',
