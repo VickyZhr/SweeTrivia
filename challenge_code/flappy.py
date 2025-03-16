@@ -17,7 +17,7 @@ GREEN = (0, 200, 0)
 RED = (255, 0, 0)
 
 # Game Variables
-bird_x, bird_y = 50, 50
+bird_x, bird_y = 200, 200
 bird_radius = 10
 gravity = 0.5
 velocity = 0
@@ -174,7 +174,7 @@ def draw_question():
 def reset_game():
     """Resets game variables to start a new round."""
     global bird_y, velocity, pipe_x, score, lives, game_started, current_question
-    bird_y = 50
+    bird_y = 200
     velocity = 0
     pipe_x = WIDTH
     score = 0
