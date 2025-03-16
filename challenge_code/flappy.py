@@ -30,6 +30,14 @@ score = 0
 lives = 3  # Challenge Mode: 3 Lives
 moving_rate = 10
 game_started = False
+passed_pipe = False
+missed_pipe = False  # Ensure lives are reduced only once per pipe
+
+# Flash effect variables
+flash_timer = 0
+flash_duration = 20  # Number of frames to flash the text
+flash_active = False
+
 
 # Questions and Answers
 questions = [
@@ -76,34 +84,55 @@ gap_positions = [150, 250, 350, 450]  # Fixed gap positions
 
 def draw_pipes(pipe_x, bird_y, current_question):
     """Draws the answer choices between the fixed gaps and checks if the player selects the correct answer."""
+    global lives, score, passed_pipe, missed_pipe, flash_active, flash_timer  # Add `flash_active` and `flash_timer`
+
     labels = ["A", "B", "C", "D"]
-    
-    # Define gap size as five times the bird radius
     gap_size = 5 * bird_radius
-    
+
     # Draw pipes above and below the gaps
     pygame.draw.rect(screen, GREEN, (pipe_x, 0, pipe_width, gap_positions[0]))
     pygame.draw.rect(screen, GREEN, (pipe_x, gap_positions[0] + gap_size, pipe_width, gap_positions[1] - (gap_positions[0] + gap_size)))
     pygame.draw.rect(screen, GREEN, (pipe_x, gap_positions[1] + gap_size, pipe_width, gap_positions[2] - (gap_positions[1] + gap_size)))
     pygame.draw.rect(screen, GREEN, (pipe_x, gap_positions[2] + gap_size, pipe_width, gap_positions[3] - (gap_positions[2] + gap_size)))
     pygame.draw.rect(screen, GREEN, (pipe_x, gap_positions[3] + gap_size, pipe_width, HEIGHT - (gap_positions[3] + gap_size)))
-    
+
     # Draw answer labels inside the gaps
     for i in range(4):
         text = font.render(labels[i], True, WHITE)
         screen.blit(text, (pipe_x + pipe_width // 2 - 10, gap_positions[i] + gap_size // 2))
-    
+
     # Check if the bird passes through the correct answer's gap
     correct_label = current_question["correct"]
     correct_index = labels.index(correct_label)
+
     if pipe_x < bird_x < pipe_x + pipe_width:
         if not (gap_positions[correct_index] <= bird_y <= gap_positions[correct_index] + gap_size):
-            global lives
-            lives -= 1  # Reduce life only if the player does NOT pass through the correct gap
+            if not missed_pipe:  # Reduce life only if it's the first time missing this pipe
+                lives -= 1
+                flash_active = True  # Start flashing effect
+                flash_timer = flash_duration  # Reset flash timer
+                missed_pipe = True  # Prevent multiple life reductions
+        elif not passed_pipe:  # Only increment score if not already counted
+            score += 10
+            passed_pipe = True  # Prevent multiple score increments
+
+    # Flashing effect: Alternate red and white every few frames
+    if flash_active and flash_timer > 0:
+        text_color = RED if (flash_timer % 10 < 5) else WHITE  # Toggle color
+        display_font = pygame.font.Font(None, 50)  # Bigger font when flashing
+    else:
+        text_color = WHITE  # Normal color when not flashing
+        display_font = pygame.font.Font(None, 30)  # Normal size
+
+    # Display score and lives in the top-right corner
+    score_text = display_font.render(f"Score: {score}", True, text_color)
+    lives_text = display_font.render(f"Lives: {lives}", True, text_color)
+    screen.blit(score_text, (WIDTH - 200, 10))
+    screen.blit(lives_text, (WIDTH - 200, 50))
 
 
 bird_img = pygame.image.load("skeleton-animation_01.png")  # Load the bird image
-bird_img = pygame.transform.scale(bird_img, (40, 40))  # Resize as needed
+bird_img = pygame.transform.scale(bird_img, (50, 40))  # Resize as needed
 
 def draw_bird(bird_y):
     """Draws the bird using an image instead of a circle."""
@@ -140,6 +169,7 @@ def draw_question():
     for i, option in enumerate(current_question["options"]):
         text = font.render(f"{chr(65+i)}. {option}", True, WHITE)
         screen.blit(text, (box_x + padding, box_y + padding + (i + 1) * line_height))
+
 
 def reset_game():
     """Resets game variables to start a new round."""
@@ -191,7 +221,6 @@ def show_game_over_screen():
                 waiting = False  # Restart game
 
     reset_game()
-
 # Start Screen
 show_start_screen()
 
@@ -209,11 +238,25 @@ while running:
     if pipe_x < -pipe_width:
         pipe_x = WIDTH
         current_question = random.choice(questions)  # Change to a new question
+        passed_pipe = False  # Reset for the new pipe
+        missed_pipe = False  # Reset missed pipe flag to allow life loss for the next pipe
 
     # Collision Detection (Hitting top/bottom)
     if bird_y <= 0 or bird_y >= HEIGHT - bird_radius:
-        lives -= 1
+        if lives > 0:  # Reduce lives only if lives remain
+            lives -= 1
+            flash_active = True  # Start flashing effect
+            flash_timer = flash_duration  # Reset flash timer
+            bird_y = HEIGHT // 2  # Reset bird position instead of ending game immediately
+            velocity = 0  # Stop downward movement
 
+    # Flashing Timer Countdown
+    if flash_timer > 0:
+        flash_timer -= 1
+    else:
+        flash_active = False  # Stop flashing after timer expires
+
+    # If all lives are lost, show game over screen
     if lives == 0:
         show_game_over_screen()
 
