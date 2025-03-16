@@ -1,76 +1,76 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTrivia } from '@/context/TriviaContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { toast } from 'sonner';
-import TransitionLayout from '@/components/TransitionLayout';
-import TriviaCard from '@/components/TriviaCard';
+import Card from '@/components/Card';
+import Button from '@/components/Button';
+import NumberInput from '@/components/NumberInput';
+import { toast } from '@/utils/toast';
 
 const Index = () => {
-  const [count, setCount] = useState<string>('');
-  const { setTotalQuestions } = useTrivia();
+  const [numberOfQuestions, setNumberOfQuestions] = useState(5);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAnimationComplete(true);
+    }, 1000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleContinue = () => {
-    const numQuestions = parseInt(count.trim());
-    
-    if (isNaN(numQuestions) || numQuestions <= 0) {
-      toast.error('Please enter a valid number greater than 0');
+    if (numberOfQuestions < 1) {
+      toast.error("Please enter at least one question");
       return;
     }
     
-    if (numQuestions > 100) {
-      toast.error('Maximum of 100 questions allowed');
+    if (numberOfQuestions > 50) {
+      toast.error("Please enter at most 50 questions");
       return;
     }
     
-    setTotalQuestions(numQuestions);
+    // Save number of questions to local storage or a state management solution
+    localStorage.setItem('numberOfQuestions', numberOfQuestions.toString());
+    
+    // Navigate to the first question
     navigate('/questions/1');
   };
 
   return (
-    <TransitionLayout>
-      <div className="flex flex-col items-center animate-slide-up">
-        <div className="mb-10 text-center">
-          <h1 className="text-6xl font-bold text-pink-500 tracking-tight mb-3">
-            SweetTrivia
-          </h1>
-          <div className="h-1 w-20 bg-pink-300 mx-auto rounded-full mb-1" />
-          <div className="h-1 w-10 bg-pink-200 mx-auto rounded-full" />
-        </div>
-        
-        <TriviaCard>
-          <h2 className="text-2xl font-semibold text-center mb-6">Create Your Trivia Set</h2>
-          
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="questionCount" className="text-base">
-                Number of questions you want to enter
-              </Label>
-              <Input
-                id="questionCount"
-                type="number"
-                min="1"
-                max="100"
-                placeholder="Enter a number"
-                className="h-12 text-lg"
-                value={count}
-                onChange={(e) => setCount(e.target.value)}
-              />
-            </div>
-            
-            <Button 
-              onClick={handleContinue}
-              className="w-full h-12 text-lg font-medium transition-all bg-yellow-400 hover:bg-yellow-500 text-black hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Continue
-            </Button>
-          </div>
-        </TriviaCard>
+    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+      <div className="animate-in fade-in w-full max-w-xl mx-auto text-center mb-8">
+        <h1 
+          className={`font-display text-6xl md:text-7xl font-bold text-trivia-pink mb-4 tracking-tight title-glow animate-in slide-in-down ${isAnimationComplete ? 'animate-pulse-slow' : ''}`}
+        >
+          SweeTrivia
+        </h1>
+        <p className="text-white/80 text-lg animate-in slide-in-up delay-200">
+          Create your own custom trivia questions
+        </p>
       </div>
-    </TransitionLayout>
+      
+      <Card className="animate-in fade-in delay-300 w-full">
+        <div className="space-y-6">
+          <NumberInput
+            value={numberOfQuestions}
+            onChange={setNumberOfQuestions}
+            min={1}
+            max={50}
+            label="How many questions do you want to create?"
+            className="w-full"
+          />
+          
+          <Button
+            variant="secondary"
+            className="w-full mt-4"
+            onClick={handleContinue}
+          >
+            Continue
+          </Button>
+        </div>
+      </Card>
+    </div>
   );
 };
 
