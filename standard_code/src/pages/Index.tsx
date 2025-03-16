@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useTrivia } from '@/context/TriviaContext';
+import { Gamepad2 } from 'lucide-react';
 
 const Index: React.FC = () => {
   const navigate = useNavigate();
@@ -13,9 +14,8 @@ const Index: React.FC = () => {
   };
 
   const handleChallengeMode = () => {
-    // For now, this just loads default questions and goes to categories
-    // You can implement a different flow for challenge mode later
-    navigate('/categories');
+    // Navigate to the flappy bird challenge mode
+    navigate('/flappy');
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,8 +86,9 @@ const Index: React.FC = () => {
             onClick={handleChallengeMode}
             variant="yellow" 
             size="xl"
-            className="p-6 text-4xl font-mono"
+            className="p-6 text-4xl font-mono flex items-center justify-center"
           >
+            <Gamepad2 className="mr-2 w-8 h-8" />
             Challenge
           </Button>
         </div>

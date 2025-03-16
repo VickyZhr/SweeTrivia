@@ -10,6 +10,7 @@ import CategorySelect from "./pages/CategorySelect";
 import TriviaGame from "./pages/TriviaGame";
 import NotFound from "./pages/NotFound";
 import ExitScreen from "./components/ExitScreen";
+import FlappyChallenge from "./pages/FlappyChallenge";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/categories" element={<CategorySelect />} />
             <Route path="/play" element={<TriviaGame />} />
+            <Route path="/flappy" element={<FlappyChallenge />} />
             <Route path="/exit" element={<ExitScreen />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
