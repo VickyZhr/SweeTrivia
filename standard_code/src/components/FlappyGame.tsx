@@ -35,7 +35,7 @@ const FlappyGame: React.FC = () => {
     
     let pipe = {
       x: canvas.width,
-      width: 40,
+      width: 60,
       gap: 60
     };
     
@@ -124,26 +124,42 @@ const FlappyGame: React.FC = () => {
     // Function to draw pipes
     const drawPipes = () => {
       const labels = ["A", "B", "C", "D"];
-      
-      // Draw pipes above and below the gaps
+      const options = currentQuestion.options; // Assuming this holds the answer choices
+    
+      // Set pipe colors
       ctx.fillStyle = '#00c800'; // GREEN color
-      ctx.fillRect(pipe.x, 0, pipe.width, gapPositions[0]);
-      ctx.fillRect(pipe.x, gapPositions[0] + gapSize, pipe.width, gapPositions[1] - (gapPositions[0] + gapSize));
-      ctx.fillRect(pipe.x, gapPositions[1] + gapSize, pipe.width, gapPositions[2] - (gapPositions[1] + gapSize));
-      ctx.fillRect(pipe.x, gapPositions[2] + gapSize, pipe.width, gapPositions[3] - (gapPositions[2] + gapSize));
-      ctx.fillRect(pipe.x, gapPositions[3] + gapSize, pipe.width, canvas.height - (gapPositions[3] + gapSize));
-      
-      // Draw answer labels inside the gaps
-      ctx.fillStyle = '#FFFFFF'; // WHITE color
+    
+      // Draw pipes above and below the gaps with black borders
+      const drawPipeSection = (x, y, width, height) => {
+        ctx.fillRect(x, y, width, height); // Draw pipe
+        ctx.strokeStyle = '#000000'; // BLACK border
+        ctx.lineWidth = 3;
+        ctx.strokeRect(x, y, width, height); // Draw border
+      };
+    
+      drawPipeSection(pipe.x, 0, pipe.width, gapPositions[0]);
+      drawPipeSection(pipe.x, gapPositions[0] + gapSize, pipe.width, gapPositions[1] - (gapPositions[0] + gapSize));
+      drawPipeSection(pipe.x, gapPositions[1] + gapSize, pipe.width, gapPositions[2] - (gapPositions[1] + gapSize));
+      drawPipeSection(pipe.x, gapPositions[2] + gapSize, pipe.width, gapPositions[3] - (gapPositions[2] + gapSize));
+      drawPipeSection(pipe.x, gapPositions[3] + gapSize, pipe.width, canvas.height - (gapPositions[3] + gapSize));
+    
+      // Draw answer labels and options inside the gaps
+      ctx.fillStyle = '#000000'; // BLACK color
       ctx.font = '20px Arial';
+      ctx.textAlign = 'center';
+    
       for (let i = 0; i < 4; i++) {
-        ctx.fillText(labels[i], pipe.x + pipe.width / 2 - 10, gapPositions[i] + gapSize / 2);
+        let textX = pipe.x + pipe.width / 2;
+        let textY = gapPositions[i] + gapSize / 2;
+    
+        ctx.fillText(labels[i], textX, textY - 10); // Draw label (A, B, C, D)
+        ctx.fillText(options[i], textX, textY + 15); // Draw corresponding answer option
       }
-      
+    
       // Check if the bird passes through the correct answer's gap
       const correctLabel = currentQuestion.correct;
       const correctIndex = labels.indexOf(correctLabel);
-      
+    
       if (pipe.x < bird.x && pipe.x + pipe.width > bird.x) {
         if (!(bird.y >= gapPositions[correctIndex] && bird.y <= gapPositions[correctIndex] + gapSize)) {
           if (!missedPipe) {
@@ -161,16 +177,16 @@ const FlappyGame: React.FC = () => {
           toast.success("Correct answer! +10 points");
         }
       }
-      
+    
       // Flashing effect for score/lives display
       let textColor = '#FFFFFF'; // WHITE color
       let fontSize = '30px';
-      
+    
       if (flashActive && flashTimer > 0) {
         textColor = flashTimer % 10 < 5 ? '#FF0000' : '#FFFFFF'; // Toggle RED and WHITE
         fontSize = '50px';
       }
-      
+    
       // Display score and lives
       ctx.fillStyle = textColor;
       ctx.font = fontSize + ' Arial';
