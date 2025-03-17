@@ -11,7 +11,7 @@ const FinishPage = () => {
   const [questions, setQuestions] = useState<TriviaQuestion[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isUploadComplete, setIsUploadComplete] = useState(false);
-  const [uploadedFileUrl, setUploadedFileUrl] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -44,19 +44,25 @@ const FinishPage = () => {
     }
     
     setIsUploading(true);
+    setUploadError(null);
     const csvData = convertToCSV(questions);
     
     try {
+      console.log('Starting upload process...');
       const success = await uploadToCloud(csvData);
       if (success) {
         toast.success("Questions uploaded to Supabase successfully");
         setIsUploadComplete(true);
       } else {
-        toast.error("Failed to upload questions to Supabase");
+        const errorMsg = "Failed to upload questions to Supabase. Check console for details.";
+        toast.error(errorMsg);
+        setUploadError(errorMsg);
       }
     } catch (error) {
       console.error("Error uploading to Supabase:", error);
-      toast.error("An error occurred while uploading");
+      const errorMsg = error instanceof Error ? error.message : "An unknown error occurred while uploading";
+      toast.error(errorMsg);
+      setUploadError(errorMsg);
     } finally {
       setIsUploading(false);
     }
@@ -104,6 +110,14 @@ const FinishPage = () => {
                 ))}
               </div>
             </div>
+            
+            {uploadError && (
+              <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 text-white/90 text-sm">
+                <p className="font-medium">Upload Error:</p>
+                <p>{uploadError}</p>
+                <p className="mt-2 text-xs">Check the browser console for more details.</p>
+              </div>
+            )}
             
             <div className="space-y-4 pt-4">
               <Button 
