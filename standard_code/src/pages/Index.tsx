@@ -3,7 +3,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useTrivia } from '@/context/TriviaContext';
-import { Gamepad2 } from 'lucide-react';
 
 const Index: React.FC = () => {
   const navigate = useNavigate();
@@ -36,59 +35,47 @@ const Index: React.FC = () => {
     reader.readAsText(file);
   };
 
-  // Render geometric shapes for background
-  const renderShapes = () => {
-    return (
-      <>
-        {/* Top row shapes */}
-        <div className="absolute top-5 left-10 w-16 h-16 border-4 border-white rounded-full"></div>
-        <div className="absolute top-20 left-40 w-16 h-16 border-4 border-white transform rotate-45"></div>
-        <div className="absolute top-5 left-80 w-16 h-16 border-4 border-white rounded-full"></div>
-        <div className="absolute top-20 right-80 w-16 h-16 border-4 border-white transform rotate-45"></div>
-        <div className="absolute top-5 right-40 w-16 h-16 border-4 border-white rounded-full"></div>
-        <div className="absolute top-20 right-10 w-16 h-16 border-4 border-white transform rotate-45"></div>
-        
-        {/* Bottom row shapes */}
-        <div className="absolute bottom-20 left-10 w-16 h-16 border-4 border-white rounded-full"></div>
-        <div className="absolute bottom-5 left-40 w-16 h-16 border-4 border-white transform rotate-45"></div>
-        <div className="absolute bottom-20 left-80 w-16 h-16 border-4 border-white rounded-full"></div>
-        <div className="absolute bottom-5 right-80 w-16 h-16 border-4 border-white transform rotate-45"></div>
-        <div className="absolute bottom-20 right-40 w-16 h-16 border-4 border-white rounded-full"></div>
-        <div className="absolute bottom-5 right-10 w-16 h-16 border-4 border-white transform rotate-45"></div>
-      </>
-    );
-  };
-
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-pink-500 relative overflow-hidden">
-      {renderShapes()}
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
+      {/* Top row of shapes */}
+      <div className="absolute top-5 w-[95%] mx-auto">
+        <img 
+          src="/lovable-uploads/92149b53-6c92-4ab5-b43e-94cf49eea917.png" 
+          alt="Top shapes" 
+          className="w-full"
+        />
+      </div>
       
-      <div className="w-full max-w-2xl z-10">
-        <h1 className="text-6xl font-bold text-center text-green-800 mb-2 font-mono tracking-wider drop-shadow-lg">
+      {/* Bottom row of shapes */}
+      <div className="absolute bottom-0 w-[95%] mx-auto">
+        <img 
+          src="/lovable-uploads/f4358604-0ca8-4f42-b36a-1c87c99ef22d.png" 
+          alt="Bottom shapes" 
+          className="w-full"
+        />
+      </div>
+      
+      <div className="w-full max-w-2xl z-10 flex flex-col items-center">
+        <h1 className="pixel-text-lg text-6xl mb-2 text-center tracking-widest">
           SWEETRIVIA
         </h1>
         
-        <h2 className="text-4xl font-bold text-center text-green-800 mb-8 font-mono tracking-wide">
+        <h2 className="pixel-text text-4xl mb-12 text-center tracking-wide">
           Select Mode! 🦑
         </h2>
         
-        <div className="grid grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-2 gap-8 mb-8 w-full">
           <Button
             onClick={handleStandardMode}
-            variant="yellow"
-            size="xl"
-            className="p-6 text-4xl font-mono"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black text-4xl font-mono border-4 border-white h-24 rounded-3xl"
           >
             Standard
           </Button>
           
           <Button
             onClick={handleChallengeMode}
-            variant="yellow" 
-            size="xl"
-            className="p-6 text-4xl font-mono flex items-center justify-center"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black text-4xl font-mono border-4 border-white h-24 rounded-3xl"
           >
-            <Gamepad2 className="mr-2 w-8 h-8" />
             Challenge
           </Button>
         </div>
@@ -103,6 +90,8 @@ const Index: React.FC = () => {
           />
         </div>
       </div>
+      
+      {/* No Back Button on Home Page */}
     </div>
   );
 };

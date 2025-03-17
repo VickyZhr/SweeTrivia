@@ -1,8 +1,9 @@
+
 import React, { useEffect } from 'react';
 import { useTrivia } from '@/context/TriviaContext';
 import { calculatePercentage } from '@/utils/triviaUtils';
 import { Button } from '@/components/ui/button';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ResultScreen: React.FC = () => {
@@ -27,31 +28,48 @@ const ResultScreen: React.FC = () => {
     return "Keep practicing!";
   };
 
+  // Go back to the previous screen without resetting
+  const handleGoBack = () => {
+    navigate(-1); // Navigate to the previous screen in history
+  };
+
   return (
-    <div className="bg-white/20 backdrop-blur-sm rounded-xl p-8 w-full max-w-md mx-auto border-2 border-white/30 text-center animate-slide-up">
-      <h2 className="text-3xl font-bold mb-2 text-green-800 font-mono">Candy dispense completed :)</h2>
+    <div className="bg-white/20 backdrop-blur-sm rounded-xl p-8 w-full max-w-md mx-auto border-2 border-white/30 text-center animate-slide-up relative">
+      <h2 className="text-2xl font-bold mb-2 text-green-800 pixel-text tracking-wide">Candy dispense completed :)</h2>
       <p className="text-white mb-8">{getMessage()}</p>
       
       <div className="mb-8">
-        <div className="text-6xl font-bold text-yellow-300 mb-2">{percentage}%</div>
+        <div className="text-4xl font-bold text-yellow-300 mb-2">{percentage}%</div>
         <p className="text-white">
           You scored <span className="font-semibold">{score} out of {totalQuestions}</span>
         </p>
       </div>
       
-      <Button
-        onClick={() => {
-          resetGame();
-          navigate('/');
-        }}
-        className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold rounded-xl px-6 py-2 flex items-center justify-center w-full border-2 border-white/30"
-      >
-        <RotateCcw className="mr-2 h-4 w-4" /> Play Again
-      </Button>
+      <div className="flex flex-col space-y-3">
+        <Button
+          onClick={() => {
+            resetGame();
+            navigate('/');
+          }}
+          className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold rounded-xl px-6 py-2 flex items-center justify-center w-full border-2 border-white/30"
+        >
+          <RotateCcw className="mr-2 h-4 w-4" /> Play Again
+        </Button>
+      </div>
       
       <div className="mt-4 text-white/70 animate-pulse">
         Returning to home in 10 seconds...
       </div>
+      
+      {/* Adjusted back button position to match CategorySelect */}
+      <Button 
+        onClick={handleGoBack}
+        variant="yellow"
+        className="fixed bottom-44 left-10 text-green-800 font-bold shadow-lg flex items-center z-20"
+        size="lg"
+      >
+        <ArrowLeft className="h-6 w-6 mr-2" /> Go Back
+      </Button>
     </div>
   );
 };

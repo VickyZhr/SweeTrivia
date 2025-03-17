@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTrivia } from '@/context/TriviaContext';
 import { Button } from '@/components/ui/button';
-import { Crown } from 'lucide-react';
+import { Crown, ArrowLeft } from 'lucide-react';
 
 const CategorySelect: React.FC = () => {
   const { filterQuestionsByCategory } = useTrivia();
@@ -14,37 +14,32 @@ const CategorySelect: React.FC = () => {
     navigate('/play');
   };
 
-  // Decorative shape component
-  const Shape = ({ type }: { type: 'circle' | 'triangle' | 'square' }) => {
-    const shapeClasses = {
-      circle: "w-12 h-12 rounded-full border-4 border-white",
-      triangle: "w-12 h-12 border-l-[20px] border-r-[20px] border-b-[35px] border-l-transparent border-r-transparent border-b-white",
-      square: "w-12 h-12 border-4 border-white"
-    };
-
-    return <div className={shapeClasses[type]}></div>;
+  const handleGoBack = () => {
+    navigate(-1); // Navigate to the previous screen in history
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-pink-500 relative overflow-hidden">
-      {/* Decorative shapes */}
-      <div className="absolute top-0 left-0 w-full h-full flex flex-wrap justify-between p-8 pointer-events-none">
-        <Shape type="circle" />
-        <Shape type="triangle" />
-        <Shape type="square" />
-        <Shape type="circle" />
-        <Shape type="triangle" />
-        <Shape type="square" />
-        <Shape type="circle" />
-        <Shape type="triangle" />
-        <Shape type="square" />
-        <Shape type="circle" />
-        <Shape type="triangle" />
-        <Shape type="square" />
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
+      {/* Top row of shapes */}
+      <div className="absolute top-5 w-[95%] mx-auto">
+        <img 
+          src="/lovable-uploads/92149b53-6c92-4ab5-b43e-94cf49eea917.png" 
+          alt="Top shapes" 
+          className="w-full"
+        />
+      </div>
+      
+      {/* Bottom row of shapes */}
+      <div className="absolute bottom-0 w-[95%] mx-auto">
+        <img 
+          src="/lovable-uploads/f4358604-0ca8-4f42-b36a-1c87c99ef22d.png" 
+          alt="Bottom shapes" 
+          className="w-full"
+        />
       </div>
       
       <div className="w-full max-w-4xl mx-auto z-10">
-        <h1 className="text-5xl font-bold text-green-800 font-mono text-center mb-10">
+        <h1 className="pixel-text-lg text-3xl tracking-wide mb-6">
           Select Category! 🦑
         </h1>
         
@@ -71,6 +66,16 @@ const CategorySelect: React.FC = () => {
           />
         </div>
       </div>
+      
+      {/* Adjusted back button position - slightly up from bottom-40 but lower than original */}
+      <Button 
+        onClick={handleGoBack}
+        variant="yellow"
+        className="absolute bottom-44 left-10 text-green-800 font-bold shadow-lg flex items-center z-20"
+        size="lg"
+      >
+        <ArrowLeft className="h-6 w-6 mr-2" /> Go Back
+      </Button>
     </div>
   );
 };
@@ -86,7 +91,7 @@ const CategoryButton: React.FC<{
       onClick={onClick}
       className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold rounded-xl px-6 py-6 
       flex items-center justify-center w-full border-4 border-white/50 transition-all
-      font-mono text-2xl hover:scale-105"
+      font-mono text-xl hover:scale-105"
     >
       {showCrown && <Crown className="w-6 h-6 mr-2 text-yellow-600" />}
       {label}
