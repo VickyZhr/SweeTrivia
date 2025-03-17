@@ -35,15 +35,15 @@ const AnswerOption: React.FC<AnswerOptionProps> = ({
 
   return (
     <button
-      className={`w-full py-4 px-6 rounded-full border-4 flex items-center 
+      className={`w-full py-3 px-4 rounded-full border-4 flex items-center 
         justify-between ${getOptionClass()} shadow-md transition-all font-mono
-        duration-300 ${disabled ? 'cursor-default' : 'cursor-pointer'} text-2xl font-bold`}
+        duration-300 ${disabled ? 'cursor-default' : 'cursor-pointer'} text-lg font-bold`}
       onClick={onSelect}
       disabled={disabled}
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className="flex items-center">
-        <span className="font-mono font-bold mr-3 text-2xl">
+        <span className="font-mono font-bold mr-3 text-lg">
           {getOptionLetter(index)}.
         </span>
         <span className="text-left font-bold">{option}</span>

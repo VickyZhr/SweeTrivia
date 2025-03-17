@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { TriviaQuestion } from '@/utils/triviaUtils';
 import AnswerOption from './AnswerOption';
@@ -63,7 +64,7 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
       return () => clearTimeout(autoAdvanceTimer);
     }
   }, [hasAnswered, goToNextQuestion, selectedAnswer]);
-
+  
   // Format time as MM:SS
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -82,10 +83,10 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
       <AudioNarrator question={question} />
       
       <div className="mb-6 flex justify-between items-center">
-        <div className={`text-black font-mono text-3xl font-bold ${timeLeft <= 3 && !hasAnswered && !isNarrating ? 'text-red-600 animate-pulse' : ''}`}>
+        <div className={`text-black font-mono text-xl font-bold ${timeLeft <= 3 && !hasAnswered && !isNarrating ? 'text-red-600 animate-pulse' : ''}`}>
           {formatTime(timeLeft)}
         </div>
-        <div className="text-black font-mono text-3xl font-bold">
+        <div className="text-black font-mono text-xl font-bold">
           Score: {score}
         </div>
       </div>
@@ -95,7 +96,7 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
         <CategoryBadge category={question.category} />
       </div>
       
-      <h2 className="text-4xl md:text-5xl font-bold mb-12 text-green-800 font-mono">
+      <h2 className="pixel-text text-2xl md:text-3xl mb-8 tracking-wide">
         {question.question}
         <span className="ml-2">🦑</span>
       </h2>
@@ -126,8 +127,9 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
         </div>
       )}
       
+      {/* Moved narrating indicator to be aligned with the Go Back button, but on the right side */}
       {isNarrating && (
-        <div className="fixed bottom-4 right-4 bg-yellow-300 text-green-800 px-4 py-2 rounded-xl font-bold animate-pulse">
+        <div className="fixed bottom-44 right-10 bg-yellow-300 text-green-800 px-4 py-2 rounded-xl font-bold animate-pulse z-20">
           Narrating...
         </div>
       )}

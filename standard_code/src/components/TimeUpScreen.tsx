@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTrivia } from '@/context/TriviaContext';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, PowerOff } from 'lucide-react';
+import { ArrowRight, PowerOff, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const TimeUpScreen: React.FC = () => {
@@ -40,6 +40,10 @@ const TimeUpScreen: React.FC = () => {
     navigate('/exit');
   };
 
+  const handleGoBack = () => {
+    navigate(-1); // Navigate to the previous screen in history
+  };
+
   const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
 
   return (
@@ -55,17 +59,17 @@ const TimeUpScreen: React.FC = () => {
             </div>
           </div>
           
-          <h2 className="text-5xl font-bold mb-4 text-green-700 font-mono drop-shadow-md">
+          <h2 className="pixel-text-lg text-2xl mb-4 tracking-wide">
             Time is up! Round Over :(
           </h2>
-          <p className="text-3xl mb-8 text-green-700 font-mono">
+          <p className="pixel-text text-xl mb-8 tracking-wide">
             Choose one of the options🎯
           </p>
           
           <div className="grid grid-cols-2 gap-6">
             <Button
               onClick={handleContinue}
-              className="bg-yellow-300 hover:bg-yellow-400 text-green-700 font-bold text-2xl py-8 rounded-xl border-4 border-white/30 flex flex-col items-center"
+              className="bg-yellow-300 hover:bg-yellow-400 text-green-700 font-bold text-lg py-8 rounded-xl border-4 border-white/30 flex flex-col items-center"
             >
               <span>Continue?</span>
               <span className="text-sm block mt-1">
@@ -76,7 +80,7 @@ const TimeUpScreen: React.FC = () => {
             
             <Button
               onClick={handleExit}
-              className="bg-yellow-300 hover:bg-yellow-400 text-red-600 font-bold text-2xl py-8 rounded-xl border-4 border-white/30 flex flex-col items-center"
+              className="bg-yellow-300 hover:bg-yellow-400 text-red-600 font-bold text-lg py-8 rounded-xl border-4 border-white/30 flex flex-col items-center"
             >
               <span>Exit?</span>
               <PowerOff className="mt-2" size={24} />
@@ -84,6 +88,16 @@ const TimeUpScreen: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* Adjusted back button position to match CategorySelect */}
+      <Button 
+        onClick={handleGoBack}
+        variant="yellow"
+        className="fixed bottom-44 left-10 text-green-800 font-bold shadow-lg flex items-center z-20"
+        size="lg"
+      >
+        <ArrowLeft className="h-6 w-6 mr-2" /> Go Back
+      </Button>
     </div>
   );
 };
