@@ -11,6 +11,8 @@ import TriviaGame from "./pages/TriviaGame";
 import NotFound from "./pages/NotFound";
 import ExitScreen from "./components/ExitScreen";
 import FlappyChallenge from "./pages/FlappyChallenge";
+import CandySelectionScreen from "./components/CandySelectionScreen";
+import CandyDispensingScreen from "./components/CandyDispensingScreen";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,8 @@ const App = () => (
             <Route path="/play" element={<TriviaGame />} />
             <Route path="/flappy" element={<FlappyChallenge />} />
             <Route path="/exit" element={<ExitScreen />} />
+            <Route path="/selection" element={<CandySelectionScreen />} />
+            <Route path="/dispensing" element={<CandyDispensingScreen />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
