@@ -30,7 +30,7 @@ const FlappyGame: React.FC = () => {
       radius: 10,
       velocity: 0,
       gravity: 0.5,
-      jumpStrength: -6
+      jumpStrength: -10
     };
     
     let pipe = {

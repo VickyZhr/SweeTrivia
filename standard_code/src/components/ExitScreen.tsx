@@ -19,8 +19,8 @@ const ExitScreen: React.FC = () => {
   }, []);
 
   const handleContinue = () => {
-    resetGame();
-    navigate('/');
+    // Navigate to candy selection instead of resetting and going home
+    navigate('/selection');
   };
 
   // Generate background shapes (circles, triangles, squares)
@@ -74,7 +74,7 @@ const ExitScreen: React.FC = () => {
         </Button>
         
         <div className="mt-4 text-white/70 animate-pulse">
-          Returning to home in 10 seconds...
+          Proceeding to candy selection in 10 seconds...
         </div>
       </div>
     </div>
