@@ -1,18 +1,43 @@
 
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Home, ArrowLeft } from 'lucide-react';
+import { Home, ArrowLeft, Circle, Triangle, Square, Star } from 'lucide-react';
 
 const CandyDispensingScreen: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [candyType, setCandyType] = useState<string | null>(null);
   
+  useEffect(() => {
+    // Get the candy type from location state
+    if (location.state && location.state.candyType) {
+      setCandyType(location.state.candyType);
+    }
+  }, [location.state]);
+
   const handleGoHome = () => {
     navigate('/');
   };
   
   const handleGoBack = () => {
     navigate(-1); // Navigate to the previous screen in history
+  };
+
+  // Render the appropriate candy shape based on selection
+  const renderCandyShape = () => {
+    switch (candyType) {
+      case 'circle':
+        return <Circle className="w-32 h-32 text-yellow-300 stroke-[3px] mb-6" />;
+      case 'triangle':
+        return <Triangle className="w-32 h-32 text-yellow-300 stroke-[3px] mb-6" />;
+      case 'square':
+        return <Square className="w-32 h-32 text-yellow-300 stroke-[3px] mb-6" />;
+      case 'star':
+        return <Star className="w-32 h-32 text-yellow-300 stroke-[3px] mb-6" />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -35,12 +60,20 @@ const CandyDispensingScreen: React.FC = () => {
         />
       </div>
       
-      <div className="w-full max-w-2xl z-10 text-center">
-        <h2 className="text-4xl font-bold mb-4 pixel-text-lg">
-          Candy dispense completed :)
+      <div className="w-full max-w-2xl z-10 text-center flex flex-col items-center">
+        {renderCandyShape()}
+        
+        <h2 className="text-4xl font-bold mb-4 font-mono" style={{ 
+          color: '#2a652a', 
+          textShadow: '2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff' 
+        }}>
+          {candyType ? `${candyType.charAt(0).toUpperCase() + candyType.slice(1)} candy dispensed!` : 'Candy dispensed!'}
         </h2>
         
-        <p className="text-4xl mb-10 pixel-text">
+        <p className="text-4xl mb-10 font-mono" style={{ 
+          color: 'black', 
+          textShadow: '2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff' 
+        }}>
           Thanks for playing with SweeTrivia 👋🍬
         </p>
         
@@ -52,14 +85,13 @@ const CandyDispensingScreen: React.FC = () => {
         </Button>
       </div>
       
-      {/* Adjusted back button position to match CategorySelect */}
+      {/* Standardized Go Back button */}
       <Button 
         onClick={handleGoBack}
-        variant="yellow"
-        className="absolute bottom-44 left-10 text-green-800 font-bold shadow-lg flex items-center z-20"
-        size="lg"
+        className="absolute bottom-8 left-8 bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold text-xl py-3 px-6 rounded-full border-2 border-white/80 flex items-center gap-2 shadow-md"
       >
-        <ArrowLeft className="h-6 w-6 mr-2" /> Go Back
+        <ArrowLeft className="h-5 w-5" />
+        <span>Go Back</span>
       </Button>
     </div>
   );

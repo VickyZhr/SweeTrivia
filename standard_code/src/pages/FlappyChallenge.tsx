@@ -1,16 +1,10 @@
 
 import React from 'react';
 import FlappyGame from '@/components/FlappyGame';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const FlappyChallenge: React.FC = () => {
   const navigate = useNavigate();
-
-  const handleGoBack = () => {
-    navigate(-1); // Navigate to the previous screen in history
-  };
 
   return (
     <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
@@ -36,15 +30,7 @@ const FlappyChallenge: React.FC = () => {
         <FlappyGame />
       </div>
       
-      {/* Adjusted back button position to match CategorySelect */}
-      <Button 
-        onClick={handleGoBack}
-        variant="yellow"
-        className="absolute bottom-44 left-10 text-green-800 font-bold shadow-lg flex items-center z-20"
-        size="lg"
-      >
-        <ArrowLeft className="h-6 w-6 mr-2" /> Go Back
-      </Button>
+      {/* Removed the Go Back button */}
     </div>
   );
 };

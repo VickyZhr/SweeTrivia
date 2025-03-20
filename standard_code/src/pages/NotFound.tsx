@@ -1,8 +1,7 @@
-
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Home } from "lucide-react";
+import { Home } from "lucide-react";
 
 const NotFound = () => {
   const location = useLocation();
@@ -14,10 +13,6 @@ const NotFound = () => {
       location.pathname
     );
   }, [location.pathname]);
-
-  const handleGoBack = () => {
-    navigate(-1); // Navigate to the previous screen in history
-  };
 
   const handleGoHome = () => {
     navigate("/"); // Navigate to home
@@ -35,15 +30,6 @@ const NotFound = () => {
         </div>
       </div>
       
-      {/* Adjusted back button position to match CategorySelect */}
-      <Button 
-        onClick={handleGoBack}
-        variant="yellow"
-        className="absolute bottom-44 left-10 text-green-800 font-bold shadow-lg flex items-center z-10"
-        size="lg"
-      >
-        <ArrowLeft className="h-6 w-6 mr-2" /> Go Back
-      </Button>
     </div>
   );
 };

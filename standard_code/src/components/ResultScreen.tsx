@@ -6,8 +6,14 @@ import { Button } from '@/components/ui/button';
 import { RotateCcw, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const ResultScreen: React.FC = () => {
-  const { score, totalQuestions, resetGame } = useTrivia();
+// Update the component to accept props properly
+interface ResultScreenProps {
+  score: number;
+  totalQuestions: number;
+}
+
+const ResultScreen: React.FC<ResultScreenProps> = ({ score, totalQuestions }) => {
+  const { resetGame } = useTrivia();
   const percentage = calculatePercentage(score, totalQuestions);
   const navigate = useNavigate();
   
@@ -61,14 +67,13 @@ const ResultScreen: React.FC = () => {
         Returning to home in 10 seconds...
       </div>
       
-      {/* Adjusted back button position to match CategorySelect */}
+      {/* Standardized Go Back button */}
       <Button 
         onClick={handleGoBack}
-        variant="yellow"
-        className="fixed bottom-44 left-10 text-green-800 font-bold shadow-lg flex items-center z-20"
-        size="lg"
+        className="fixed bottom-8 left-8 bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold text-xl py-3 px-6 rounded-full border-2 border-white/80 flex items-center gap-2 shadow-md"
       >
-        <ArrowLeft className="h-6 w-6 mr-2" /> Go Back
+        <ArrowLeft className="h-5 w-5" />
+        <span>Go Back</span>
       </Button>
     </div>
   );

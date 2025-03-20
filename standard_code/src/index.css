@@ -188,3 +188,36 @@
   letter-spacing: 0.1em;
   line-height: 1.5;
 }
+
+/* Added new classes with white outline instead of black */
+.pixel-text-white {
+  font-family: 'Press Start 2P', cursive;
+  color: #006400; /* Dark green */
+  text-shadow: 
+    2px 0 0 #fff,
+    -2px 0 0 #fff,
+    0 2px 0 #fff,
+    0 -2px 0 #fff,
+    1px 1px 0 #fff,
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+.pixel-text-lg-white {
+  font-family: 'Press Start 2P', cursive;
+  color: #006400; /* Dark green */
+  text-shadow: 
+    3px 0 0 #fff,
+    -3px 0 0 #fff,
+    0 3px 0 #fff,
+    0 -3px 0 #fff,
+    2px 2px 0 #fff,
+    -2px -2px 0 #fff,
+    2px -2px 0 #fff,
+    -2px 2px 0 #fff;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+}
