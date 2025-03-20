@@ -48,7 +48,7 @@ const Index = () => {
             SweeTrivia
           </h1>
         </div>
-        <p className="text-white/80 text-lg animate-in slide-in-up delay-200">
+        <p className="font-pixel text-trivia-yellow text-xl md:text-2xl animate-in slide-in-up delay-200">
           Create your own custom trivia questions
         </p>
       </div>
