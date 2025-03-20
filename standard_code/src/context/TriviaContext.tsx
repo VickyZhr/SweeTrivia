@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { TriviaQuestion, parseCSV, shuffleArray, sampleTriviaData } from '@/utils/triviaUtils';
 import { toast } from '@/components/ui/use-toast';
@@ -12,9 +11,9 @@ interface TriviaContextType {
   hasAnswered: boolean;
   isGameOver: boolean;
   timeLeft: number;
+  timeUp: boolean;
+  setTimeUp: React.Dispatch<React.SetStateAction<boolean>>;
   setTimeLeft: React.Dispatch<React.SetStateAction<number>>;
-  isNarrating: boolean;
-  setIsNarrating: React.Dispatch<React.SetStateAction<boolean>>;
   loadQuestions: (csvData?: string) => void;
   goToNextQuestion: () => void;
   selectAnswer: (answer: string) => void;
@@ -24,8 +23,6 @@ interface TriviaContextType {
   filterQuestionsByCategory: (category: string | null) => void;
   selectedCategory: string | null;
   continueGame: () => void;
-  isTimeUp: boolean;
-  setIsTimeUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TriviaContext = createContext<TriviaContextType | undefined>(undefined);
@@ -39,9 +36,8 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [hasAnswered, setHasAnswered] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [timeLeft, setTimeLeft] = useState(10);
-  const [isNarrating, setIsNarrating] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [isTimeUp, setIsTimeUp] = useState(false);
+  const [timeUp, setTimeUp] = useState(false);
 
   // Initialize with sample data
   useEffect(() => {
@@ -71,16 +67,14 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }
   };
 
-  // New function to continue the game without resetting the score
+  // Function to continue the game without resetting the score
   const continueGame = () => {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setHasAnswered(false);
     setIsGameOver(false);
-    setTimeLeft(10);
-    setIsNarrating(true);
-    setIsTimeUp(false); // Reset time up state
-    // Notice we don't reset the score here
+    setTimeUp(false);
+    setTimeLeft(10); // Reset the timer when continuing
   };
 
   const filterQuestionsByCategory = (category: string | null) => {
@@ -127,14 +121,10 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
       setSelectedAnswer(null);
       setHasAnswered(false);
-      setIsTimeUp(false); // Reset time up state
-      // Don't reset the timer - we'll continue with the existing time left
-      // Only set narrating to true for the next question
-      setIsNarrating(true);
+      // We don't reset timeLeft here anymore, we keep the remaining time from the previous question
     } else {
-      // If we reach the end of questions, set isTimeUp instead of isGameOver
-      // so the TimeUpScreen shows instead of ResultScreen
-      setIsTimeUp(true);
+      // If we reach the end of questions, set isGameOver
+      setIsGameOver(true);
     }
   };
 
@@ -144,9 +134,8 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     setSelectedAnswer(null);
     setHasAnswered(false);
     setIsGameOver(false);
-    setTimeLeft(10); // Only reset timer when starting a new game
-    setIsNarrating(true); // Start with narration for the first question
-    setIsTimeUp(false); // Reset time up state
+    setTimeUp(false);
+    setTimeLeft(10); // Reset timer when starting a completely new game
   };
 
   // Add a new stopGame function that sets isGameOver to true
@@ -166,9 +155,9 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     hasAnswered,
     isGameOver,
     timeLeft,
+    timeUp,
+    setTimeUp,
     setTimeLeft,
-    isNarrating,
-    setIsNarrating,
     loadQuestions,
     goToNextQuestion,
     selectAnswer,
@@ -177,9 +166,7 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     currentQuestion,
     filterQuestionsByCategory,
     selectedCategory,
-    continueGame,
-    isTimeUp,
-    setIsTimeUp
+    continueGame
   };
 
   return <TriviaContext.Provider value={value}>{children}</TriviaContext.Provider>;

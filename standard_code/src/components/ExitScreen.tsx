@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useTrivia } from '@/context/TriviaContext';
 import { Button } from '@/components/ui/button';
-import { Candy, ArrowLeft } from 'lucide-react';
+import { Candy } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ExitScreen: React.FC = () => {
@@ -19,8 +19,14 @@ const ExitScreen: React.FC = () => {
   }, []);
 
   const handleContinue = () => {
-    // Navigate to candy selection instead of resetting and going home
-    navigate('/selection');
+    // Store the score temporarily for the candy selection
+    const finalScore = score;
+    
+    // Reset the game score before navigating to candy selection
+    resetGame();
+    
+    // Navigate to candy selection with preserved score just for candy selection
+    navigate('/selection', { state: { finalScore } });
   };
   
   const handleGoBack = () => {
@@ -70,16 +76,6 @@ const ExitScreen: React.FC = () => {
           Proceeding to candy selection in 10 seconds...
         </div>
       </div>
-      
-      {/* Adjusted back button position to match CategorySelect */}
-      <Button 
-        onClick={handleGoBack}
-        variant="yellow"
-        className="absolute bottom-44 left-10 text-green-800 font-bold shadow-lg flex items-center z-20"
-        size="lg"
-      >
-        <ArrowLeft className="h-6 w-6 mr-2" /> Go Back
-      </Button>
     </div>
   );
 };

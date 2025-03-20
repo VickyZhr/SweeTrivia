@@ -39,11 +39,11 @@ const CategorySelect: React.FC = () => {
       </div>
       
       <div className="w-full max-w-4xl mx-auto z-10">
-        <h1 className="pixel-text-lg text-3xl tracking-wide mb-6">
+        <h1 className="pixel-text-lg text-4xl md:text-5xl tracking-wide mb-10 text-center">
           Select Category! 🦑
         </h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
           <CategoryButton 
             label="Science" 
             onClick={() => handleCategorySelect("Science")} 
@@ -63,38 +63,39 @@ const CategorySelect: React.FC = () => {
             label="(Mix of 3 categories)" 
             onClick={() => handleCategorySelect(null)} 
             showCrown
+            smallerText
           />
         </div>
       </div>
       
-      {/* Adjusted back button position - slightly up from bottom-40 but lower than original */}
+      {/* Standardized Go Back button */}
       <Button 
         onClick={handleGoBack}
-        variant="yellow"
-        className="absolute bottom-44 left-10 text-green-800 font-bold shadow-lg flex items-center z-20"
-        size="lg"
+        className="absolute bottom-8 left-8 bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold text-xl py-3 px-6 rounded-full border-2 border-white/80 flex items-center gap-2 shadow-md"
       >
-        <ArrowLeft className="h-6 w-6 mr-2" /> Go Back
+        <ArrowLeft className="h-5 w-5" />
+        <span>Go Back</span>
       </Button>
     </div>
   );
 };
 
-// Category button component
+// Category button component with fixed height and responsive text size
 const CategoryButton: React.FC<{ 
   label: string; 
   onClick: () => void;
   showCrown?: boolean;
-}> = ({ label, onClick, showCrown = false }) => {
+  smallerText?: boolean;
+}> = ({ label, onClick, showCrown = false, smallerText = false }) => {
   return (
     <button 
       onClick={onClick}
-      className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold rounded-xl px-6 py-6 
+      className={`bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold rounded-xl px-6
       flex items-center justify-center w-full border-4 border-white/50 transition-all
-      font-mono text-xl hover:scale-105"
+      font-mono hover:scale-105 h-24 ${smallerText ? 'text-2xl md:text-3xl' : 'text-3xl md:text-4xl'}`}
     >
-      {showCrown && <Crown className="w-6 h-6 mr-2 text-yellow-600" />}
-      {label}
+      {showCrown && <Crown className="w-8 h-8 mr-3 text-yellow-600 flex-shrink-0" />}
+      <span className="whitespace-nowrap">{label}</span>
     </button>
   );
 };
