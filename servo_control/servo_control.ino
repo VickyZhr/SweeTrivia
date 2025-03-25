@@ -1,51 +1,49 @@
 #include <Servo.h>
 
 // Define servo control pins
-const int servoPins[4] = {6, 7, 8, 9};
+const int servoPins[4] = {10,11,12,13};
 
 // Create servo objects
 Servo servos[4];
 
 // Define angles
-const int startAngle = 0;      // Initial position
-const int midAngle = 180;      // Halfway position
-const int delayTime = 500;     // Time in milliseconds for servo movement
+const int startAngle = 0;
+const int midAngle = 180;
+const int delayTime = 500;
 
 void setup() {
-    Serial.begin(9600); // Initialize serial communication
-
-    // Attach servos to their respective pins and set initial position
-    for (int i = 0; i < 4; i++) {
-        servos[i].attach(servoPins[i]);
-        servos[i].write(startAngle); // Move to start position
-        delay(500); // Ensure servo reaches position
-    }
-
+    Serial.begin(9600);
     Serial.println("Enter a number (1-4) to rotate the corresponding servo motor.");
 }
 
 void loop() {
     if (Serial.available() > 0) {
-        char command = Serial.read(); // Read the command
+        String input = Serial.readStringUntil('\n');
+        input.trim();
 
-        if (command >= '1' && command <= '4') {
-            int servoIndex = command - '1'; // Convert '1'-'4' to index 0-3
+        if (input.length() > 0 && input.charAt(0) >= '1' && input.charAt(0) <= '4') {
+            int servoIndex = input.charAt(0) - '1';
             rotateServo360(servoIndex);
             Serial.print("Servo ");
             Serial.print(servoIndex + 1);
             Serial.println(" rotated 360 degrees.");
         } else {
-            Serial.println("Invalid input! Enter a number between 1 and 4.");
+            Serial.println("Invalid input! Your input was \"" + input + "\". Enter a number between 1 and 4.");
         }
     }
 }
 
 void rotateServo360(int index) {
-    // Move to 180°, then back to 0° twice for a full 360° rotation
+    servos[index].attach(servoPins[index]); // Attach only the active servo
+
     for (int i = 0; i < 2; i++) {
-        servos[index].write(midAngle);
+        servos[index].write(90);
         delay(delayTime);
-        servos[index].write(startAngle);
+        servos[index].write(180);
         delay(delayTime);
+        servos[index].write(0);  // Reset quickly without pause
+        delay(50); // Very short delay to allow for reset, adjust as needed
     }
+
+    servos[index].detach(); // Stop sending signals
 }
