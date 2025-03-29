@@ -9,7 +9,7 @@ const ExitScreen: React.FC = () => {
   const { score, resetGame } = useTrivia();
   const navigate = useNavigate();
   
-  // Auto-navigate to selection after 10 seconds
+  // Auto-navigate based on score after 10 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       handleContinue();
@@ -19,14 +19,19 @@ const ExitScreen: React.FC = () => {
   }, []);
 
   const handleContinue = () => {
-    // Store the score temporarily for the candy selection
+    // Store the score temporarily
     const finalScore = score;
     
-    // Reset the game score before navigating to candy selection
+    // Reset the game score before navigating
     resetGame();
     
-    // Always navigate to candy selection with preserved score
-    navigate('/selection', { state: { finalScore } });
+    // If score is 0, navigate to the home page instead of candy selection
+    if (finalScore <= 0) {
+      navigate('/');
+    } else {
+      // Navigate to candy selection with preserved score
+      navigate('/selection', { state: { finalScore } });
+    }
   };
   
   const handleGoBack = () => {
@@ -60,9 +65,10 @@ const ExitScreen: React.FC = () => {
         
         <div className="flex items-center justify-center mb-10">
           <h2 className="text-2xl font-bold pixel-text">
-            You have <span className="italic">{score} points</span> to choose your candy
+            You have <span className="italic">{score} points</span> 
+            {score > 0 ? " to choose your candy" : ""}
           </h2>
-          <Candy className="ml-2 text-red-500 h-8 w-8" />
+          {score > 0 && <Candy className="ml-2 text-red-500 h-8 w-8" />}
         </div>
         
         <Button
@@ -73,7 +79,9 @@ const ExitScreen: React.FC = () => {
         </Button>
         
         <div className="mt-4 text-white/70 animate-pulse">
-          Proceeding to candy selection in 10 seconds...
+          {score > 0 
+            ? "Proceeding to candy selection in 10 seconds..." 
+            : "Returning to home page in 10 seconds..."}
         </div>
       </div>
     </div>
