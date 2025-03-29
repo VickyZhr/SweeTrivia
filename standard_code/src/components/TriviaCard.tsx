@@ -1,10 +1,11 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TriviaQuestion } from '@/utils/triviaUtils';
 import { useTrivia } from '@/context/TriviaContext';
 import { getOptionLetter } from '@/utils/triviaUtils';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { speak, stopSpeech } from '@/utils/speechUtils';
 
 interface TriviaCardProps {
   question: TriviaQuestion;
@@ -26,12 +27,43 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
   
   const navigate = useNavigate();
   
+  // New state to track if narration is in progress
+  const [isNarrating, setIsNarrating] = useState(false);
+  
+  // Function to narrate the question and answers
+  const narrateQuestion = async () => {
+    setIsNarrating(true);
+    
+    // First narrate the question
+    const questionText = `Question: ${question.question}`;
+    await speak(questionText);
+    
+    // Then narrate each option
+    for (let i = 0; i < question.options.length; i++) {
+      const optionText = `Option ${getOptionLetter(i)}: ${question.options[i]}`;
+      await speak(optionText);
+    }
+    
+    setIsNarrating(false);
+  };
+  
+  // When a new question is loaded, narrate it
+  useEffect(() => {
+    narrateQuestion();
+    
+    // Cleanup: stop any ongoing speech when component unmounts
+    return () => {
+      stopSpeech();
+    };
+  }, [question]);
+  
   useEffect(() => {
     // Only countdown if:
     // 1. User hasn't answered current question
     // 2. There's still time left
     // 3. Game isn't over
-    if (!hasAnswered && timeLeft > 0 && !isGameOver) {
+    // 4. Narration is complete
+    if (!hasAnswered && timeLeft > 0 && !isGameOver && !isNarrating) {
       const timer = setInterval(() => {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
@@ -49,7 +81,7 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
       // Clear timer if component unmounts or conditions change
       return () => clearInterval(timer);
     }
-  }, [hasAnswered, timeLeft, isGameOver, selectAnswer, setTimeLeft, setTimeUp]);
+  }, [hasAnswered, timeLeft, isGameOver, selectAnswer, setTimeLeft, setTimeUp, isNarrating]);
 
   // Add a new effect to automatically advance to the next question after answer selection
   useEffect(() => {
@@ -99,13 +131,22 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
           <span className="ml-2">🦑</span>
         </h2>
         
+        {/* Narration indicator - Updated with larger font */}
+        {isNarrating && (
+          <div className="flex justify-center items-center mb-6">
+            <div className="bg-yellow-300/80 text-green-800 px-6 py-3 rounded-xl font-bold animate-pulse text-2xl md:text-3xl">
+              Narrating... Please wait
+            </div>
+          </div>
+        )}
+        
         {/* Answer Options */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           {question.options.map((option, index) => (
             <button
               key={index}
-              onClick={() => !hasAnswered && selectAnswer(option)}
-              disabled={hasAnswered}
+              onClick={() => !hasAnswered && !isNarrating && selectAnswer(option)}
+              disabled={hasAnswered || isNarrating}
               className={`
                 w-full py-5 px-6 rounded-full border-4 border-white
                 font-mono text-2xl font-bold text-center
@@ -115,7 +156,9 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
                     ? 'bg-red-400'
                     : selectedAnswer === option
                       ? 'bg-yellow-300/90'
-                      : 'bg-yellow-300 hover:bg-yellow-300/90'}
+                      : isNarrating
+                        ? 'bg-yellow-300/50 cursor-not-allowed'
+                        : 'bg-yellow-300 hover:bg-yellow-300/90'}
                 transition-all duration-300
               `}
             >
@@ -124,9 +167,10 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
           ))}
         </div>
         
+        {/* Next question indicator - Updated with larger font */}
         {hasAnswered && selectedAnswer !== null && (
           <div className="flex justify-center items-center mt-4">
-            <div className="bg-yellow-300/80 text-green-800 px-4 py-2 rounded-xl font-bold animate-pulse">
+            <div className="bg-yellow-300/80 text-green-800 px-6 py-3 rounded-xl font-bold animate-pulse text-2xl md:text-3xl">
               Next question in 2 seconds...
             </div>
           </div>
