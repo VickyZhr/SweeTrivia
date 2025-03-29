@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTrivia } from '@/context/TriviaContext';
 import { Circle, Triangle, Square, Star } from 'lucide-react';
+import { toast } from 'sonner';
 
 const CandySelectionScreen = () => {
   const navigate = useNavigate();
@@ -12,7 +13,31 @@ const CandySelectionScreen = () => {
   // Use the score from navigation state if available, otherwise use the context score
   const score = location.state?.finalScore !== undefined ? location.state.finalScore : contextScore;
 
-  const handleSelectCandy = (candyType: string) => {
+  const handleSelectCandy = (candyType: string, requiredPoints: number) => {
+    // Check if the user has enough points
+    if (score < requiredPoints) {
+      // Display warning-styled error message
+      toast.error("Not enough points!", {
+        description: `You need ${requiredPoints} points for this candy.`,
+        duration: 2000,
+        style: {
+          fontSize: '2rem',
+          fontWeight: 'bold',
+          color: '#B71C1C',
+          border: '3px solid #FF453A',
+          padding: '2.5rem',
+          borderRadius: '0.75rem',
+          background: 'linear-gradient(to right, #FFEBEE, #FFCDD2)',
+          boxShadow: '0 4px 25px rgba(0,0,0,0.25)',
+          width: '95%',
+          maxWidth: '550px',
+          marginBottom: '2rem'
+        }
+      });
+      return;
+    }
+    
+    // If they have enough points, proceed to dispensing
     navigate('/dispensing', { state: { candyType } });
   };
 
@@ -57,7 +82,7 @@ const CandySelectionScreen = () => {
         <div className="grid grid-cols-2 gap-8 mx-auto max-w-3xl mb-20">
           {/* Circle - 10 points */}
           <div 
-            onClick={() => handleSelectCandy('circle')}
+            onClick={() => handleSelectCandy('circle', 10)}
             className="bg-yellow-300 hover:bg-yellow-400 text-black p-8 rounded-xl border-4 border-white h-44 flex flex-col items-center justify-center cursor-pointer"
           >
             <Circle className="w-24 h-24 mb-3 stroke-[3px]" />
@@ -66,7 +91,7 @@ const CandySelectionScreen = () => {
           
           {/* Triangle - 20 points */}
           <div
-            onClick={() => handleSelectCandy('triangle')}
+            onClick={() => handleSelectCandy('triangle', 20)}
             className="bg-yellow-300 hover:bg-yellow-400 text-black p-8 rounded-xl border-4 border-white h-44 flex flex-col items-center justify-center cursor-pointer"
           >
             <Triangle className="w-24 h-24 mb-3 stroke-[3px]" />
@@ -75,7 +100,7 @@ const CandySelectionScreen = () => {
           
           {/* Square - 30 points */}
           <div
-            onClick={() => handleSelectCandy('square')}
+            onClick={() => handleSelectCandy('square', 30)}
             className="bg-yellow-300 hover:bg-yellow-400 text-black p-8 rounded-xl border-4 border-white h-44 flex flex-col items-center justify-center cursor-pointer"
           >
             <Square className="w-24 h-24 mb-3 stroke-[3px]" />
@@ -84,7 +109,7 @@ const CandySelectionScreen = () => {
           
           {/* Star - 40 points */}
           <div
-            onClick={() => handleSelectCandy('star')}
+            onClick={() => handleSelectCandy('star', 40)}
             className="bg-yellow-300 hover:bg-yellow-400 text-black p-8 rounded-xl border-4 border-white h-44 flex flex-col items-center justify-center cursor-pointer"
           >
             <Star className="w-24 h-24 mb-3 stroke-[3px]" />

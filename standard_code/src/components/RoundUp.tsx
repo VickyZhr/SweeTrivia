@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useTrivia } from '@/context/TriviaContext';
 import { Button } from '@/components/ui/button';
@@ -16,10 +15,8 @@ const RoundUp: React.FC = () => {
       setSecondsLeft((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          // When timer runs out, reset the game and navigate to selection
-          const finalScore = score;
-          resetGame();
-          navigate('/selection', { state: { finalScore } });
+          // When timer runs out, handle based on score
+          handleExit();
           return 0;
         }
         return prev - 1;
@@ -39,7 +36,14 @@ const RoundUp: React.FC = () => {
     // Store score before resetting
     const finalScore = score;
     resetGame();
-    navigate('/selection', { state: { finalScore } });
+    
+    // If score is 0, go directly to home page
+    if (finalScore <= 0) {
+      navigate('/');
+    } else {
+      // Otherwise, go to candy selection
+      navigate('/selection', { state: { finalScore } });
+    }
   };
 
   // Format time as MM:SS for the timer display

@@ -17,7 +17,7 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, totalQuestions }) =>
   const percentage = calculatePercentage(score, totalQuestions);
   const navigate = useNavigate();
   
-  // Navigate to selection screen after 10 seconds
+  // Navigate to selection screen or home page after 10 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       // Store the score for candy selection
@@ -26,8 +26,12 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, totalQuestions }) =>
       // Reset the game
       resetGame();
       
-      // Navigate to candy selection instead of home
-      navigate('/selection', { state: { finalScore } });
+      // If score is 0, go to home page, otherwise go to candy selection
+      if (finalScore <= 0) {
+        navigate('/');
+      } else {
+        navigate('/selection', { state: { finalScore } });
+      }
     }, 10000);
     
     return () => clearTimeout(timer);
@@ -41,11 +45,16 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, totalQuestions }) =>
     return "Keep practicing!";
   };
 
-  // Go to candy selection with current score
+  // Go to candy selection with current score or home if score is 0
   const handleGoToSelection = () => {
     const finalScore = score;
     resetGame();
-    navigate('/selection', { state: { finalScore } });
+    
+    if (finalScore <= 0) {
+      navigate('/');
+    } else {
+      navigate('/selection', { state: { finalScore } });
+    }
   };
 
   // Go back to the previous screen without resetting
@@ -70,12 +79,15 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, totalQuestions }) =>
           onClick={handleGoToSelection}
           className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold rounded-xl px-6 py-2 flex items-center justify-center w-full border-2 border-white/30"
         >
-          <RotateCcw className="mr-2 h-4 w-4" /> Choose Candy
+          <RotateCcw className="mr-2 h-4 w-4" /> 
+          {score > 0 ? "Choose Candy" : "Play Again"}
         </Button>
       </div>
       
       <div className="mt-4 text-white/70 animate-pulse">
-        Proceeding to candy selection in 10 seconds...
+        {score > 0 
+          ? "Proceeding to candy selection in 10 seconds..." 
+          : "Returning to home page in 10 seconds..."}
       </div>
       
       {/* Standardized Go Back button */}
