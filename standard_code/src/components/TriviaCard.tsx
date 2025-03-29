@@ -21,7 +21,7 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
     setTimeLeft,
     isGameOver,
     timeUp,
-    setTimeUp
+    setTimeUp,
   } = useTrivia();
   
   const navigate = useNavigate();
@@ -52,17 +52,22 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
   }, [hasAnswered, timeLeft, isGameOver, selectAnswer, setTimeLeft, setTimeUp]);
 
   // Add a new effect to automatically advance to the next question after answer selection
-  // BUT only if the user actually selected an answer (not when time runs out)
   useEffect(() => {
-    if (hasAnswered && selectedAnswer !== '' && !timeUp) {
+    let autoAdvanceTimer: NodeJS.Timeout | null = null;
+    
+    if (hasAnswered && selectedAnswer !== null && !timeUp) {
       // Set a timeout to automatically move to the next question after 2 seconds
-      const autoAdvanceTimer = setTimeout(() => {
+      autoAdvanceTimer = setTimeout(() => {
         goToNextQuestion();
       }, 2000);
-      
-      // Clear the timer if component unmounts
-      return () => clearTimeout(autoAdvanceTimer);
     }
+    
+    // Clear the timer if component unmounts or conditions change
+    return () => {
+      if (autoAdvanceTimer) {
+        clearTimeout(autoAdvanceTimer);
+      }
+    };
   }, [hasAnswered, goToNextQuestion, selectedAnswer, timeUp]);
   
   // Format time as MM:SS
@@ -119,7 +124,7 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
           ))}
         </div>
         
-        {hasAnswered && selectedAnswer !== '' && (
+        {hasAnswered && selectedAnswer !== null && (
           <div className="flex justify-center items-center mt-4">
             <div className="bg-yellow-300/80 text-green-800 px-4 py-2 rounded-xl font-bold animate-pulse">
               Next question in 2 seconds...

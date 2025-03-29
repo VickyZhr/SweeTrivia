@@ -29,8 +29,6 @@ const FlappyChallenge: React.FC = () => {
       <div className="relative z-10 p-4">
         <FlappyGame />
       </div>
-      
-      {/* Removed the Go Back button */}
     </div>
   );
 };

@@ -17,14 +17,21 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, totalQuestions }) =>
   const percentage = calculatePercentage(score, totalQuestions);
   const navigate = useNavigate();
   
-  // Navigate to home screen after 10 seconds (updated from 5)
+  // Navigate to selection screen after 10 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/');
+      // Store the score for candy selection
+      const finalScore = score;
+      
+      // Reset the game
+      resetGame();
+      
+      // Navigate to candy selection instead of home
+      navigate('/selection', { state: { finalScore } });
     }, 10000);
     
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, [navigate, score, resetGame]);
   
   // Determine message based on score
   const getMessage = () => {
@@ -34,6 +41,13 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, totalQuestions }) =>
     return "Keep practicing!";
   };
 
+  // Go to candy selection with current score
+  const handleGoToSelection = () => {
+    const finalScore = score;
+    resetGame();
+    navigate('/selection', { state: { finalScore } });
+  };
+
   // Go back to the previous screen without resetting
   const handleGoBack = () => {
     navigate(-1); // Navigate to the previous screen in history
@@ -41,7 +55,7 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, totalQuestions }) =>
 
   return (
     <div className="bg-white/20 backdrop-blur-sm rounded-xl p-8 w-full max-w-md mx-auto border-2 border-white/30 text-center animate-slide-up relative">
-      <h2 className="text-2xl font-bold mb-2 text-green-800 pixel-text tracking-wide">Candy dispense completed :)</h2>
+      <h2 className="text-2xl font-bold mb-2 text-green-800 pixel-text tracking-wide">Game completed :)</h2>
       <p className="text-white mb-8">{getMessage()}</p>
       
       <div className="mb-8">
@@ -53,18 +67,15 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, totalQuestions }) =>
       
       <div className="flex flex-col space-y-3">
         <Button
-          onClick={() => {
-            resetGame();
-            navigate('/');
-          }}
+          onClick={handleGoToSelection}
           className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold rounded-xl px-6 py-2 flex items-center justify-center w-full border-2 border-white/30"
         >
-          <RotateCcw className="mr-2 h-4 w-4" /> Play Again
+          <RotateCcw className="mr-2 h-4 w-4" /> Choose Candy
         </Button>
       </div>
       
       <div className="mt-4 text-white/70 animate-pulse">
-        Returning to home in 10 seconds...
+        Proceeding to candy selection in 10 seconds...
       </div>
       
       {/* Standardized Go Back button */}
