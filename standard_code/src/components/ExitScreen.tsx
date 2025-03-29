@@ -9,7 +9,7 @@ const ExitScreen: React.FC = () => {
   const { score, resetGame } = useTrivia();
   const navigate = useNavigate();
   
-  // Auto-navigate to home after 10 seconds
+  // Auto-navigate to selection after 10 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       handleContinue();
@@ -25,7 +25,7 @@ const ExitScreen: React.FC = () => {
     // Reset the game score before navigating to candy selection
     resetGame();
     
-    // Navigate to candy selection with preserved score just for candy selection
+    // Always navigate to candy selection with preserved score
     navigate('/selection', { state: { finalScore } });
   };
   

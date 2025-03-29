@@ -10,6 +10,7 @@ interface TriviaContextType {
   selectedAnswer: string | null;
   hasAnswered: boolean;
   isGameOver: boolean;
+  setIsGameOver: React.Dispatch<React.SetStateAction<boolean>>;
   timeLeft: number;
   timeUp: boolean;
   setTimeUp: React.Dispatch<React.SetStateAction<boolean>>;
@@ -110,21 +111,26 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     setSelectedAnswer(answer);
     setHasAnswered(true);
     
-    // Only add to score if user selected the correct answer (not when time ran out)
+    // Immediately add points if the answer is correct
     if (currentQuestion && answer === currentQuestion.correctAnswer) {
       setScore(prevScore => prevScore + 10);
     }
   };
 
   const goToNextQuestion = () => {
+    // Always go to the next question, regardless of current index
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
       setSelectedAnswer(null);
       setHasAnswered(false);
-      // We don't reset timeLeft here anymore, we keep the remaining time from the previous question
+      // Don't reset timeLeft here, we want to keep the remaining time from the previous question
     } else {
-      // If we reach the end of questions, set isGameOver
-      setIsGameOver(true);
+      // If we've reached the end of the questions, cycle back to the beginning
+      // This ensures we never run out of questions
+      setCurrentQuestionIndex(0);
+      setSelectedAnswer(null);
+      setHasAnswered(false);
+      // Don't reset timeLeft here either, keep the remaining time
     }
   };
 
@@ -140,7 +146,10 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
   // Add a new stopGame function that sets isGameOver to true
   const stopGame = () => {
-    setIsGameOver(true);
+    // Make sure we're not setting isGameOver if timeUp is true
+    if (!timeUp) {
+      setIsGameOver(true);
+    }
   };
 
   const currentQuestion = questions.length > 0 ? questions[currentQuestionIndex] : null;
@@ -154,6 +163,7 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     selectedAnswer,
     hasAnswered,
     isGameOver,
+    setIsGameOver,
     timeLeft,
     timeUp,
     setTimeUp,

@@ -22,7 +22,7 @@ const TriviaGame: React.FC = () => {
   const totalQuestions = questions.length;
 
   // If there's no current question and the game isn't over, something went wrong
-  if (!currentQuestion && !isGameOver) {
+  if (!currentQuestion && !isGameOver && !timeUp) {
     return (
       <div className="flex flex-col h-screen items-center justify-center p-4 relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
         {/* Top row of shapes */}
@@ -60,14 +60,9 @@ const TriviaGame: React.FC = () => {
     );
   }
 
-  // Show the RoundUp screen when time is up
+  // Show the RoundUp screen ONLY when time is up, not when game is over for other reasons
   if (timeUp) {
     return <RoundUp />;
-  }
-
-  // Show the ResultScreen when the game is over
-  if (isGameOver) {
-    return <ResultScreen score={score} totalQuestions={totalQuestions} />;
   }
 
   return (

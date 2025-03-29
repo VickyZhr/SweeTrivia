@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Progress } from '@/components/ui/progress';
 
 const RoundUp: React.FC = () => {
-  const { continueGame, score } = useTrivia();
+  const { continueGame, score, resetGame } = useTrivia();
   const navigate = useNavigate();
   const [secondsLeft, setSecondsLeft] = useState(20);
 
@@ -16,8 +16,10 @@ const RoundUp: React.FC = () => {
       setSecondsLeft((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          // Go to home screen when timer runs out
-          navigate('/');
+          // When timer runs out, reset the game and navigate to selection
+          const finalScore = score;
+          resetGame();
+          navigate('/selection', { state: { finalScore } });
           return 0;
         }
         return prev - 1;
@@ -26,7 +28,7 @@ const RoundUp: React.FC = () => {
 
     // Clean up timer on unmount
     return () => clearInterval(timer);
-  }, [navigate]);
+  }, [navigate, score, resetGame]);
 
   const handleContinue = () => {
     continueGame();
@@ -34,7 +36,10 @@ const RoundUp: React.FC = () => {
   };
 
   const handleExit = () => {
-    navigate('/exit');
+    // Store score before resetting
+    const finalScore = score;
+    resetGame();
+    navigate('/selection', { state: { finalScore } });
   };
 
   // Format time as MM:SS for the timer display

@@ -63,7 +63,7 @@ const CandyDispensingScreen: React.FC = () => {
       <div className="w-full max-w-2xl z-10 text-center flex flex-col items-center">
         {renderCandyShape()}
         
-        <h2 className="text-4xl font-bold mb-4 font-mono" style={{ 
+        <h2 className="text-4xl font-bold mb-4 font-mono pixel-text-lg" style={{ 
           color: '#2a652a', 
           textShadow: '2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff' 
         }}>
@@ -79,9 +79,9 @@ const CandyDispensingScreen: React.FC = () => {
         
         <Button
           onClick={handleGoHome}
-          className="bg-yellow-300 hover:bg-yellow-400 text-black font-bold py-8 px-12 rounded-xl mx-auto text-3xl font-mono"
+          className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold py-8 px-12 rounded-xl mx-auto text-3xl font-mono"
         >
-          Go to home
+          Play Again
         </Button>
       </div>
       
