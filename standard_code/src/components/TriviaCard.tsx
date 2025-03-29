@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { TriviaQuestion } from '@/utils/triviaUtils';
 import { useTrivia } from '@/context/TriviaContext';
