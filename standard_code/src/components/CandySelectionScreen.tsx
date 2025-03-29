@@ -16,7 +16,7 @@ const CandySelectionScreen = () => {
   const handleSelectCandy = (candyType: string, requiredPoints: number) => {
     // Check if the user has enough points
     if (score < requiredPoints) {
-      // Display warning-styled error message
+      // Display warning-styled error message with consistent 2-second duration
       toast.error("Not enough points!", {
         description: `You need ${requiredPoints} points for this candy.`,
         duration: 2000,
