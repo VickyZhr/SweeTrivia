@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import i2c from 'i2c-bus';
-import { exec } from 'child_process';
 
 const I2C_ADDRESS = 0x08;
 const PORT = 3001;
@@ -62,21 +61,6 @@ app.post('/dispense', async (req, res) => {
   } finally {
     await i2cBus.close();
   }
-});
-
-// New audio endpoint
-app.post('/speak', (req, res) => {
-  const { text } = req.body;
-  if (!text) return res.status(400).json({ error: 'No text provided' });
-
-  console.log("Speaking:", text);
-  exec(`espeak-ng "${text.replace(/"/g, '\\"')}" -p 50 -s 150 -a 200`, (err) => {
-    if (err) {
-      console.error("espeak-ng error:", err);
-      return res.status(500).json({ error: 'espeak-ng failed' });
-    }
-    res.json({ success: true });
-  });
 });
 
 app.listen(PORT, () => {
