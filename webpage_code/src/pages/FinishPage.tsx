@@ -37,37 +37,68 @@ const FinishPage = () => {
     toast.success("CSV file downloaded successfully");
   };
   
+  // const handleUploadToCloud = async () => {
+  //   if (questions.length === 0) {
+  //     toast.error("No questions to upload");
+  //     return;
+  //   }
+    
+  //   setIsUploading(true);
+  //   setUploadError(null);
+  //   const csvData = convertToCSV(questions);
+    
+  //   try {
+  //     console.log('Starting upload process...');
+  //     const success = await uploadToCloud(csvData);
+  //     if (success) {
+  //       toast.success("Questions uploaded to Supabase successfully");
+  //       setIsUploadComplete(true);
+  //     } else {
+  //       const errorMsg = "Failed to upload questions to Supabase. Check console for details.";
+  //       toast.error(errorMsg);
+  //       setUploadError(errorMsg);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error uploading to Supabase:", error);
+  //     const errorMsg = error instanceof Error ? error.message : "An unknown error occurred while uploading";
+  //     toast.error(errorMsg);
+  //     setUploadError(errorMsg);
+  //   } finally {
+  //     setIsUploading(false);
+  //   }
+  // };
+
   const handleUploadToCloud = async () => {
-    if (questions.length === 0) {
-      toast.error("No questions to upload");
-      return;
-    }
-    
     setIsUploading(true);
-    setUploadError(null);
-    const csvData = convertToCSV(questions);
-    
+
     try {
-      console.log('Starting upload process...');
-      const success = await uploadToCloud(csvData);
-      if (success) {
-        toast.success("Questions uploaded to Supabase successfully");
+      const csvData = convertToCSV(questions); // assume `questions` is already in scope
+      const file = new File([csvData], 'questions.csv', { type: 'text/csv' });
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('http://localhost:8080/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert(`✅ File uploaded to Google Drive!\n📎 ${result.downloadLink}`);
         setIsUploadComplete(true);
       } else {
-        const errorMsg = "Failed to upload questions to Supabase. Check console for details.";
-        toast.error(errorMsg);
-        setUploadError(errorMsg);
+        alert('❌ Upload failed.');
       }
-    } catch (error) {
-      console.error("Error uploading to Supabase:", error);
-      const errorMsg = error instanceof Error ? error.message : "An unknown error occurred while uploading";
-      toast.error(errorMsg);
-      setUploadError(errorMsg);
-    } finally {
-      setIsUploading(false);
+    } catch (err) {
+      console.error('🔥 Upload error:', err);
+      alert('Something went wrong during upload.');
     }
+
+    setIsUploading(false);
   };
-  
+
   const handleStartOver = () => {
     // Clear local storage
     localStorage.removeItem('triviaQuestions');
@@ -136,7 +167,7 @@ const FinishPage = () => {
                 isLoading={isUploading}
                 disabled={isUploading || isUploadComplete}
               >
-                {isUploadComplete ? 'Uploaded Successfully' : 'Upload to Supabase'}
+                {isUploadComplete ? 'Uploaded Successfully' : 'Upload to Google Drive'}
               </Button>
               
               <Button 
