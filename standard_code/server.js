@@ -1,9 +1,9 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const i2c = require('i2c-bus');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import i2c from 'i2c-bus';
 
-const I2C_ADDRESS = 0x08; // Arduino I2C address
+const I2C_ADDRESS = 0x08;
 const PORT = 3001;
 
 const app = express();
@@ -26,7 +26,7 @@ app.post('/dispense', async (req, res) => {
     return res.status(400).json({ error: 'Invalid candy type' });
   }
 
-  const i2cBus = await i2c.openPromisified(1); // I2C bus 1 on RPi
+  const i2cBus = await i2c.openPromisified(1);
 
   try {
     console.log(`Sending candy selection: ${selection}`);
@@ -38,7 +38,7 @@ app.post('/dispense', async (req, res) => {
     let tries = 0;
 
     while (ack !== 0xAA && tries < maxRetries) {
-      await new Promise(resolve => setTimeout(resolve, 100)); // 100ms delay
+      await new Promise(resolve => setTimeout(resolve, 100));
       ack = await i2cBus.readByte(I2C_ADDRESS, 0x00);
       tries++;
     }
