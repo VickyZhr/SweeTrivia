@@ -11,31 +11,31 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/dispense', async (req, res) => {
-    const { candyType } = req.body;
+  const { candyType } = req.body;
 
-    console.log("Received candyType from frontend:", candyType);
-    
-    const candyMap = {
-      circle: 1,
-      triangle: 2,
-      square: 3,
-      star: 4,
-    };
-    
-    const selection = candyMap[candyType];
-    
-    if (!selection || selection < 1 || selection > 4) {
-      console.error("Invalid or missing candy type! Selection:", selection);
-      return res.status(400).json({ error: 'Invalid candy type received' });
-    }
-    
-    console.log(`Mapped candyType "${candyType}" to value ${selection}`);
-    
+  console.log("Received candyType from frontend:", candyType);
+
+  const candyMap = {
+    circle: 1,
+    triangle: 2,
+    square: 3,
+    star: 4,
+  };
+
+  const selection = candyMap[candyType];
+
+  if (!selection || selection < 1 || selection > 4) {
+    console.error("Invalid or missing candy type! Selection:", selection);
+    return res.status(400).json({ error: 'Invalid candy type received' });
+  }
+
+  console.log(`Mapped candyType "${candyType}" to value ${selection}`);
+
   const i2cBus = await i2c.openPromisified(1);
 
   try {
-    console.log(`Sending candy selection: ${selection}`);
-    await i2cBus.writeByte(I2C_ADDRESS, 0x00, selection);
+    console.log(`Sending candy selection ${selection} to Arduino via sendByte()`);
+    await i2cBus.sendByte(I2C_ADDRESS, selection);
 
     // Wait for Arduino acknowledgment (0xAA)
     let ack = 0;
@@ -44,7 +44,7 @@ app.post('/dispense', async (req, res) => {
 
     while (ack !== 0xAA && tries < maxRetries) {
       await new Promise(resolve => setTimeout(resolve, 100));
-      ack = await i2cBus.readByte(I2C_ADDRESS, 0x00);
+      ack = await i2cBus.receiveByte(I2C_ADDRESS);
       tries++;
     }
 
