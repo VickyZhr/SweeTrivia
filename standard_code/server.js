@@ -11,21 +11,26 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/dispense', async (req, res) => {
-  const { candyType } = req.body;
+    const { candyType } = req.body;
 
-  const candyMap = {
-    circle: 1,
-    triangle: 2,
-    square: 3,
-    star: 4,
-  };
-
-  const selection = candyMap[candyType];
-
-  if (!selection) {
-    return res.status(400).json({ error: 'Invalid candy type' });
-  }
-
+    console.log("Received candyType from frontend:", candyType);
+    
+    const candyMap = {
+      circle: 1,
+      triangle: 2,
+      square: 3,
+      star: 4,
+    };
+    
+    const selection = candyMap[candyType];
+    
+    if (!selection || selection < 1 || selection > 4) {
+      console.error("Invalid or missing candy type! Selection:", selection);
+      return res.status(400).json({ error: 'Invalid candy type received' });
+    }
+    
+    console.log(`Mapped candyType "${candyType}" to value ${selection}`);
+    
   const i2cBus = await i2c.openPromisified(1);
 
   try {
