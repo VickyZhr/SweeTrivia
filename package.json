@@ -1,0 +1,23 @@
+{
+  "name": "sweetrivia",
+  "version": "1.0.0",
+  "description": "18500 project team F5",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd backend && node server.js\" \"cd webpage_code && npm run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VickyZhr/SweeTrivia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VickyZhr/SweeTrivia/issues"
+  },
+  "homepage": "https://github.com/VickyZhr/SweeTrivia#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
