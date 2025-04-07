@@ -40,7 +40,7 @@ export const speak = (text: string): Promise<void> => {
     if (runningOnRPi) {
       // On Raspberry Pi, use our custom approach that works with espeak-ng
       console.log('Using Raspberry Pi speech method');
-      speakOnRaspberryPi(text, 1)  // Start with attempt #1
+      speakOnRaspberryPi(text)
         .then(resolve)
         .catch((error) => {
           console.error('Raspberry Pi speech failed:', error);
@@ -57,7 +57,7 @@ export const speak = (text: string): Promise<void> => {
 };
 
 // Try to connect to the WebSocket server on different ports
-const tryConnectToWebSocketServer = async (attemptNumber: number = 1): Promise<{ws: WebSocket, port: number}> => {
+const tryConnectToWebSocketServer = async (attemptNumber: number = 1): Promise<WebSocket> => {
   if (attemptNumber > MAX_CONNECTION_ATTEMPTS) {
     throw new Error('Failed to connect to speech server after multiple attempts');
   }
@@ -88,7 +88,7 @@ const tryConnectToWebSocketServer = async (attemptNumber: number = 1): Promise<{
       });
       
       console.log(`Successfully connected to speech server on port ${port}`);
-      return { ws, port };
+      return ws;
     } catch (error) {
       console.warn(`Could not connect to port ${port}: ${error}`);
       // Continue to next port
@@ -101,59 +101,72 @@ const tryConnectToWebSocketServer = async (attemptNumber: number = 1): Promise<{
   return tryConnectToWebSocketServer(attemptNumber + 1);
 };
 
-// Function to speak on Raspberry Pi using a compatible approach with retries
-const speakOnRaspberryPi = async (text: string, attemptNumber: number): Promise<void> => {
+// Function to speak on Raspberry Pi using WebSocket to communicate with speech-server.py
+const speakOnRaspberryPi = async (text: string): Promise<void> => {
   return new Promise<void>(async (resolve, reject) => {
     try {
-      console.log(`RPi speaking (attempt ${attemptNumber}): "${text.substring(0, 30)}${text.length > 30 ? '...' : ''}"`);
+      console.log(`RPi speaking: "${text.substring(0, 30)}${text.length > 30 ? '...' : ''}"`);
       
-      // Try to establish connection to speech server (with port fallback)
-      let connection;
+      // Play silent audio to unlock audio context (helps with browser autoplay policies)
+      await playSound();
+      
+      // Try to connect to speech server
+      let ws: WebSocket;
       try {
-        connection = await tryConnectToWebSocketServer();
-        console.log(`Connection to speech service established on port ${connection.port}`);
+        ws = await tryConnectToWebSocketServer();
       } catch (error) {
-        console.error('Failed to connect to speech server:', error);
-        reject(new Error('Speech server unavailable. Please check if speech-server.py is running.'));
+        console.error('WebSocket connection error:', error);
+        reject(new Error('Could not connect to speech server. Please check if it is running.'));
         return;
       }
       
-      // Create and play an audio element with a base64 encoded silent audio
-      // This is to ensure audio can be played later (autoplay policy)
-      playSound()
-        .then(() => {
-          const escapedText = text.replace(/"/g, '\\"');
+      // Send the text to be spoken
+      const escapedText = text.replace(/"/g, '\\"');
+      
+      // Set up a message event handler to detect speech completion or errors
+      ws.onmessage = (event) => {
+        try {
+          const response = JSON.parse(event.data);
+          console.log('Speech server response:', response);
           
-          // Send the text to be spoken using the established connection
-          const ws = connection.ws;
-          
-          ws.send(JSON.stringify({
-            action: 'speak',
-            text: escapedText
-          }));
-          
-          // Close connection after sending
-          setTimeout(() => {
-            try { 
-              ws.close(); 
-              console.log('Speech WebSocket closed after sending');
-            } catch(e) {
-              console.error('Error closing WebSocket:', e);
-            }
-          }, 300);
-          
-          // Assume speech completed based on text length (fallback timing)
-          const estimatedDuration = Math.max(2000, text.length * 100);
-          console.log(`Estimated speech duration: ${estimatedDuration}ms`);
-          setTimeout(() => {
+          if (response.status === 'speech_completed') {
             resolve();
-          }, estimatedDuration);
-        })
-        .catch(error => {
-          console.error('Error playing initial sound:', error);
-          reject(error);
-        });
-        
+            setTimeout(() => ws.close(), 100);
+          } else if (response.status === 'speech_failed' || response.error) {
+            reject(new Error(response.error || 'Speech failed'));
+            ws.close();
+          }
+        } catch (e) {
+          console.warn('Error parsing WebSocket message:', e);
+        }
+      };
+      
+      // Set up error handler
+      ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+        reject(new Error('WebSocket connection error'));
+        try { ws.close(); } catch (e) { /* ignore */ }
+      };
+      
+      // Set up close handler
+      ws.onclose = () => {
+        console.log('WebSocket connection closed');
+      };
+      
+      // Send the speak command
+      ws.send(JSON.stringify({
+        action: 'speak',
+        text: escapedText
+      }));
+      
+      // Fallback: resolve after estimated duration if we don't get a completion message
+      const estimatedDuration = Math.max(2000, text.length * 80);
+      setTimeout(() => {
+        console.log(`Resolving speech after estimated duration: ${estimatedDuration}ms`);
+        resolve();
+        try { ws.close(); } catch (e) { /* ignore */ }
+      }, estimatedDuration);
+      
     } catch (error) {
       console.error('RPi speech error:', error);
       reject(error);
@@ -167,7 +180,6 @@ const playSound = async (): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     try {
       // Create a silent audio element and play it
-      // This is to satisfy browser autoplay policies
       const audio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA");
       audio.volume = 0.01; // Nearly silent
       
@@ -315,8 +327,17 @@ export const isSpeechAvailable = async (): Promise<boolean> => {
     try {
       // Try to connect to the WebSocket server on any available port
       try {
-        await tryConnectToWebSocketServer();
+        const ws = await tryConnectToWebSocketServer();
         console.log('Speech server is available');
+        
+        // Send a ping to verify the server is working
+        ws.send(JSON.stringify({ action: 'ping' }));
+        
+        // Close the WebSocket after testing
+        setTimeout(() => {
+          try { ws.close(); } catch (e) { /* ignore */ }
+        }, 300);
+        
         return true;
       } catch (error) {
         console.error('Speech server is not available:', error);
