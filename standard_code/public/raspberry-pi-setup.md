@@ -30,7 +30,15 @@ chmod +x speech-server.py
 
 You should see a message saying "Speech server started on ws://localhost:8765"
 
-## 3. Test the Speech Server
+## 3. IMPORTANT: Run the Server BEFORE the Browser
+
+The most common issue is trying to run the trivia app before starting the speech server.
+
+1. **Always start the speech server first**
+2. **Keep the speech server terminal window open**
+3. **Only then launch the browser to open the SweetTrivia app**
+
+## 4. Test the Speech Server
 
 Before running the app, make sure the speech server is working correctly:
 
@@ -42,7 +50,7 @@ espeak-ng "Testing speech output" -p 50 -s 150 -a 200
 aplay -l  # List audio devices
 ```
 
-## 4. Configure Browser for Kiosk Mode
+## 5. Configure Browser for Kiosk Mode
 
 For best results, run your browser in kiosk mode. For Chromium:
 
@@ -50,7 +58,7 @@ For best results, run your browser in kiosk mode. For Chromium:
 chromium-browser --kiosk --autoplay-policy=no-user-gesture-required http://localhost:8080
 ```
 
-## 5. Important: Check WebSocket Connection
+## 6. Important: Check WebSocket Connection
 
 The SweetTrivia app needs to connect to the speech server via WebSocket. Make sure:
 
@@ -64,7 +72,7 @@ To view debug messages:
 # In Chromium, press F12 to open developer tools and check the console for connection errors
 ```
 
-## 6. Audio Configuration
+## 7. Audio Configuration
 
 Make sure your Raspberry Pi is correctly configured for audio:
 
@@ -76,7 +84,7 @@ sudo raspi-config  # Navigate to System Options > Audio
 speaker-test -t wav -c 2
 ```
 
-## 7. Autostart on Boot (Optional)
+## 8. Autostart on Boot (Recommended)
 
 To make the speech server start automatically when your Raspberry Pi boots:
 
@@ -112,46 +120,68 @@ sudo systemctl start trivia-speech
 
 ## Troubleshooting
 
-If speech doesn't work, check these common issues:
+If you see "Text-to-speech unavailable" in the trivia game, follow these steps:
 
-1. **Check if speech-server.py is running:**
-   ```bash
-   ps aux | grep speech-server.py
-   ```
+### 1. Verify the speech server is running
 
-2. **Check WebSocket connectivity:**
-   ```bash
-   # Install wscat for testing WebSockets
-   sudo npm install -g wscat
+```bash
+# Check if the process is running
+ps aux | grep speech-server.py
+
+# If not running, start it
+./speech-server.py
+```
+
+### 2. Check WebSocket connectivity
+
+```bash
+# Install wscat for testing WebSockets
+sudo npm install -g wscat
    
-   # Test connection
-   wscat -c ws://localhost:8765
-   # Then type: {"action":"speak","text":"testing"}
-   ```
+# Test connection
+wscat -c ws://localhost:8765
+# Then type: {"action":"speak","text":"testing"}
+```
 
-3. **Audio Configuration Issues:**
-   ```bash
-   # Check current audio settings
-   amixer
-   
-   # Set volume to maximum
-   amixer set Master 100%
-   ```
+### 3. Verify permissions and directory
 
-4. **Browser Console Errors:**
-   Look for WebSocket connection errors in the browser console (F12)
-   
-5. **Test the speech server directly:**
-   ```bash
-   # Start the server in one terminal
-   ./speech-server.py
-   
-   # In another terminal, send a test message
-   python3 -c "import websockets,asyncio,json; \
-   async def test(): \
-     async with websockets.connect('ws://localhost:8765') as ws: \
-       await ws.send(json.dumps({'action':'speak','text':'test'})); \
-   asyncio.run(test())"
-   ```
+```bash
+# Make sure you're in the right directory
+cd /path/to/speech-server/directory
 
-If you're still having issues, check the logs of the speech server for any error messages.
+# Check permissions
+ls -la speech-server.py
+# Should show executable permission (x)
+```
+
+### 4. Check for port conflicts
+
+```bash
+# See if anything else is using port 8765
+sudo netstat -tulpn | grep 8765
+```
+
+### 5. Restart from scratch
+
+If all else fails, try restarting everything:
+
+```bash
+# Kill any running speech server
+pkill -f speech-server.py
+
+# Start it fresh
+./speech-server.py
+
+# In another terminal, launch the browser
+chromium-browser --kiosk --autoplay-policy=no-user-gesture-required http://localhost:8080
+```
+
+### 6. Check logs
+
+If the server is running as a systemd service, check its logs:
+
+```bash
+sudo journalctl -u trivia-speech -f
+```
+
+If you're still having issues, please contact support with screenshots of any error messages.
