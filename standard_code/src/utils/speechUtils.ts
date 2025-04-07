@@ -2,35 +2,39 @@
 // A utility for handling text-to-speech functionality optimized for Raspberry Pi
 
 // Detect if running on Raspberry Pi
+// const isRaspberryPi = (): boolean => {
+//   try {
+//     const userAgent = navigator.userAgent.toLowerCase();
+//     console.log("User Agent:", navigator.userAgent);
+
+//     // Check for known Raspberry Pi or Chromium-on-ARM traits
+//     const raspberryPiIndicators = [
+//       'linux armv',
+//       'raspbian',
+//       'rpi',
+//       'armv7l',
+//       'aarch64',
+//       'chromium'
+//     ];
+
+//     const isRPi = raspberryPiIndicators.some(indicator => userAgent.includes(indicator));
+
+//     // Fallback: force Raspberry Pi mode if running Chromium on Linux
+//     if (userAgent.includes('linux') && userAgent.includes('chromium')) {
+//       console.log("⚠️ Chromium on Linux detected, forcing Raspberry Pi mode");
+//       return true;
+//     }
+
+//     console.log(`Running on ${isRPi ? 'Raspberry Pi' : 'standard device'}, User Agent: ${navigator.userAgent}`);
+//     return isRPi;
+//   } catch (error) {
+//     console.error('Error detecting device type:', error);
+//     return false;
+//   }
+// };
 const isRaspberryPi = (): boolean => {
-  try {
-    const userAgent = navigator.userAgent.toLowerCase();
-    console.log("User Agent:", navigator.userAgent);
-
-    // Check for known Raspberry Pi or Chromium-on-ARM traits
-    const raspberryPiIndicators = [
-      'linux armv',
-      'raspbian',
-      'rpi',
-      'armv7l',
-      'aarch64',
-      'chromium'
-    ];
-
-    const isRPi = raspberryPiIndicators.some(indicator => userAgent.includes(indicator));
-
-    // Fallback: force Raspberry Pi mode if running Chromium on Linux
-    if (userAgent.includes('linux') && userAgent.includes('chromium')) {
-      console.log("⚠️ Chromium on Linux detected, forcing Raspberry Pi mode");
-      return true;
-    }
-
-    console.log(`Running on ${isRPi ? 'Raspberry Pi' : 'standard device'}, User Agent: ${navigator.userAgent}`);
-    return isRPi;
-  } catch (error) {
-    console.error('Error detecting device type:', error);
-    return false;
-  }
+  console.log("⚠️ FORCING Raspberry Pi mode manually");
+  return true;
 };
 
 // Check if we're running on a Raspberry Pi
@@ -43,11 +47,30 @@ const MAX_CONNECTION_ATTEMPTS = 3;
 const WEBSOCKET_PORTS = [8765, 8766, 8767, 8768, 8769, 8770];
 
 // Function to speak text using espeak-ng on Raspberry Pi or Web Speech API on other devices
+// export const speak = (text: string): Promise<void> => {
+//   return new Promise((resolve, reject) => {
+//     if (isRaspberryPi()) {
+//       // On Raspberry Pi, use our custom approach that works with espeak-ng
+//       console.log('Using Raspberry Pi speech method');
+//       speakOnRaspberryPi(text)
+//         .then(resolve)
+//         .catch((error) => {
+//           console.error('Raspberry Pi speech failed:', error);
+//           reject(new Error('Speech service unavailable. Please check speech server is running.'));
+//         });
+//     } else {
+//       // On standard devices, use Web Speech API
+//       console.log('Using standard Web Speech API');
+//       speakWithWebSpeechAPI(text)
+//         .then(resolve)
+//         .catch(reject);
+//     }
+//   });
+// };
 export const speak = (text: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     if (isRaspberryPi()) {
-      // On Raspberry Pi, use our custom approach that works with espeak-ng
-      console.log('Using Raspberry Pi speech method');
+      console.log('✅ Using Raspberry Pi speech method');
       speakOnRaspberryPi(text)
         .then(resolve)
         .catch((error) => {
@@ -55,14 +78,14 @@ export const speak = (text: string): Promise<void> => {
           reject(new Error('Speech service unavailable. Please check speech server is running.'));
         });
     } else {
-      // On standard devices, use Web Speech API
-      console.log('Using standard Web Speech API');
+      console.log('❌ Using standard Web Speech API');
       speakWithWebSpeechAPI(text)
         .then(resolve)
         .catch(reject);
     }
   });
 };
+
 
 // Try to connect to the WebSocket server on different ports
 const tryConnectToWebSocketServer = async (attemptNumber: number = 1): Promise<WebSocket> => {
