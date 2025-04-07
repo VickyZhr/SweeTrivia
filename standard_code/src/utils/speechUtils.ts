@@ -28,15 +28,21 @@ const isRaspberryPi = (): boolean => {
 // Check if we're running on a Raspberry Pi
 const runningOnRPi = isRaspberryPi();
 
+// Maximum number of connection attempts
+const MAX_CONNECTION_ATTEMPTS = 3;
+
 // Function to speak text using espeak-ng on Raspberry Pi or Web Speech API on other devices
 export const speak = (text: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     if (runningOnRPi) {
       // On Raspberry Pi, use our custom approach that works with espeak-ng
       console.log('Using Raspberry Pi speech method');
-      speakOnRaspberryPi(text)
+      speakOnRaspberryPi(text, 1)  // Start with attempt #1
         .then(resolve)
-        .catch(reject);
+        .catch((error) => {
+          console.error('Raspberry Pi speech failed:', error);
+          reject(new Error('Speech service unavailable. Please check speech server is running.'));
+        });
     } else {
       // On standard devices, use Web Speech API
       console.log('Using standard Web Speech API');
@@ -47,23 +53,25 @@ export const speak = (text: string): Promise<void> => {
   });
 };
 
-// Function to speak on Raspberry Pi using a compatible approach
-const speakOnRaspberryPi = async (text: string): Promise<void> => {
+// Function to speak on Raspberry Pi using a compatible approach with retries
+const speakOnRaspberryPi = async (text: string, attemptNumber: number): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     try {
       // For Raspberry Pi, we'll use a method that works with espeak-ng
       // This requires espeak-ng to be installed on the Raspberry Pi
       
-      console.log(`RPi speaking: "${text.substring(0, 30)}${text.length > 30 ? '...' : ''}"`);
+      console.log(`RPi speaking (attempt ${attemptNumber}): "${text.substring(0, 30)}${text.length > 30 ? '...' : ''}"`);
       
       // Check if speech-server.py is running by attempting a connection
-      const testConnection = new WebSocket('ws://localhost:8765');
+      const wsAddress = 'ws://localhost:8765';
+      console.log(`Attempting to connect to speech server at ${wsAddress}`);
+      const testConnection = new WebSocket(wsAddress);
       let connectionTimeout: number | null = null;
       
       testConnection.onopen = () => {
         console.log('Connection to speech service established - service is running');
         testConnection.close();
-        clearTimeout(connectionTimeout!);
+        if (connectionTimeout) clearTimeout(connectionTimeout);
         
         // Create and play an audio element with a base64 encoded silent audio
         // This is to ensure audio can be played later (autoplay policy)
@@ -75,7 +83,7 @@ const speakOnRaspberryPi = async (text: string): Promise<void> => {
             const escapedText = text.replace(/"/g, '\\"');
             
             // Create a WebSocket connection to send the text to be spoken
-            const ws = new WebSocket('ws://localhost:8765');
+            const ws = new WebSocket(wsAddress);
             
             ws.onopen = () => {
               console.log('Speech WebSocket connected, sending text to speak');
@@ -115,14 +123,42 @@ const speakOnRaspberryPi = async (text: string): Promise<void> => {
       
       testConnection.onerror = (event) => {
         console.error('Error connecting to speech server. Is speech-server.py running?', event);
-        reject(new Error('Speech server connection failed. Please ensure speech-server.py is running.'));
+        
+        // If we haven't exceeded max attempts, try again
+        if (attemptNumber < MAX_CONNECTION_ATTEMPTS) {
+          console.log(`Retrying connection (attempt ${attemptNumber + 1}/${MAX_CONNECTION_ATTEMPTS})...`);
+          if (connectionTimeout) clearTimeout(connectionTimeout);
+          testConnection.close();
+          
+          // Add a small delay between attempts
+          setTimeout(() => {
+            speakOnRaspberryPi(text, attemptNumber + 1)
+              .then(resolve)
+              .catch(reject);
+          }, 500);
+        } else {
+          reject(new Error('Speech server connection failed after multiple attempts. Please ensure speech-server.py is running.'));
+        }
       };
       
       // Set timeout for connection attempt
       connectionTimeout = window.setTimeout(() => {
         console.error('Connection to speech server timed out. Is speech-server.py running?');
         testConnection.close();
-        reject(new Error('Speech server connection timed out'));
+        
+        // If we haven't exceeded max attempts, try again
+        if (attemptNumber < MAX_CONNECTION_ATTEMPTS) {
+          console.log(`Retrying connection (attempt ${attemptNumber + 1}/${MAX_CONNECTION_ATTEMPTS})...`);
+          
+          // Add a small delay between attempts
+          setTimeout(() => {
+            speakOnRaspberryPi(text, attemptNumber + 1)
+              .then(resolve)
+              .catch(reject);
+          }, 500);
+        } else {
+          reject(new Error('Speech server connection timed out after multiple attempts'));
+        }
       }, 3000);
       
     } catch (error) {
@@ -260,5 +296,41 @@ export const stopSpeech = (): void => {
     }
   } catch (error) {
     console.error('Error stopping speech:', error);
+  }
+};
+
+// Function to check if speech capabilities are available
+export const isSpeechAvailable = async (): Promise<boolean> => {
+  if (runningOnRPi) {
+    try {
+      // Try to connect to the WebSocket server
+      return new Promise<boolean>((resolve) => {
+        const testConnection = new WebSocket('ws://localhost:8765');
+        const connectionTimeout = setTimeout(() => {
+          testConnection.close();
+          console.error('Speech server connection timed out');
+          resolve(false);
+        }, 3000);
+        
+        testConnection.onopen = () => {
+          clearTimeout(connectionTimeout);
+          testConnection.close();
+          console.log('Speech server is available');
+          resolve(true);
+        };
+        
+        testConnection.onerror = () => {
+          clearTimeout(connectionTimeout);
+          console.error('Speech server is not available');
+          resolve(false);
+        };
+      });
+    } catch (error) {
+      console.error('Error checking speech availability:', error);
+      return false;
+    }
+  } else {
+    // For standard browsers, check if Web Speech API is available
+    return 'speechSynthesis' in window;
   }
 };

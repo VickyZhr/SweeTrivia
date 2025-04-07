@@ -28,6 +28,7 @@ import sys
 import websockets
 import signal
 import time
+import socket
 
 # Configure logging
 logging.basicConfig(
@@ -99,21 +100,35 @@ def stop_speech():
 # WebSocket handler
 async def handle_connection(websocket, path):
     try:
-        logging.info(f"New client connected")
+        client_info = f"{websocket.remote_address[0]}:{websocket.remote_address[1]}"
+        logging.info(f"New client connected from {client_info}")
+        
+        # Send a welcome message to confirm the connection works
+        try:
+            await websocket.send(json.dumps({"status": "connected", "message": "Speech server ready"}))
+        except Exception as e:
+            logging.error(f"Error sending welcome message: {e}")
+        
         async for message in websocket:
             try:
                 # Parse the JSON message
                 data = json.loads(message)
+                logging.info(f"Received message: {data}")
                 
                 # Handle 'speak' action
                 if data.get('action') == 'speak' and 'text' in data:
                     text = data['text']
-                    await speak_text(text)
+                    success = await speak_text(text)
+                    await websocket.send(json.dumps({"status": "speech_completed" if success else "speech_failed"}))
                 
                 # Handle 'stop' action
                 elif data.get('action') == 'stop':
                     stop_speech()
                     await websocket.send(json.dumps({"status": "speech_stopped"}))
+                
+                # Handle 'ping' action for connection testing
+                elif data.get('action') == 'ping':
+                    await websocket.send(json.dumps({"status": "pong"}))
                 
             except json.JSONDecodeError:
                 logging.error(f"Invalid JSON received: {message}")
@@ -122,7 +137,7 @@ async def handle_connection(websocket, path):
                 logging.error(f"Error processing message: {e}")
                 await websocket.send(json.dumps({"error": str(e)}))
     except websockets.exceptions.ConnectionClosed:
-        logging.info("Client disconnected")
+        logging.info(f"Client {client_info} disconnected")
     except Exception as e:
         logging.error(f"Connection handler error: {e}")
 
@@ -131,24 +146,65 @@ async def health_check(websocket, path):
     if path == "/health":
         await websocket.send(json.dumps({"status": "ok"}))
 
+# Get the Raspberry Pi's IP address
+def get_ip_address():
+    try:
+        # Create a temporary socket to determine the outgoing IP address
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip_address = s.getsockname()[0]
+        s.close()
+        return ip_address
+    except Exception as e:
+        logging.warning(f"Could not determine IP address: {e}")
+        return "unknown"
+
+# Test espeak-ng at startup
+async def test_espeak():
+    try:
+        logging.info("Testing espeak-ng...")
+        process = await asyncio.create_subprocess_exec(
+            'espeak-ng', 'Speech server started successfully', '-p', '50', '-s', '150', '-a', '200',
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        stdout, stderr = await process.communicate()
+        
+        if process.returncode == 0:
+            logging.info("espeak-ng test successful")
+            return True
+        else:
+            logging.error(f"espeak-ng test failed: {stderr.decode().strip()}")
+            return False
+    except Exception as e:
+        logging.error(f"Error testing espeak-ng: {e}")
+        return False
+
 # Main server function
 async def main():
+    # Test espeak-ng
+    espeak_working = await test_espeak()
+    if not espeak_working:
+        logging.warning("espeak-ng test failed. Speech output may not work correctly.")
+    
     # Start the WebSocket server
-    server = await websockets.serve(handle_connection, "0.0.0.0", 8765)
-    logging.info("Speech server started on ws://localhost:8765")
-    logging.info("IMPORTANT: Server is listening on all interfaces, access via Raspberry Pi's IP address")
-    
-    # Show the Raspberry Pi's IP address for easier connection
     try:
-        ip_process = subprocess.run(['hostname', '-I'], check=True, capture_output=True, text=True)
-        ip_addresses = ip_process.stdout.strip().split()
-        if ip_addresses:
-            logging.info(f"Raspberry Pi IP address(es): {', '.join(ip_addresses)}")
+        server = await websockets.serve(handle_connection, "0.0.0.0", 8765)
+        ip_address = get_ip_address()
+        
+        logging.info("=" * 50)
+        logging.info("Speech server started successfully!")
+        logging.info(f"Listening on ws://{ip_address}:8765")
+        logging.info("=" * 50)
+        logging.info("IMPORTANT: Server is listening on all interfaces")
+        logging.info("Make sure to start this server BEFORE opening the trivia app")
+        logging.info("=" * 50)
+        
+        # Keep the server running
+        await server.wait_closed()
     except Exception as e:
-        logging.error(f"Could not determine IP address: {e}")
-    
-    # Keep the server running
-    await server.wait_closed()
+        logging.error(f"Error starting WebSocket server: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     try:
