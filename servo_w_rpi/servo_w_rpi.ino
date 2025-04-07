@@ -60,9 +60,14 @@ void rotateServo360(int index) {
   for (int i = 0; i < 2; i++) {
     servos[index].write(90);
     delay(delayTime);
-    servos[index].write(180);
-    delay(delayTime);
     servos[index].write(0);
+    delay(delayTime);
+    servos[index].write(180);
+//    servos[index].write(90);
+//    delay(delayTime);
+//    servos[index].write(0);
+//    delay(delayTime);
+//    servos[index].write(180);
     delay(50); // Short reset pause
   }
 
