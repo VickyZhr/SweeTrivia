@@ -31,6 +31,9 @@ const runningOnRPi = isRaspberryPi();
 // Maximum number of connection attempts
 const MAX_CONNECTION_ATTEMPTS = 3;
 
+// WebSocket ports to try (in order)
+const WEBSOCKET_PORTS = [8765, 8766, 8767, 8768, 8769, 8770];
+
 // Function to speak text using espeak-ng on Raspberry Pi or Web Speech API on other devices
 export const speak = (text: string): Promise<void> => {
   return new Promise((resolve, reject) => {
@@ -53,114 +56,104 @@ export const speak = (text: string): Promise<void> => {
   });
 };
 
+// Try to connect to the WebSocket server on different ports
+const tryConnectToWebSocketServer = async (attemptNumber: number = 1): Promise<{ws: WebSocket, port: number}> => {
+  if (attemptNumber > MAX_CONNECTION_ATTEMPTS) {
+    throw new Error('Failed to connect to speech server after multiple attempts');
+  }
+  
+  // Try each port in sequence
+  for (const port of WEBSOCKET_PORTS) {
+    const wsAddress = `ws://localhost:${port}`;
+    console.log(`Attempting to connect to speech server at ${wsAddress}`);
+    
+    try {
+      // Wait for connection to open or fail
+      const ws = await new Promise<WebSocket>((resolve, reject) => {
+        const socket = new WebSocket(wsAddress);
+        const timeout = setTimeout(() => {
+          socket.close();
+          reject(new Error(`Connection to ${wsAddress} timed out`));
+        }, 1000);
+        
+        socket.onopen = () => {
+          clearTimeout(timeout);
+          resolve(socket);
+        };
+        
+        socket.onerror = () => {
+          clearTimeout(timeout);
+          reject(new Error(`Connection to ${wsAddress} failed`));
+        };
+      });
+      
+      console.log(`Successfully connected to speech server on port ${port}`);
+      return { ws, port };
+    } catch (error) {
+      console.warn(`Could not connect to port ${port}: ${error}`);
+      // Continue to next port
+    }
+  }
+  
+  // If we get here, we tried all ports and none worked
+  // Try again with increased attempt count (after a delay)
+  await new Promise(resolve => setTimeout(resolve, 500));
+  return tryConnectToWebSocketServer(attemptNumber + 1);
+};
+
 // Function to speak on Raspberry Pi using a compatible approach with retries
 const speakOnRaspberryPi = async (text: string, attemptNumber: number): Promise<void> => {
-  return new Promise<void>((resolve, reject) => {
+  return new Promise<void>(async (resolve, reject) => {
     try {
-      // For Raspberry Pi, we'll use a method that works with espeak-ng
-      // This requires espeak-ng to be installed on the Raspberry Pi
-      
       console.log(`RPi speaking (attempt ${attemptNumber}): "${text.substring(0, 30)}${text.length > 30 ? '...' : ''}"`);
       
-      // Check if speech-server.py is running by attempting a connection
-      const wsAddress = 'ws://localhost:8765';
-      console.log(`Attempting to connect to speech server at ${wsAddress}`);
-      const testConnection = new WebSocket(wsAddress);
-      let connectionTimeout: number | null = null;
+      // Try to establish connection to speech server (with port fallback)
+      let connection;
+      try {
+        connection = await tryConnectToWebSocketServer();
+        console.log(`Connection to speech service established on port ${connection.port}`);
+      } catch (error) {
+        console.error('Failed to connect to speech server:', error);
+        reject(new Error('Speech server unavailable. Please check if speech-server.py is running.'));
+        return;
+      }
       
-      testConnection.onopen = () => {
-        console.log('Connection to speech service established - service is running');
-        testConnection.close();
-        if (connectionTimeout) clearTimeout(connectionTimeout);
-        
-        // Create and play an audio element with a base64 encoded silent audio
-        // This is to ensure audio can be played later (autoplay policy)
-        playSound()
-          .then(() => {
-            // Since we can't directly call espeak-ng from the browser,
-            // we'll use a command that works for RPi kiosk/touchscreen setups
-            
-            const escapedText = text.replace(/"/g, '\\"');
-            
-            // Create a WebSocket connection to send the text to be spoken
-            const ws = new WebSocket(wsAddress);
-            
-            ws.onopen = () => {
-              console.log('Speech WebSocket connected, sending text to speak');
-              ws.send(JSON.stringify({
-                action: 'speak',
-                text: escapedText
-              }));
-              
-              // Close connection after sending
-              setTimeout(() => {
-                try { 
-                  ws.close(); 
-                  console.log('Speech WebSocket closed after sending');
-                } catch(e) {
-                  console.error('Error closing WebSocket:', e);
-                }
-              }, 300);
-            };
-            
-            ws.onerror = (e) => {
-              console.error('WebSocket error during speech:', e);
-              reject(new Error('WebSocket error during speech'));
-            };
-            
-            // Assume speech completed based on text length (fallback timing)
-            const estimatedDuration = Math.max(2000, text.length * 100);
-            console.log(`Estimated speech duration: ${estimatedDuration}ms`);
-            setTimeout(() => {
-              resolve();
-            }, estimatedDuration);
-          })
-          .catch(error => {
-            console.error('Error playing initial sound:', error);
-            reject(error);
-          });
-      };
-      
-      testConnection.onerror = (event) => {
-        console.error('Error connecting to speech server. Is speech-server.py running?', event);
-        
-        // If we haven't exceeded max attempts, try again
-        if (attemptNumber < MAX_CONNECTION_ATTEMPTS) {
-          console.log(`Retrying connection (attempt ${attemptNumber + 1}/${MAX_CONNECTION_ATTEMPTS})...`);
-          if (connectionTimeout) clearTimeout(connectionTimeout);
-          testConnection.close();
+      // Create and play an audio element with a base64 encoded silent audio
+      // This is to ensure audio can be played later (autoplay policy)
+      playSound()
+        .then(() => {
+          const escapedText = text.replace(/"/g, '\\"');
           
-          // Add a small delay between attempts
-          setTimeout(() => {
-            speakOnRaspberryPi(text, attemptNumber + 1)
-              .then(resolve)
-              .catch(reject);
-          }, 500);
-        } else {
-          reject(new Error('Speech server connection failed after multiple attempts. Please ensure speech-server.py is running.'));
-        }
-      };
-      
-      // Set timeout for connection attempt
-      connectionTimeout = window.setTimeout(() => {
-        console.error('Connection to speech server timed out. Is speech-server.py running?');
-        testConnection.close();
-        
-        // If we haven't exceeded max attempts, try again
-        if (attemptNumber < MAX_CONNECTION_ATTEMPTS) {
-          console.log(`Retrying connection (attempt ${attemptNumber + 1}/${MAX_CONNECTION_ATTEMPTS})...`);
+          // Send the text to be spoken using the established connection
+          const ws = connection.ws;
           
-          // Add a small delay between attempts
+          ws.send(JSON.stringify({
+            action: 'speak',
+            text: escapedText
+          }));
+          
+          // Close connection after sending
           setTimeout(() => {
-            speakOnRaspberryPi(text, attemptNumber + 1)
-              .then(resolve)
-              .catch(reject);
-          }, 500);
-        } else {
-          reject(new Error('Speech server connection timed out after multiple attempts'));
-        }
-      }, 3000);
-      
+            try { 
+              ws.close(); 
+              console.log('Speech WebSocket closed after sending');
+            } catch(e) {
+              console.error('Error closing WebSocket:', e);
+            }
+          }, 300);
+          
+          // Assume speech completed based on text length (fallback timing)
+          const estimatedDuration = Math.max(2000, text.length * 100);
+          console.log(`Estimated speech duration: ${estimatedDuration}ms`);
+          setTimeout(() => {
+            resolve();
+          }, estimatedDuration);
+        })
+        .catch(error => {
+          console.error('Error playing initial sound:', error);
+          reject(error);
+        });
+        
     } catch (error) {
       console.error('RPi speech error:', error);
       reject(error);
@@ -277,19 +270,36 @@ const speakWithWebSpeechAPI = (text: string): Promise<void> => {
 export const stopSpeech = (): void => {
   try {
     if (runningOnRPi) {
-      // For Raspberry Pi, we can't directly stop espeak-ng from the browser
-      // but we can try to send a stop command to our WebSocket server
-      try {
-        const ws = new WebSocket('ws://localhost:8765');
-        ws.onopen = () => {
-          ws.send(JSON.stringify({
-            action: 'stop'
-          }));
-          setTimeout(() => ws.close(), 100);
-        };
-      } catch (e) {
-        console.warn('Could not send stop command to speech server:', e);
-      }
+      // For Raspberry Pi, send a stop command to our WebSocket server
+      // Try multiple ports in case the default one isn't being used
+      (async () => {
+        // Use a flag to track if we've successfully connected to any port
+        let connected = false;
+        
+        // Try each port until we succeed
+        for (const port of WEBSOCKET_PORTS) {
+          // Skip if we've already connected successfully
+          if (connected) continue;
+          
+          try {
+            const ws = new WebSocket(`ws://localhost:${port}`);
+            
+            // Set up event handlers
+            ws.onopen = () => {
+              ws.send(JSON.stringify({
+                action: 'stop'
+              }));
+              setTimeout(() => ws.close(), 100);
+              connected = true; // Mark as connected
+            };
+            
+            // Wait a bit to see if connection opens
+            await new Promise(r => setTimeout(r, 200));
+          } catch (e) {
+            console.warn(`Could not send stop command to port ${port}:`, e);
+          }
+        }
+      })();
     } else if ('speechSynthesis' in window) {
       // For Web Speech API
       window.speechSynthesis.cancel();
@@ -303,28 +313,15 @@ export const stopSpeech = (): void => {
 export const isSpeechAvailable = async (): Promise<boolean> => {
   if (runningOnRPi) {
     try {
-      // Try to connect to the WebSocket server
-      return new Promise<boolean>((resolve) => {
-        const testConnection = new WebSocket('ws://localhost:8765');
-        const connectionTimeout = setTimeout(() => {
-          testConnection.close();
-          console.error('Speech server connection timed out');
-          resolve(false);
-        }, 3000);
-        
-        testConnection.onopen = () => {
-          clearTimeout(connectionTimeout);
-          testConnection.close();
-          console.log('Speech server is available');
-          resolve(true);
-        };
-        
-        testConnection.onerror = () => {
-          clearTimeout(connectionTimeout);
-          console.error('Speech server is not available');
-          resolve(false);
-        };
-      });
+      // Try to connect to the WebSocket server on any available port
+      try {
+        await tryConnectToWebSocketServer();
+        console.log('Speech server is available');
+        return true;
+      } catch (error) {
+        console.error('Speech server is not available:', error);
+        return false;
+      }
     } catch (error) {
       console.error('Error checking speech availability:', error);
       return false;
