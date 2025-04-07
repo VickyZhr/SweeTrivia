@@ -52,35 +52,36 @@ except subprocess.CalledProcessError:
     logging.error("espeak-ng is not installed. Please install it with: sudo apt-get install -y espeak-ng")
     sys.exit(1)
 
-# Function to speak text using espeak-ng
+# Function to speak text using espeak-ng piped to aplay
 async def speak_text(text):
     global current_process
-    
+
     try:
         # Stop any currently running speech
         stop_speech()
-        
-        # Use espeak-ng with good parameters for Raspberry Pi
-        cmd = ['espeak-ng', text, '-p', '50', '-s', '150', '-a', '200']
+
+        # Build the full shell command
+        cmd_str = f'espeak-ng "{text}" -p 50 -s 150 -a 200 --stdout | aplay'
+        logging.info(f"[CMD] {cmd_str}")
         logging.info(f"Speaking: {text[:30]}{'...' if len(text) > 30 else ''}")
-        
-        # Run the espeak-ng command
-        current_process = await asyncio.create_subprocess_exec(
-            *cmd,
+
+        # Run the command using the shell
+        current_process = await asyncio.create_subprocess_shell(
+            cmd_str,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
         )
-        
-        # Wait for it to finish
+
+        # Wait for the process to finish
         stdout, stderr = await current_process.communicate()
-        
+
         if stderr:
             logging.warning(f"espeak-ng stderr: {stderr.decode().strip()}")
-        
+
         if current_process.returncode != 0:
             logging.error(f"espeak-ng error: {stderr.decode().strip()}")
             return False
-        
+
         current_process = None
         return True
     except Exception as e:
