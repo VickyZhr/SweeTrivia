@@ -45,7 +45,7 @@ const WEBSOCKET_PORTS = [8765, 8766, 8767, 8768, 8769, 8770];
 // Function to speak text using espeak-ng on Raspberry Pi or Web Speech API on other devices
 export const speak = (text: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    if (runningOnRPi) {
+    if (isRaspberryPi()) {
       // On Raspberry Pi, use our custom approach that works with espeak-ng
       console.log('Using Raspberry Pi speech method');
       speakOnRaspberryPi(text)
