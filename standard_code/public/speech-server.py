@@ -40,6 +40,10 @@ logging.basicConfig(
 # Global variable to store the current speech process
 current_process = None
 
+# Default port and alternate ports to try
+DEFAULT_PORT = 8765
+ALTERNATE_PORTS = [8766, 8767, 8768, 8769, 8770]
+
 # Check if espeak-ng is installed
 try:
     subprocess.run(['which', 'espeak-ng'], check=True, stdout=subprocess.PIPE)
@@ -69,12 +73,15 @@ async def speak_text(text):
         
         # Wait for it to finish
         stdout, stderr = await current_process.communicate()
-        current_process = None
         
-        if current_process and current_process.returncode != 0:
+        if stderr:
+            logging.warning(f"espeak-ng stderr: {stderr.decode().strip()}")
+        
+        if current_process.returncode != 0:
             logging.error(f"espeak-ng error: {stderr.decode().strip()}")
             return False
         
+        current_process = None
         return True
     except Exception as e:
         logging.error(f"Error speaking text: {e}")
@@ -90,8 +97,11 @@ def stop_speech():
             # Give it a moment to terminate
             time.sleep(0.1)
             # If still running, force kill
-            if current_process.returncode is None:
-                os.kill(current_process.pid, signal.SIGKILL)
+            if current_process and current_process.returncode is None:
+                try:
+                    os.kill(current_process.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass  # Process already gone
             logging.info("Stopped current speech")
         except Exception as e:
             logging.error(f"Error stopping speech: {e}")
@@ -140,6 +150,8 @@ async def handle_connection(websocket, path):
         logging.info(f"Client {client_info} disconnected")
     except Exception as e:
         logging.error(f"Connection handler error: {e}")
+    finally:
+        stop_speech()  # Ensure speech is stopped when client disconnects
 
 # Health check endpoint for testing connection
 async def health_check(websocket, path):
@@ -180,34 +192,70 @@ async def test_espeak():
         logging.error(f"Error testing espeak-ng: {e}")
         return False
 
-# Main server function
-async def main():
+# Try to start server with fallback to alternate ports
+async def start_server_with_fallback():
     # Test espeak-ng
     espeak_working = await test_espeak()
     if not espeak_working:
         logging.warning("espeak-ng test failed. Speech output may not work correctly.")
     
-    # Start the WebSocket server
-    try:
-        server = await websockets.serve(handle_connection, "0.0.0.0", 8765)
-        ip_address = get_ip_address()
-        
-        logging.info("=" * 50)
-        logging.info("Speech server started successfully!")
-        logging.info(f"Listening on ws://{ip_address}:8765")
-        logging.info("=" * 50)
-        logging.info("IMPORTANT: Server is listening on all interfaces")
-        logging.info("Make sure to start this server BEFORE opening the trivia app")
-        logging.info("=" * 50)
-        
-        # Keep the server running
+    # Try the default port first, then alternate ports
+    ports_to_try = [DEFAULT_PORT] + ALTERNATE_PORTS
+    server = None
+    
+    for port in ports_to_try:
+        try:
+            logging.info(f"Attempting to start server on port {port}...")
+            server = await websockets.serve(handle_connection, "0.0.0.0", port)
+            ip_address = get_ip_address()
+            
+            logging.info("=" * 50)
+            logging.info("Speech server started successfully!")
+            logging.info(f"Listening on ws://{ip_address}:{port}")
+            logging.info("=" * 50)
+            logging.info("IMPORTANT: Server is listening on all interfaces")
+            logging.info(f"IMPORTANT: Using port {port} - update the client connection if needed")
+            logging.info("Make sure to start this server BEFORE opening the trivia app")
+            logging.info("=" * 50)
+            
+            # If we successfully started the server, update the speechUtils.ts file
+            # to use the new port if it's not the default
+            if port != DEFAULT_PORT:
+                logging.info(f"NOTE: Using non-default port {port}. If you have connection issues,")
+                logging.info(f"update the WebSocket address in src/utils/speechUtils.ts to use port {port}")
+            
+            break
+        except OSError as e:
+            logging.warning(f"Could not use port {port}: {e}")
+            if port == ports_to_try[-1]:  # Last port to try
+                logging.error("All ports are in use. Please free up a port and try again.")
+                sys.exit(1)
+    
+    # Keep the server running
+    if server:
         await server.wait_closed()
+    else:
+        logging.error("Failed to start server on any port")
+        sys.exit(1)
+
+# Main server function
+async def main():
+    try:
+        await start_server_with_fallback()
     except Exception as e:
         logging.error(f"Error starting WebSocket server: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
     try:
+        # Print a clear startup message
+        print("\n" + "=" * 60)
+        print(" SWEET TRIVIA SPEECH SERVER ".center(60, "="))
+        print("=" * 60 + "\n")
+        
+        print("Starting speech server...")
+        print("IMPORTANT: Keep this terminal window open while playing the game!\n")
+        
         asyncio.run(main())
     except KeyboardInterrupt:
         logging.info("Server stopped by user")
