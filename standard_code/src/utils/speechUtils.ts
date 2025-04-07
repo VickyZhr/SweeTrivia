@@ -1,44 +1,55 @@
-
 // A utility for handling text-to-speech functionality optimized for Raspberry Pi
 
-// Detect if running on Raspberry Pi
-// const isRaspberryPi = (): boolean => {
-//   try {
-//     const userAgent = navigator.userAgent.toLowerCase();
-//     console.log("User Agent:", navigator.userAgent);
-
-//     // Check for known Raspberry Pi or Chromium-on-ARM traits
-//     const raspberryPiIndicators = [
-//       'linux armv',
-//       'raspbian',
-//       'rpi',
-//       'armv7l',
-//       'aarch64',
-//       'chromium'
-//     ];
-
-//     const isRPi = raspberryPiIndicators.some(indicator => userAgent.includes(indicator));
-
-//     // Fallback: force Raspberry Pi mode if running Chromium on Linux
-//     if (userAgent.includes('linux') && userAgent.includes('chromium')) {
-//       console.log("⚠️ Chromium on Linux detected, forcing Raspberry Pi mode");
-//       return true;
-//     }
-
-//     console.log(`Running on ${isRPi ? 'Raspberry Pi' : 'standard device'}, User Agent: ${navigator.userAgent}`);
-//     return isRPi;
-//   } catch (error) {
-//     console.error('Error detecting device type:', error);
-//     return false;
-//   }
-// };
+// Detect if running on Raspberry Pi with improved detection methods
 const isRaspberryPi = (): boolean => {
-  console.log("⚠️ FORCING Raspberry Pi mode manually");
-  return true;
+  try {
+    // Check for common Raspberry Pi browser indicators
+    const userAgent = navigator.userAgent.toLowerCase();
+    
+    // Enhanced list of Raspberry Pi indicators
+    const raspberryPiIndicators = [
+      'linux armv',
+      'raspberry',
+      'rpi',
+      'linux arm',
+      'aarch64'
+    ];
+    
+    // Check for URL parameters that can force Raspberry Pi mode
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceRPiMode = urlParams.get('rpi_mode') === 'true';
+    
+    // Check for a specific localStorage flag that can be set for Raspberry Pi mode
+    const storedRPiMode = localStorage.getItem('rpi_mode') === 'true';
+    
+    // Raspberry Pi detection using multiple methods
+    const isRPi = 
+      raspberryPiIndicators.some(indicator => userAgent.includes(indicator)) || 
+      forceRPiMode || 
+      storedRPiMode ||
+      // Simple check for Chromium on Linux which is common for RPi kiosk setups
+      (userAgent.includes('linux') && userAgent.includes('chromium'));
+    
+    console.log(`Speech mode: ${isRPi ? 'Raspberry Pi (espeak-ng)' : 'Standard device (Web Speech API)'}`);
+    console.log(`User Agent: ${navigator.userAgent}`);
+    
+    return isRPi;
+  } catch (error) {
+    console.error('Error detecting device type:', error);
+    // If detection fails, default to assuming it's NOT a Raspberry Pi for safety
+    return false;
+  }
 };
 
 // Check if we're running on a Raspberry Pi
 const runningOnRPi = isRaspberryPi();
+
+// Force Raspberry Pi mode function - can be used via browser console
+// This allows you to manually override the detection for testing or troubleshooting
+(window as any).forceRaspberryPiMode = function(enable = true) {
+  localStorage.setItem('rpi_mode', enable ? 'true' : 'false');
+  console.log(`Raspberry Pi mode ${enable ? 'enabled' : 'disabled'}. Please refresh the page.`);
+};
 
 // Maximum number of connection attempts
 const MAX_CONNECTION_ATTEMPTS = 3;
@@ -47,30 +58,11 @@ const MAX_CONNECTION_ATTEMPTS = 3;
 const WEBSOCKET_PORTS = [8765, 8766, 8767, 8768, 8769, 8770];
 
 // Function to speak text using espeak-ng on Raspberry Pi or Web Speech API on other devices
-// export const speak = (text: string): Promise<void> => {
-//   return new Promise((resolve, reject) => {
-//     if (isRaspberryPi()) {
-//       // On Raspberry Pi, use our custom approach that works with espeak-ng
-//       console.log('Using Raspberry Pi speech method');
-//       speakOnRaspberryPi(text)
-//         .then(resolve)
-//         .catch((error) => {
-//           console.error('Raspberry Pi speech failed:', error);
-//           reject(new Error('Speech service unavailable. Please check speech server is running.'));
-//         });
-//     } else {
-//       // On standard devices, use Web Speech API
-//       console.log('Using standard Web Speech API');
-//       speakWithWebSpeechAPI(text)
-//         .then(resolve)
-//         .catch(reject);
-//     }
-//   });
-// };
 export const speak = (text: string): Promise<void> => {
   return new Promise((resolve, reject) => {
-    if (isRaspberryPi()) {
-      console.log('✅ Using Raspberry Pi speech method');
+    if (runningOnRPi) {
+      // On Raspberry Pi, use our custom approach that works with espeak-ng
+      console.log('Using Raspberry Pi speech method (espeak-ng)');
       speakOnRaspberryPi(text)
         .then(resolve)
         .catch((error) => {
@@ -78,14 +70,14 @@ export const speak = (text: string): Promise<void> => {
           reject(new Error('Speech service unavailable. Please check speech server is running.'));
         });
     } else {
-      console.log('❌ Using standard Web Speech API');
+      // On standard devices, use Web Speech API
+      console.log('Using standard Web Speech API');
       speakWithWebSpeechAPI(text)
         .then(resolve)
         .catch(reject);
     }
   });
 };
-
 
 // Try to connect to the WebSocket server on different ports
 const tryConnectToWebSocketServer = async (attemptNumber: number = 1): Promise<WebSocket> => {
