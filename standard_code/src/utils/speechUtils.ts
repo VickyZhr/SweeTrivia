@@ -4,21 +4,28 @@
 // Detect if running on Raspberry Pi
 const isRaspberryPi = (): boolean => {
   try {
-    // Check for common Raspberry Pi browser indicators
     const userAgent = navigator.userAgent.toLowerCase();
     console.log("User Agent:", navigator.userAgent);
-    
-    // Look for common Raspberry Pi browser strings
+
+    // Check for known Raspberry Pi or Chromium-on-ARM traits
     const raspberryPiIndicators = [
       'linux armv',
-      'raspberry',
+      'raspbian',
       'rpi',
-      'linux arm'
+      'armv7l',
+      'aarch64',
+      'chromium'
     ];
-    
+
     const isRPi = raspberryPiIndicators.some(indicator => userAgent.includes(indicator));
+
+    // Fallback: force Raspberry Pi mode if running Chromium on Linux
+    if (userAgent.includes('linux') && userAgent.includes('chromium')) {
+      console.log("⚠️ Chromium on Linux detected, forcing Raspberry Pi mode");
+      return true;
+    }
+
     console.log(`Running on ${isRPi ? 'Raspberry Pi' : 'standard device'}, User Agent: ${navigator.userAgent}`);
-    
     return isRPi;
   } catch (error) {
     console.error('Error detecting device type:', error);
