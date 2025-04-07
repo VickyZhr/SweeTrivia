@@ -6,6 +6,7 @@ const isRaspberryPi = (): boolean => {
   try {
     // Check for common Raspberry Pi browser indicators
     const userAgent = navigator.userAgent.toLowerCase();
+    console.log("User Agent:", navigator.userAgent);
     
     // Look for common Raspberry Pi browser strings
     const raspberryPiIndicators = [
