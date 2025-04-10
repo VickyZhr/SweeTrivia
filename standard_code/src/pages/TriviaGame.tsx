@@ -4,7 +4,7 @@ import { useTrivia } from '@/context/TriviaContext';
 import TriviaCard from '@/components/TriviaCard';
 import ResultScreen from '@/components/ResultScreen';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import TriviaSettings from '@/components/TriviaSettings';
 import { ArrowLeft } from 'lucide-react';
 import RoundUp from '@/components/RoundUp';
@@ -19,6 +19,7 @@ const TriviaGame: React.FC = () => {
   } = useTrivia();
   
   const navigate = useNavigate();
+  const location = useLocation();
   const totalQuestions = questions.length;
 
   // If there's no current question and the game isn't over, something went wrong
@@ -47,7 +48,6 @@ const TriviaGame: React.FC = () => {
           <h1 className="text-2xl font-bold text-red-500 mb-4">Error Loading Questions</h1>
           <p className="mb-8 text-white">Unable to load trivia questions. Please try again.</p>
           
-          {/* Standardized Go Back button */}
           <Button
             onClick={() => navigate('/')}
             className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold text-xl py-3 px-6 rounded-full border-2 border-white/80 flex items-center gap-2 shadow-md"
@@ -65,6 +65,10 @@ const TriviaGame: React.FC = () => {
     return <RoundUp />;
   }
 
+  if (isGameOver) {
+    return <ResultScreen score={score} totalQuestions={totalQuestions} />;
+  }
+  
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4 relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
       {/* Top row of shapes */}

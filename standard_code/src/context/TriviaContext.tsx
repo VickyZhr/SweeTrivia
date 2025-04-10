@@ -6,6 +6,7 @@ interface TriviaContextType {
   questions: TriviaQuestion[];
   currentQuestionIndex: number;
   score: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
   totalQuestions: number;
   selectedAnswer: string | null;
   hasAnswered: boolean;
@@ -24,6 +25,7 @@ interface TriviaContextType {
   filterQuestionsByCategory: (category: string | null) => void;
   selectedCategory: string | null;
   continueGame: () => void;
+  updateScore: (additionalScore: number) => void; // Add this function to the interface
 }
 
 const TriviaContext = createContext<TriviaContextType | undefined>(undefined);
@@ -50,6 +52,11 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       setQuestions([]);
     }
   }, []);
+
+  // Add the updateScore function to update the score directly
+  const updateScore = (additionalScore: number) => {
+    setScore(additionalScore);
+  };
 
   const loadQuestions = (csvData: string = sampleTriviaData) => {
     try {
@@ -159,6 +166,7 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     questions,
     currentQuestionIndex,
     score,
+    setScore,
     totalQuestions,
     selectedAnswer,
     hasAnswered,
@@ -176,7 +184,8 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     currentQuestion,
     filterQuestionsByCategory,
     selectedCategory,
-    continueGame
+    continueGame,
+    updateScore // Add the new function to the context value
   };
 
   return <TriviaContext.Provider value={value}>{children}</TriviaContext.Provider>;
