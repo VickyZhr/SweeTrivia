@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useTrivia } from '@/context/TriviaContext';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Progress } from '@/components/ui/progress';
 
 const RoundUp: React.FC = () => {
   const { continueGame, score, resetGame } = useTrivia();
   const navigate = useNavigate();
+  const location = useLocation();
   const [secondsLeft, setSecondsLeft] = useState(20);
+  
+  // Check if we came from the challenge mode
+  const isFromChallenge = location.state?.fromChallenge || false;
 
   useEffect(() => {
     // Timer to countdown from 20 seconds
@@ -25,11 +29,18 @@ const RoundUp: React.FC = () => {
 
     // Clean up timer on unmount
     return () => clearInterval(timer);
-  }, [navigate, score, resetGame]);
+  }, []);
 
   const handleContinue = () => {
     continueGame();
-    navigate('/categories');
+    
+    // If coming from challenge mode, navigate back to flappy challenge game
+    if (isFromChallenge) {
+      navigate('/flappy');
+    } else {
+      // Otherwise, go to categories for standard mode
+      navigate('/categories');
+    }
   };
 
   const handleExit = () => {

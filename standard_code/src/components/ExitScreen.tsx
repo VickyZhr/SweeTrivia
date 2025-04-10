@@ -3,11 +3,15 @@ import React, { useEffect } from 'react';
 import { useTrivia } from '@/context/TriviaContext';
 import { Button } from '@/components/ui/button';
 import { Candy } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const ExitScreen: React.FC = () => {
   const { score, resetGame } = useTrivia();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Check if we came from the challenge mode
+  const isFromChallenge = location.state?.fromChallenge || false;
   
   // Auto-navigate based on score after 10 seconds
   useEffect(() => {
@@ -19,6 +23,31 @@ const ExitScreen: React.FC = () => {
   }, []);
 
   const handleContinue = () => {
+    // If coming from challenge mode, navigate back to flappy challenge game
+    if (isFromChallenge) {
+      navigate('/flappy');
+    } else {
+      // Store the score temporarily
+      const finalScore = score;
+      
+      // Reset the game score before navigating
+      resetGame();
+      
+      // If score is 0, navigate to the home page instead of candy selection
+      if (finalScore <= 0) {
+        navigate('/');
+      } else {
+        // Navigate to candy selection with preserved score
+        navigate('/selection', { state: { finalScore } });
+      }
+    }
+  };
+  
+  const handleGoBack = () => {
+    navigate(-1); // Navigate to the previous screen in history
+  };
+
+  const handleExit = () => {
     // Store the score temporarily
     const finalScore = score;
     
@@ -32,10 +61,6 @@ const ExitScreen: React.FC = () => {
       // Navigate to candy selection with preserved score
       navigate('/selection', { state: { finalScore } });
     }
-  };
-  
-  const handleGoBack = () => {
-    navigate(-1); // Navigate to the previous screen in history
   };
 
   return (
@@ -71,17 +96,36 @@ const ExitScreen: React.FC = () => {
           {score > 0 && <Candy className="ml-2 text-red-500 h-8 w-8" />}
         </div>
         
-        <Button
-          onClick={handleContinue}
-          className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold text-2xl py-8 px-12 rounded-full"
-        >
-          Tap to continue!
-        </Button>
+        {isFromChallenge ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <Button
+              onClick={handleContinue}
+              className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold text-2xl py-8 px-12 rounded-full"
+            >
+              Continue Challenge
+            </Button>
+            <Button
+              onClick={handleExit}
+              className="bg-yellow-300 hover:bg-yellow-400 text-red-600 font-bold text-2xl py-8 px-12 rounded-full"
+            >
+              Exit & Get Candy
+            </Button>
+          </div>
+        ) : (
+          <Button
+            onClick={handleContinue}
+            className="bg-yellow-300 hover:bg-yellow-400 text-green-800 font-bold text-2xl py-8 px-12 rounded-full"
+          >
+            Tap to continue!
+          </Button>
+        )}
         
         <div className="mt-4 text-white/70 animate-pulse">
-          {score > 0 
-            ? "Proceeding to candy selection in 10 seconds..." 
-            : "Returning to home page in 10 seconds..."}
+          {isFromChallenge 
+            ? "Auto-continuing challenge in 10 seconds..." 
+            : score > 0 
+              ? "Proceeding to candy selection in 10 seconds..." 
+              : "Returning to home page in 10 seconds..."}
         </div>
       </div>
     </div>

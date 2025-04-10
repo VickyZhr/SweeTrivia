@@ -1,11 +1,8 @@
 
 import React from 'react';
 import FlappyGame from '@/components/FlappyGame';
-import { useNavigate } from 'react-router-dom';
 
 const FlappyChallenge: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
       {/* Top row of shapes */}

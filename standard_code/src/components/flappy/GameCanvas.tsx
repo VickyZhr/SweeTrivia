@@ -1,40 +1,51 @@
-
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import React, { useEffect, useRef } from 'react';
 import { toast } from 'sonner';
-import { useTrivia } from '@/context/TriviaContext';
+import { 
+  Bird, 
+  Pipe, 
+  Question, 
+  gapPositions, 
+  gapSizeMultiplier, 
+  movingRate, 
+  flashDuration,
+  getRandomQuestion
+} from '@/utils/flappyGameUtils';
 
-const FlappyGame: React.FC = () => {
-  const navigate = useNavigate();
-  const { updateScore } = useTrivia();
+interface GameCanvasProps {
+  score: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  lives: number;
+  setLives: React.Dispatch<React.SetStateAction<number>>;
+  gameOver: boolean;
+  setGameOver: React.Dispatch<React.SetStateAction<boolean>>;
+  gameStarted: boolean;
+  setGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
+  onGameOver: () => void;
+  initialScore: number;
+}
+
+const GameCanvas: React.FC<GameCanvasProps> = ({
+  score,
+  setScore,
+  lives,
+  setLives,
+  gameOver,
+  setGameOver,
+  gameStarted,
+  setGameStarted,
+  onGameOver,
+  initialScore
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [gameOver, setGameOver] = useState(false);
-  const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(3);
-  const [gameStarted, setGameStarted] = useState(false);
-
+  
+  // Game state refs to access in event handlers
   const gameRunningRef = useRef(false);
-  const currentScoreRef = useRef(0);
+  const currentScoreRef = useRef(initialScore);
   const currentLivesRef = useRef(3);
   const passedPipeRef = useRef(false);
   const missedPipeRef = useRef(false);
   const flashTimerRef = useRef(0);
   const flashActiveRef = useRef(false);
-
-  // Get initial score from location state if available
-  useEffect(() => {
-    // Check for saved score in sessionStorage
-    const savedScore = sessionStorage.getItem('flappyScore');
-    if (savedScore) {
-      const parsedScore = parseInt(savedScore, 10);
-      setScore(parsedScore);
-      currentScoreRef.current = parsedScore;
-      
-      // Clear storage after retrieving
-      sessionStorage.removeItem('flappyScore');
-    }
-  }, []);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -43,10 +54,12 @@ const FlappyGame: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Set canvas dimensions
     canvas.width = 1200;
     canvas.height = 620;
-
-    const bird = {
+    
+    // Game objects
+    let bird: Bird = {
       x: 200,
       y: 200,
       radius: 10,
@@ -54,40 +67,21 @@ const FlappyGame: React.FC = () => {
       gravity: 0.5,
       jumpStrength: -10
     };
-
-    const pipe = {
+    
+    let pipe: Pipe = {
       x: canvas.width,
       width: 60,
       gap: 60
     };
+    
+    const gapSize = gapSizeMultiplier * bird.radius;
+    let currentQuestion = getRandomQuestion();
 
-    const gapPositions = [150, 250, 350, 450];
-    const gapSize = 6 * bird.radius;
-    const movingRate = 10;
-
-    const questions = [
-      {
-        question: "How many legs does a spider have?",
-        options: ["2", "4", "6", "8"],
-        correct: "A"
-      },
-      {
-        question: "What is the capital of France?",
-        options: ["Berlin", "Madrid", "Paris", "Rome"],
-        correct: "A"
-      },
-      {
-        question: "What is 5 + 5?",
-        options: ["8", "9", "10", "11"],
-        correct: "A"
-      }
-    ];
-
-    let currentQuestion = questions[Math.floor(Math.random() * questions.length)];
-
+    // Load bird image
     const birdImg = new Image();
     birdImg.src = '/lovable-uploads/c90aa45a-dfa1-45b4-8eed-aca82b10cae1.png';
 
+    // Drawing functions
     const showStartScreen = () => {
       ctx.fillStyle = '#72c6ce';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -106,26 +100,32 @@ const FlappyGame: React.FC = () => {
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 40);
-      ctx.fillText(`Score: ${score}`, canvas.width / 2, canvas.height / 2);
+      ctx.fillText(`Score: ${currentScoreRef.current}`, canvas.width / 2, canvas.height / 2);
       ctx.fillText("Press SPACE to Restart", canvas.width / 2, canvas.height / 2 + 40);
+      
+      // Trigger game over callback after a short delay
+      setTimeout(() => {
+        onGameOver();
+      }, 2000);
     };
 
     const resetGame = () => {
       bird.y = 200;
       bird.velocity = 0;
       pipe.x = canvas.width;
-      currentScoreRef.current = 0;
+      // Keep the existing score when continuing
+      currentScoreRef.current = initialScore;
       currentLivesRef.current = 3;
       passedPipeRef.current = false;
       missedPipeRef.current = false;
       gameRunningRef.current = false;
       flashActiveRef.current = false;
       flashTimerRef.current = 0;
-      setScore(0);
+      setScore(initialScore);
       setLives(3);
       setGameStarted(false);
       setGameOver(false);
-      currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+      currentQuestion = getRandomQuestion();
       showStartScreen();
     };
 
@@ -166,7 +166,7 @@ const FlappyGame: React.FC = () => {
             currentLivesRef.current--;
             setLives(currentLivesRef.current);
             flashActiveRef.current = true;
-            flashTimerRef.current = 20;
+            flashTimerRef.current = flashDuration;
             missedPipeRef.current = true;
             toast.error("Wrong answer!");
           }
@@ -259,17 +259,6 @@ const FlappyGame: React.FC = () => {
       ctx.fillStyle = '#72c6ce';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      if (gameOver) {
-        // Instead of showing game over screen, navigate to RoundUp
-        // Save the current score first
-        updateScore(currentScoreRef.current);
-        // Save score to sessionStorage for retrieval on continue
-        sessionStorage.setItem('flappyScore', currentScoreRef.current.toString());
-        // Navigate to RoundUp with fromChallenge flag
-        navigate('/exit', { state: { fromChallenge: true } });
-        return;
-      }
-
       if (gameRunningRef.current) {
         bird.velocity += bird.gravity;
         bird.y += bird.velocity;
@@ -277,7 +266,7 @@ const FlappyGame: React.FC = () => {
 
         if (pipe.x < -pipe.width) {
           pipe.x = canvas.width;
-          currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+          currentQuestion = getRandomQuestion();
           passedPipeRef.current = false;
           missedPipeRef.current = false;
         }
@@ -287,7 +276,7 @@ const FlappyGame: React.FC = () => {
             currentLivesRef.current--;
             setLives(currentLivesRef.current);
             flashActiveRef.current = true;
-            flashTimerRef.current = 20;
+            flashTimerRef.current = flashDuration;
             bird.y = canvas.height / 2;
             bird.velocity = 0;
             toast.warning("Hit the boundary! Lost a life.");
@@ -298,9 +287,15 @@ const FlappyGame: React.FC = () => {
           gameRunningRef.current = false;
           if (!gameOver) {
             setGameOver(true);
-            // We'll handle the game over navigation in the useEffect below
+            setTimeout(() => showGameOverScreen(), 100);
           }
           return;
+        }
+
+        if (flashTimerRef.current > 0) {
+          flashTimerRef.current--;
+        } else {
+          flashActiveRef.current = false;
         }
 
         drawPipes();
@@ -348,71 +343,17 @@ const FlappyGame: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown);
       canvas.removeEventListener('click', handleClick);
     };
-  }, [navigate, updateScore]);
-
-  // Watch for game over state and navigate to RoundUp
-  useEffect(() => {
-    if (gameOver) {
-      // Small delay to ensure score is updated before navigation
-      const timer = setTimeout(() => {
-        updateScore(currentScoreRef.current);
-        // Save score to sessionStorage for retrieval on continue
-        sessionStorage.setItem('flappyScore', currentScoreRef.current.toString());
-        // Navigate to RoundUp with fromChallenge flag
-        navigate('/roundup', { state: { fromChallenge: true } });
-      }, 500);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [gameOver, navigate, updateScore]);
-
-  const handleExit = () => {
-    // Save score before navigating
-    updateScore(currentScoreRef.current);
-    sessionStorage.setItem('flappyScore', currentScoreRef.current.toString());
-    navigate('/roundup', { state: { fromChallenge: true } });
-  };
+  }, [initialScore, onGameOver, setGameOver, setGameStarted, setLives, setScore, gameOver]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-pink-500 relative overflow-hidden">
-      <div className="w-full max-w-5xl mx-auto z-10">
-        <header className="mb-8 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-green-800 font-mono">Flappy Bird - Challenge Mode</h1>
-        </header>
-
-        <div className="relative mb-8 p-4 bg-white/20 backdrop-blur-sm rounded-xl border-2 border-white/30 flex justify-center">
-          <canvas
-            ref={canvasRef}
-            className="rounded-lg shadow-lg cursor-pointer"
-            style={{ maxWidth: '100%', height: 'auto' }}
-          >
-            Your browser does not support canvas.
-          </canvas>
-        </div>
-
-        <div className="flex justify-between">
-          <div className="text-white bg-black/50 backdrop-blur-sm p-4 rounded-lg max-w-xs">
-            <h3 className="font-bold mb-2">How to Play:</h3>
-            <ul className="list-disc pl-5 text-xs">
-              <li>Press SPACE or click to make the bird jump</li>
-              <li>Fly through the gap with the correct answer</li>
-              <li>Get 10 points for each correct answer</li>
-              <li>You have 3 lives - don't hit the pipes or boundaries!</li>
-            </ul>
-          </div>
-
-          <Button
-            onClick={handleExit}
-            variant="yellow"
-            size="lg"
-            className="mt-4"
-          >
-            Exit Challenge
-          </Button>
-        </div>
-      </div>
-    </div>
+    <canvas
+      ref={canvasRef}
+      className="rounded-lg shadow-lg cursor-pointer"
+      style={{ maxWidth: '100%', height: 'auto' }}
+    >
+      Your browser does not support canvas.
+    </canvas>
   );
 };
 
-export default FlappyGame;
+export default GameCanvas;

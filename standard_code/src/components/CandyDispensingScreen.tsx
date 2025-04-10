@@ -1,6 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import { Home, ArrowLeft, Circle, Triangle, Square, Star } from 'lucide-react';
 
@@ -10,18 +10,9 @@ const CandyDispensingScreen: React.FC = () => {
   const [candyType, setCandyType] = useState<string | null>(null);
   
   useEffect(() => {
+    // Get the candy type from location state
     if (location.state && location.state.candyType) {
-      const selected = location.state.candyType;
-      setCandyType(selected);
-
-      // Send candy selection to Raspberry Pi backend
-      axios.post('http://localhost:3001/dispense', { candyType: selected })
-        .then(() => {
-          console.log(`Successfully dispensed ${selected} candy`);
-        })
-        .catch((err) => {
-          console.error('Error sending candy selection to backend:', err);
-        });
+      setCandyType(location.state.candyType);
     }
   }, [location.state]);
 
