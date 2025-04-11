@@ -56,7 +56,6 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
     if (!hasAnswered && narrationDone) {
       selectAnswer(answer);
 
-      // Automatically move to next question after 1 second
       setTimeout(() => {
         goToNextQuestion();
       }, 1000);
@@ -83,12 +82,17 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {question.options.map((option, index) => {
             let correctness: boolean | null = null;
+            const normalizedOption = option.trim().toLowerCase();
+            const normalizedCorrect = question.correct_answer.trim().toLowerCase();
 
             if (hasAnswered) {
-              if (option === question.correct_answer) {
+              if (normalizedOption === normalizedCorrect) {
                 correctness = true;
               }
-              if (option === selectedAnswer && option !== question.correct_answer) {
+              if (
+                option === selectedAnswer &&
+                normalizedOption !== normalizedCorrect
+              ) {
                 correctness = false;
               }
             }
