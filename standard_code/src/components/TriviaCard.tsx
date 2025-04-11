@@ -77,17 +77,17 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
         <h2 className="text-white text-2xl font-bold mb-4">{question.question}</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {question.options.map((option, index) => {
-              let correctness: boolean | null = null;
-              if (hasAnswered) {
-                if (option === question.correct_answer) {
-                  correctness = true;
-                } else if (option === selectedAnswer && option !== question.correct_answer) {
-                  correctness = false;
-                } else {
-                  correctness = null;
-                }
+          {question.options.map((option, index) => {
+            let correctness: boolean | null = null;
+
+            if (hasAnswered) {
+              if (option === question.correct_answer) {
+                correctness = true;
               }
+              if (option === selectedAnswer && option !== question.correct_answer) {
+                correctness = false;
+              }
+            }
 
             return (
               <AnswerOption
