@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { TriviaQuestion } from '@/utils/triviaUtils';
 import { useTrivia } from '@/context/TriviaContext';
-import { getOptionLetter } from '@/utils/triviaUtils';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import NarrationControl from './trivia/NarrationControl';
@@ -54,8 +53,13 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
   }, [hasAnswered, timeLeft, isGameOver, narrationDone]);
 
   const handleAnswer = (answer: string) => {
-    if (!hasAnswered) {
+    if (!hasAnswered && narrationDone) {
       selectAnswer(answer);
+
+      // Automatically move to next question after 1 second
+      setTimeout(() => {
+        goToNextQuestion();
+      }, 1000);
     }
   };
 
@@ -96,18 +100,12 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
                 option={option}
                 selected={selectedAnswer === option}
                 correct={correctness}
-                disabled={hasAnswered}
+                disabled={!narrationDone || hasAnswered}
                 onSelect={() => handleAnswer(option)}
               />
             );
           })}
         </div>
-
-        {hasAnswered && (
-          <div className="mt-6 flex justify-end">
-            <Button onClick={goToNextQuestion}>Next Question</Button>
-          </div>
-        )}
 
         {isGameOver && (
           <div className="mt-6 text-center">
