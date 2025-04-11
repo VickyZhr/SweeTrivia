@@ -76,3 +76,17 @@ app.post('/narrate', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+const { exec } = require('child_process');
+
+app.post('/download-latest-csv', (req, res) => {
+  exec('python3 standard_code/fetch_and_prepare.py', (err, stdout, stderr) => {
+    if (err) {
+      console.error('❌ Error:', stderr);
+      return res.status(500).send('Download failed');
+    }
+    console.log('✅ Fetched questions:\n', stdout);
+    res.send('Download and update complete');
+  });
+});

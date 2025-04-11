@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useTrivia } from '@/context/TriviaContext';
+import { Pencil } from 'lucide-react';
 
 const Index: React.FC = () => {
   const navigate = useNavigate();
@@ -15,6 +16,10 @@ const Index: React.FC = () => {
   const handleChallengeMode = () => {
     // Navigate to the flappy bird challenge mode
     navigate('/flappy');
+  };
+
+  const handleMakeMyOwnQuestions = () => {
+    navigate('/make-questions');
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,29 +61,38 @@ const Index: React.FC = () => {
       </div>
       
       <div className="w-full max-w-2xl z-10 flex flex-col items-center">
-        <h1 className="pixel-text-lg text-6xl mb-2 text-center tracking-widest">
+        <h1 className="pixel-text-lg text-6xl mb-4 text-center tracking-widest">
           SWEETRIVIA
         </h1>
         
-        <h2 className="pixel-text text-4xl mb-12 text-center tracking-wide">
+        <h2 className="pixel-text text-4xl mb-16 text-center tracking-wide">
           Select Mode! 🦑
         </h2>
         
-        <div className="grid grid-cols-2 gap-8 mb-8 w-full">
+        <div className="grid grid-cols-2 gap-10 mb-16 w-full">
           <Button
             onClick={handleStandardMode}
-            className="bg-yellow-300 hover:bg-yellow-400 text-black text-4xl font-mono border-4 border-white h-24 rounded-3xl"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black text-4xl font-mono border-4 border-white h-28 rounded-3xl"
           >
             Standard
           </Button>
           
           <Button
             onClick={handleChallengeMode}
-            className="bg-yellow-300 hover:bg-yellow-400 text-black text-4xl font-mono border-4 border-white h-24 rounded-3xl"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black text-4xl font-mono border-4 border-white h-28 rounded-3xl"
           >
             Challenge
           </Button>
         </div>
+        
+        {/* Make My Own Questions button */}
+        <Button
+          onClick={handleMakeMyOwnQuestions}
+          className="bg-yellow-300 hover:bg-yellow-400 text-black text-2xl font-mono border-4 border-white py-4 px-8 rounded-3xl w-full mb-8 flex items-center justify-center gap-3"
+        >
+          <Pencil className="h-6 w-6" />
+          Make My Own Questions
+        </Button>
         
         <div className="hidden">
           <input

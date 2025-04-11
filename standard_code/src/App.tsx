@@ -14,6 +14,7 @@ import FlappyChallenge from "./pages/FlappyChallenge";
 import CandySelectionScreen from "./components/CandySelectionScreen";
 import CandyDispensingScreen from "./components/CandyDispensingScreen";
 import RoundUp from "./components/RoundUp";
+import MakeQuestionsPage from "./pages/MakeQuestionsPage";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/roundup" element={<RoundUp />} />
             <Route path="/selection" element={<CandySelectionScreen />} />
             <Route path="/dispensing" element={<CandyDispensingScreen />} />
+            <Route path="/make-questions" element={<MakeQuestionsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
