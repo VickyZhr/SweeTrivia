@@ -5,6 +5,7 @@ import { getOptionLetter } from '@/utils/triviaUtils';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import NarrationControl from './trivia/NarrationControl';
+import AnswerOption from './AnswerOption';
 
 interface TriviaCardProps {
   question: TriviaQuestion;
@@ -76,17 +77,28 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
         <h2 className="text-white text-2xl font-bold mb-4">{question.question}</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {question.options.map((option, index) => (
-            <Button
-              key={index}
-              className="text-left"
-              variant={selectedAnswer === option ? 'secondary' : 'default'}
-              onClick={() => handleAnswer(option)}
-              disabled={hasAnswered}
-            >
-              {getOptionLetter(index)}. {option}
-            </Button>
-          ))}
+          {question.options.map((option, index) => {
+            let correctness: boolean | null = null;
+            if (hasAnswered) {
+              if (option === question.correct_answer) {
+                correctness = true;
+              } else if (option === selectedAnswer) {
+                correctness = false;
+              }
+            }
+
+            return (
+              <AnswerOption
+                key={index}
+                index={index}
+                option={option}
+                selected={selectedAnswer === option}
+                correct={correctness}
+                disabled={hasAnswered}
+                onSelect={() => handleAnswer(option)}
+              />
+            );
+          })}
         </div>
 
         {hasAnswered && (
