@@ -1,3 +1,4 @@
+
 // src/utils/speechUtils.ts
 
 export const speakWithEspeakNg = async (text: string): Promise<void> => {

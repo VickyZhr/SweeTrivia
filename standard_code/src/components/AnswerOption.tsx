@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { getOptionLetter } from '@/utils/triviaUtils';
 import { Check, X } from 'lucide-react';
@@ -26,8 +27,6 @@ const AnswerOption: React.FC<AnswerOptionProps> = ({
     return 'bg-yellow-300 hover:bg-yellow-300/90 border-white';
   };
 
-  console.log(`Rendering [${option}] | selected: ${selected} | correct: ${correct}`);
-
   const getStatusIcon = () => {
     if (correct === true) return <Check className="h-5 w-5 text-white" />;
     if (correct === false && selected) return <X className="h-5 w-5 text-white" />;
@@ -36,11 +35,11 @@ const AnswerOption: React.FC<AnswerOptionProps> = ({
 
   return (
     <button
-      className={`w-full py-3 px-4 rounded-full border-2 flex justify-between items-center ${getOptionClass()}`}
+      className={`w-full py-4 px-5 rounded-full border-4 flex justify-between items-center ${getOptionClass()}`}
       onClick={onSelect}
       disabled={disabled}
     >
-      <span className="font-semibold text-lg text-left">
+      <span className="font-game-text font-bold text-2xl text-left text-green-800">
         {getOptionLetter(index)}. {option}
       </span>
       {getStatusIcon()}

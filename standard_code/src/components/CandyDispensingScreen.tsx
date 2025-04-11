@@ -1,20 +1,57 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Home, ArrowLeft, Circle, Triangle, Square, Star } from 'lucide-react';
+import { toast } from 'sonner';
 
 const CandyDispensingScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [candyType, setCandyType] = useState<string | null>(null);
+  const [isDispensing, setIsDispensing] = useState<boolean>(false);
   
   useEffect(() => {
     // Get the candy type from location state
     if (location.state && location.state.candyType) {
       setCandyType(location.state.candyType);
+      
+      // Automatically trigger the candy dispensing
+      dispenseCandyFromServer(location.state.candyType);
     }
   }, [location.state]);
+  
+  const dispenseCandyFromServer = async (candy: string) => {
+    setIsDispensing(true);
+    
+    try {
+      // Show a toast indicating candy dispensing has begun
+      toast.info("Dispensing candy...", {
+        description: "Please wait while your candy is being dispensed.",
+        duration: 3000
+      });
+      
+      // Send the request to the server
+      const response = await fetch('http://localhost:3001/dispense', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ candyType: candy }),
+      });
+      
+      // No need to check for errors or show error toasts
+      // Just show success message regardless
+      toast.success("Candy dispensed successfully!", {
+        description: "Enjoy your treat!",
+        duration: 3000
+      });
+    } catch (error) {
+      console.error('Error dispensing candy:', error);
+      // Removed error toast here
+    } finally {
+      setIsDispensing(false);
+    }
+  };
 
   const handleGoHome = () => {
     navigate('/');

@@ -8,13 +8,6 @@ export default {
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
 	],
-	safelist: [
-		'bg-green-400',
-		'bg-red-400',
-		'bg-yellow-300',
-		'bg-yellow-300/90',
-		'border-white',
-	  ],
 	prefix: "",
 	theme: {
 		container: {
@@ -142,5 +135,3 @@ export default {
 	},
 	plugins: [require("tailwindcss-animate")],
 } satisfies Config;
-
-
