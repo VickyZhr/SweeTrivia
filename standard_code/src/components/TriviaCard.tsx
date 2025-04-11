@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useCallback } from 'react';
 import { TriviaQuestion } from '@/utils/triviaUtils';
 import { useTrivia } from '@/context/TriviaContext';
@@ -68,15 +69,17 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
         options={question.options}
         onNarrationEnd={handleNarrationEnd}
       />
-      <div className="relative bg-hot-pink p-6">
+      <div className="relative bg-hot-pink p-6 rounded-lg">
         <div className="mb-6 flex justify-between items-center">
-          <span className="text-white text-xl font-semibold">
-            Time Left: {timeLeft}s
+          <span className="pixel-text text-2xl font-semibold">
+            TIME: {timeLeft}s
           </span>
-          <span className="text-white text-xl font-semibold">Score: {score}</span>
+          <span className="pixel-text text-2xl font-semibold">SCORE: {score}</span>
         </div>
 
-        <h2 className="text-white text-2xl font-bold mb-4">{question.question}</h2>
+        <h2 className="pixel-text-lg text-3xl font-bold mb-6 tracking-wide">
+          {question.question}
+        </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {question.options.map((option, index) => {
@@ -110,9 +113,12 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
 
         {isGameOver && (
           <div className="mt-6 text-center">
-            <p className="text-white text-2xl font-bold">Game Over!</p>
-            <p className="text-white text-lg">Final Score: {score}</p>
-            <Button className="mt-4" onClick={() => navigate('/')}>
+            <p className="pixel-text-lg text-3xl font-bold mb-2">GAME OVER!</p>
+            <p className="pixel-text text-2xl mb-4">FINAL SCORE: {score}</p>
+            <Button 
+              className="bg-yellow-300 hover:bg-yellow-400 text-black text-2xl font-mono border-4 border-white py-2 px-6 rounded-full" 
+              onClick={() => navigate('/')}
+            >
               Return to Home
             </Button>
           </div>

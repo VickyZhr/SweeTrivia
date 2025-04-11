@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTrivia } from '@/context/TriviaContext';
 import { Circle, Triangle, Square, Star } from 'lucide-react';
@@ -12,6 +12,13 @@ const CandySelectionScreen = () => {
   
   // Use the score from navigation state if available, otherwise use the context score
   const score = location.state?.finalScore !== undefined ? location.state.finalScore : contextScore;
+
+  // Redirect to home page if score is 0
+  useEffect(() => {
+    if (score <= 0) {
+      navigate('/');
+    }
+  }, [score, navigate]);
 
   const handleSelectCandy = (candyType: string, requiredPoints: number) => {
     // Check if the user has enough points
@@ -41,6 +48,11 @@ const CandySelectionScreen = () => {
     navigate('/dispensing', { state: { candyType } });
   };
 
+  // If score is 0, the useEffect will handle redirection, but return null to avoid rendering
+  if (score <= 0) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
       {/* Top row of shapes */}
@@ -61,9 +73,9 @@ const CandySelectionScreen = () => {
         />
       </div>
       
-      <div className="w-full max-w-4xl z-10 mt-10">
-        <div className="text-right mb-6">
-          <h2 className="text-5xl font-bold font-mono" style={{ 
+      <div className="w-full max-w-4xl z-10 mt-0">
+        <div className="text-right mb-4">
+          <h2 className="text-4xl font-bold font-mono" style={{ 
             color: 'black', 
             textShadow: '2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff' 
           }}>
@@ -71,49 +83,49 @@ const CandySelectionScreen = () => {
           </h2>
         </div>
         
-        <h1 className="text-7xl font-bold mb-16 text-center font-mono" style={{ 
+        <h1 className="text-6xl font-bold mb-10 text-center font-mono" style={{ 
           color: '#2a652a', 
           textShadow: '3px 3px 0 #fff, -3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff'
         }}>
           Select your candy!
         </h1>
         
-        {/* Candy Selection Grid */}
-        <div className="grid grid-cols-2 gap-8 mx-auto max-w-3xl mb-20">
+        {/* Candy Selection Grid - Smaller cards */}
+        <div className="grid grid-cols-2 gap-6 mx-auto max-w-2xl mb-16">
           {/* Circle - 10 points */}
           <div 
             onClick={() => handleSelectCandy('circle', 10)}
-            className="bg-yellow-300 hover:bg-yellow-400 text-black p-8 rounded-xl border-4 border-white h-44 flex flex-col items-center justify-center cursor-pointer"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black p-6 rounded-xl border-4 border-white h-36 flex flex-col items-center justify-center cursor-pointer"
           >
-            <Circle className="w-24 h-24 mb-3 stroke-[3px]" />
-            <span className="font-mono text-2xl font-bold">10 points</span>
+            <Circle className="w-20 h-20 mb-2 stroke-[3px]" />
+            <span className="font-mono text-4xl font-bold">10 points</span>
           </div>
           
           {/* Triangle - 20 points */}
           <div
             onClick={() => handleSelectCandy('triangle', 20)}
-            className="bg-yellow-300 hover:bg-yellow-400 text-black p-8 rounded-xl border-4 border-white h-44 flex flex-col items-center justify-center cursor-pointer"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black p-6 rounded-xl border-4 border-white h-36 flex flex-col items-center justify-center cursor-pointer"
           >
-            <Triangle className="w-24 h-24 mb-3 stroke-[3px]" />
-            <span className="font-mono text-2xl font-bold">20 points</span>
+            <Triangle className="w-20 h-20 mb-2 stroke-[3px]" />
+            <span className="font-mono text-4xl font-bold">20 points</span>
           </div>
           
           {/* Square - 30 points */}
           <div
             onClick={() => handleSelectCandy('square', 30)}
-            className="bg-yellow-300 hover:bg-yellow-400 text-black p-8 rounded-xl border-4 border-white h-44 flex flex-col items-center justify-center cursor-pointer"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black p-6 rounded-xl border-4 border-white h-36 flex flex-col items-center justify-center cursor-pointer"
           >
-            <Square className="w-24 h-24 mb-3 stroke-[3px]" />
-            <span className="font-mono text-2xl font-bold">30 points</span>
+            <Square className="w-20 h-20 mb-2 stroke-[3px]" />
+            <span className="font-mono text-4xl font-bold">30 points</span>
           </div>
           
           {/* Star - 40 points */}
           <div
             onClick={() => handleSelectCandy('star', 40)}
-            className="bg-yellow-300 hover:bg-yellow-400 text-black p-8 rounded-xl border-4 border-white h-44 flex flex-col items-center justify-center cursor-pointer"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black p-6 rounded-xl border-4 border-white h-36 flex flex-col items-center justify-center cursor-pointer"
           >
-            <Star className="w-24 h-24 mb-3 stroke-[3px]" />
-            <span className="font-mono text-2xl font-bold">40 points</span>
+            <Star className="w-20 h-20 mb-2 stroke-[3px]" />
+            <span className="font-mono text-4xl font-bold">40 points</span>
           </div>
         </div>
       </div>

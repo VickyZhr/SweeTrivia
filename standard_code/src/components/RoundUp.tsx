@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useTrivia } from '@/context/TriviaContext';
 import { Button } from '@/components/ui/button';
@@ -112,27 +113,27 @@ const RoundUp: React.FC = () => {
           Time is up! Round Over :(
         </h1>
         
-        {/* Choose one of the options */}
-        <h2 className="text-4xl font-mono mb-12 pixel-text-lg">
-          Choose one of the options<span className="ml-2">🦑</span>
+        {/* Choose one of the options - smaller to fit on one line with emoji */}
+        <h2 className="text-2xl font-mono mb-8 pixel-text-lg flex items-center justify-center">
+          <span>Choose one of the options</span><span className="ml-2">🦑</span>
         </h2>
         
-        {/* Buttons */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          <div className="bg-yellow-300 rounded-full p-6 border-4 border-white">
+        {/* Buttons - longer horizontally and thinner vertically */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          <div className="bg-yellow-300 rounded-xl p-3 border-4 border-white mx-auto w-80 h-28">
             <Button
               onClick={handleContinue}
-              className="w-full h-full bg-transparent hover:bg-transparent text-green-800 border-none shadow-none text-4xl font-mono"
+              className="w-full h-full bg-transparent hover:bg-transparent text-green-800 border-none shadow-none text-5xl font-mono flex flex-col items-center"
             >
-              Continue?
-              <div className="text-xl mt-2 font-mono">(Your points won't go away)</div>
+              <span>Continue?</span>
+              <span className="text-xl mt-2 font-mono">(Your points won't go away)</span>
             </Button>
           </div>
           
-          <div className="bg-yellow-300 rounded-full p-6 border-4 border-white">
+          <div className="bg-yellow-300 rounded-xl p-3 border-4 border-white mx-auto w-80 h-28">
             <Button
               onClick={handleExit}
-              className="w-full h-full bg-transparent hover:bg-transparent text-red-600 border-none shadow-none text-4xl font-mono"
+              className="w-full h-full bg-transparent hover:bg-transparent text-red-600 border-none shadow-none text-5xl font-mono"
             >
               Exit?
             </Button>

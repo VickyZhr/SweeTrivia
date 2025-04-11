@@ -39,8 +39,8 @@ const CategorySelect: React.FC = () => {
       </div>
       
       <div className="w-full max-w-4xl mx-auto z-10">
-        <h1 className="pixel-text-lg text-4xl md:text-5xl tracking-wide mb-10 text-center">
-          Select Category! 🦑
+        <h1 className="pixel-text-lg text-3xl md:text-4xl tracking-wide mb-10 text-center flex items-center justify-center">
+          <span>Select Category!</span><span className="ml-2">🦑</span>
         </h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
