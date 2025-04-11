@@ -26,6 +26,8 @@ const AnswerOption: React.FC<AnswerOptionProps> = ({
     return 'bg-yellow-300 hover:bg-yellow-300/90 border-white';
   };
 
+  console.log(`Rendering [${option}] | selected: ${selected} | correct: ${correct}`);
+
   const getStatusIcon = () => {
     if (correct === true) return <Check className="h-5 w-5 text-white" />;
     if (correct === false && selected) return <X className="h-5 w-5 text-white" />;
