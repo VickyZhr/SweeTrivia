@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { TriviaQuestion } from '@/utils/triviaUtils';
 import { useTrivia } from '@/context/TriviaContext';
+import NarrationControl from './trivia/NarrationControl';
 import { getOptionLetter } from '@/utils/triviaUtils';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +32,7 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
     // 1. User hasn't answered current question
     // 2. There's still time left
     // 3. Game isn't over
-    if (!hasAnswered && timeLeft > 0 && !isGameOver) {
+    if (!hasAnswered && timeLeft > 0 && !isGameOver && narrationDone) {
       const timer = setInterval(() => {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
@@ -47,7 +48,12 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
       }, 1000);
       
       // Clear timer if component unmounts or conditions change
-      return () => clearInterval(timer);
+      return (
+    <NarrationControl
+      question={question.question}
+      options={question.options}
+      onNarrationEnd={() => setNarrationDone(true)}
+    />) => clearInterval(timer);
     }
   }, [hasAnswered, timeLeft, isGameOver, selectAnswer, setTimeLeft, setTimeUp]);
 
@@ -63,7 +69,12 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
     }
     
     // Clear the timer if component unmounts or conditions change
-    return () => {
+    return (
+    <NarrationControl
+      question={question.question}
+      options={question.options}
+      onNarrationEnd={() => setNarrationDone(true)}
+    />) => {
       if (autoAdvanceTimer) {
         clearTimeout(autoAdvanceTimer);
       }
@@ -78,6 +89,11 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
   };
 
   return (
+    <NarrationControl
+      question={question.question}
+      options={question.options}
+      onNarrationEnd={() => setNarrationDone(true)}
+    />
     <div className="w-full max-w-3xl mx-auto">
       <div className="relative bg-hot-pink p-6">
         {/* Timer and Score */}
@@ -138,3 +154,8 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
 };
 
 export default TriviaCard;
+
+
+useEffect(() => {
+  setNarrationDone(false);
+}, [question]);
