@@ -23,6 +23,18 @@ const MakeQuestionsPage: React.FC = () => {
     URL.revokeObjectURL(url);
   };
 
+  const handleDownloadFromCloud = async () => {
+    try {
+      const res = await fetch('http://localhost:8083/trigger-fetch-and-prepare', {
+        method: 'POST',
+      });
+      const text = await res.text();
+      alert(text);
+    } catch (err) {
+      alert("❌ Failed to fetch: " + err);
+    }
+  };
+  
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
       {/* Top row of shapes */}
@@ -56,11 +68,11 @@ const MakeQuestionsPage: React.FC = () => {
           </p>
         
           <Button
-            onClick={handleDownloadTemplate}
+            onClick={handleDownloadFromCloud}
             className="bg-yellow-300 hover:bg-yellow-400 text-black text-2xl font-mono border-4 border-white py-4 px-8 rounded-3xl w-full flex items-center justify-center gap-3"
           >
             <Download className="h-6 w-6" />
-            Download Question Set
+            Download Question Set From Cloud
           </Button>
         </div>
       </div>
