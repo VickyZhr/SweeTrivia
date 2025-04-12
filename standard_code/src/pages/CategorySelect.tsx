@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTrivia } from '@/context/TriviaContext';
 import { Button } from '@/components/ui/button';
-import { Crown, ArrowLeft } from 'lucide-react';
+import { Crown, ArrowLeft, Settings } from 'lucide-react';
 
 const CategorySelect: React.FC = () => {
   const { filterQuestionsByCategory } = useTrivia();
@@ -65,6 +64,12 @@ const CategorySelect: React.FC = () => {
             showCrown
             smallerText
           />
+          
+          <CategoryButton 
+            label="Customization" 
+            onClick={() => handleCategorySelect("Customization")} 
+            icon={<Settings className="w-8 h-8 mr-3 text-purple-600 flex-shrink-0" />}
+          />
         </div>
       </div>
       
@@ -86,7 +91,8 @@ const CategoryButton: React.FC<{
   onClick: () => void;
   showCrown?: boolean;
   smallerText?: boolean;
-}> = ({ label, onClick, showCrown = false, smallerText = false }) => {
+  icon?: React.ReactNode;
+}> = ({ label, onClick, showCrown = false, smallerText = false, icon }) => {
   return (
     <button 
       onClick={onClick}
@@ -95,6 +101,7 @@ const CategoryButton: React.FC<{
       font-mono hover:scale-105 h-24 ${smallerText ? 'text-2xl md:text-3xl' : 'text-3xl md:text-4xl'}`}
     >
       {showCrown && <Crown className="w-8 h-8 mr-3 text-yellow-600 flex-shrink-0" />}
+      {icon}
       <span className="whitespace-nowrap">{label}</span>
     </button>
   );

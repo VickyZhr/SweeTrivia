@@ -6,7 +6,9 @@
             "B": "Dog",
             "C": "Elephant",
             "D": "Cheetah"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the building block of matter?",
@@ -15,7 +17,9 @@
             "B": "Atom",
             "C": "Cell",
             "D": "Proton"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "C is an abbreviation of which chemical component?",
@@ -24,7 +28,9 @@
             "B": "Calcium",
             "C": "Copper",
             "D": "Cobalt"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "Which of these is a theory about the creation of the universe?",
@@ -33,7 +39,9 @@
             "B": "Plate Tectonics",
             "C": "Big Bang",
             "D": "String Theory"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Speleologists study _____.  ",
@@ -42,7 +50,8 @@
             "B": "Caves",
             "C": "Fossils",
             "D": "Oceans"
-        }
+        },
+        "category": "Science"
     },
     {
         "question": "What's the only liquid metal?",
@@ -51,7 +60,9 @@
             "B": "Lead",
             "C": "Sodium",
             "D": "Mercury"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What is the speed of sound?",
@@ -60,7 +71,9 @@
             "B": "975 m/s",
             "C": "500 m/s",
             "D": "343 m/s"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "Which part of the eye responds to light?",
@@ -69,7 +82,9 @@
             "B": "Retina",
             "C": "Iris",
             "D": "Lens"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "How old can a camel be?",
@@ -78,7 +93,9 @@
             "B": "40",
             "C": "50",
             "D": "60"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What does vexillology study?",
@@ -87,7 +104,9 @@
             "B": "Flags",
             "C": "Coins",
             "D": "Maps"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "How many chromosomes does the average human have?",
@@ -96,7 +115,9 @@
             "B": "44",
             "C": "46",
             "D": "22"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Which vitamin is necessary to absorb calcium?",
@@ -105,7 +126,9 @@
             "B": "Vitamin C",
             "C": "Vitamin D",
             "D": "Vitamin K"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Which is the range of the pH scale?",
@@ -114,7 +137,9 @@
             "B": "6 to 12",
             "C": "0 to 12",
             "D": "0 to 14"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What's the biggest mammal?",
@@ -123,7 +148,9 @@
             "B": "Whale",
             "C": "Giraffe",
             "D": "Bear"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Who made the Pea plant experiment?",
@@ -132,7 +159,9 @@
             "B": "Gregor Mendel",
             "C": "Louis Pasteur",
             "D": "Issac Newton"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "The dog, wold, coyote, and fox are members of what family?",
@@ -141,7 +170,9 @@
             "B": "Feline",
             "C": "Lizard",
             "D": "Avian"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "How many stomachs do cows have?",
@@ -150,7 +181,9 @@
             "B": "2",
             "C": "3",
             "D": "4"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What is the chemical sign for aluminum?",
@@ -159,7 +192,9 @@
             "B": "Am",
             "C": "Lm",
             "D": "Mm"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "How many seconds are one hour?",
@@ -168,7 +203,9 @@
             "B": "1200",
             "C": "3600",
             "D": "36"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What planet is the hottest in our solar system?",
@@ -177,7 +214,9 @@
             "B": "Venus",
             "C": "Mars",
             "D": "Jupiter"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What planet is famous for its beautiful rings?",
@@ -186,7 +225,9 @@
             "B": "Neptune",
             "C": "Saturn",
             "D": "Uranus"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What organelle is known as the powerhouse of the cell?",
@@ -195,7 +236,9 @@
             "B": "Ribosome",
             "C": "Golgi Apparatus",
             "D": "Mitochondria"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What molecule carries genetic information in most living organisms?",
@@ -204,7 +247,9 @@
             "B": "DNA",
             "C": "Protein",
             "D": "Lipid"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the pH of a neutral solution?",
@@ -213,7 +258,9 @@
             "B": "6",
             "C": "7",
             "D": "8"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the atomic number of carbon?",
@@ -222,7 +269,9 @@
             "B": "7",
             "C": "8",
             "D": "9"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What force pulls objects toward the center of the Earth?",
@@ -231,7 +280,9 @@
             "B": "Friction",
             "C": "Gravity",
             "D": "Inertia"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the SI unit of power?",
@@ -240,7 +291,9 @@
             "B": "Joule",
             "C": "Newton",
             "D": "Pascal"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "Who developed the theory of general relativity?",
@@ -249,7 +302,9 @@
             "B": "Issac Newton",
             "C": "Nikola Tesla",
             "D": "Galileo Galilei"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the SI unit of electric current?",
@@ -258,7 +313,9 @@
             "B": "Ohm",
             "C": "Watt",
             "D": "Ampere"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What is the term for the amount of energy required to remove an electron from an atom or ion?",
@@ -267,7 +324,9 @@
             "B": "Ionization Energy",
             "C": "Electronegativity",
             "D": "Atomic Radius"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the tallest type of grass?",
@@ -276,7 +335,9 @@
             "B": "Sugarcane",
             "C": "Corn",
             "D": "Bamboo"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "The rarest blood type is ___. ",
@@ -285,7 +346,8 @@
             "B": "A-",
             "C": "B-",
             "D": "AB-"
-        }
+        },
+        "category": "Science"
     },
     {
         "question": "The Sun is a star.",
@@ -294,7 +356,8 @@
             "B": "FALSE",
             "C": "",
             "D": ""
-        }
+        },
+        "category": "Science"
     },
     {
         "question": "The Earth is the only planet in our solar system with liquid water.",
@@ -303,7 +366,8 @@
             "B": "FALSE",
             "C": "",
             "D": ""
-        }
+        },
+        "category": "Science"
     },
     {
         "question": "Sound travels faster than light.",
@@ -312,7 +376,8 @@
             "B": "FALSE",
             "C": "",
             "D": ""
-        }
+        },
+        "category": "Science"
     },
     {
         "question": "What is the outermost layer of the Earth called?",
@@ -321,7 +386,9 @@
             "B": "Core",
             "C": "Crust",
             "D": "Lithosphere"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What percentage of human body is made up of water?",
@@ -330,7 +397,9 @@
             "B": "60%",
             "C": "70%",
             "D": "80%"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Who is credited with inventing the telephone?",
@@ -339,7 +408,9 @@
             "B": "Nikola Tesla",
             "C": "Alexander Graham Bell",
             "D": "Guglielmo Marconi"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the boiling point of water?",
@@ -348,7 +419,9 @@
             "B": "200 degress celcius",
             "C": "300 degress celcius",
             "D": "400 degress celcius"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the freezing point of water?",
@@ -357,7 +430,9 @@
             "B": "-5 degress celcius",
             "C": "0 degress celcius",
             "D": "100 degress celcius"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Who was the first person to set foot on the moon?",
@@ -366,7 +441,9 @@
             "B": "Louis Armstrong",
             "C": "Neil Armstrong",
             "D": "Yuri Gagarin"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What gas do plants absorb from the atmosphere?",
@@ -375,7 +452,9 @@
             "B": "Nitrogen",
             "C": "Carbon Dioxide",
             "D": "Helium"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What planet is known as the Red Planet?",
@@ -384,7 +463,9 @@
             "B": "Mars",
             "C": "Jupiter",
             "D": "Saturn"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What is H2O more commently known as?",
@@ -393,7 +474,9 @@
             "B": "Hydrogen",
             "C": "Oxygen",
             "D": "Helium"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What does a thermometer measure?",
@@ -402,7 +485,9 @@
             "B": "Temperature",
             "C": "Humidity",
             "D": "Wind speed"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the process by which plants make their own food?",
@@ -411,7 +496,9 @@
             "B": "Photosynthesis",
             "C": "Fermentation",
             "D": "Evaporation"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Which part of the human body produces insulin?",
@@ -420,7 +507,9 @@
             "B": "Pancreas",
             "C": "Kidney",
             "D": "Heart"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What do bees collect from flowers?",
@@ -429,7 +518,9 @@
             "B": "Water",
             "C": "Nectar",
             "D": "Chlorophyll"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Humans have more than one heart.",
@@ -438,7 +529,8 @@
             "B": "FALSE",
             "C": "",
             "D": ""
-        }
+        },
+        "category": "Science"
     },
     {
         "question": "What is the main gas in the Earth's atmostphere?",
@@ -447,7 +539,9 @@
             "B": "Nitrogen",
             "C": "Carbon Dioxide",
             "D": "Argon"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Which gas is responsible for making balloons float?",
@@ -456,7 +550,9 @@
             "B": "Carbon Dioxide",
             "C": "Helium",
             "D": "Hydrogen"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What type of energy is stored in food?",
@@ -465,7 +561,9 @@
             "B": "Thermal",
             "C": "Chemical",
             "D": "Nuclear"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Which element is essential for bones and teeth?",
@@ -474,7 +572,9 @@
             "B": "Calcium",
             "C": "Magnesium",
             "D": "Zinc"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Which of the following particles has no electric charge?",
@@ -483,7 +583,9 @@
             "B": "Neutron",
             "C": "Electron",
             "D": "Photon"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Which famous equation describes the relationship between mass and energy?",
@@ -492,7 +594,9 @@
             "B": "E = mc^2",
             "C": "PV = nRT",
             "D": "V = IR"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Which element has the highest melting point?",
@@ -501,7 +605,9 @@
             "B": "Iron",
             "C": "Platinum",
             "D": "Carbon"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What type of star is the Sun?",
@@ -510,7 +616,9 @@
             "B": "White Dwarf",
             "C": "Yellow Dwarf",
             "D": "Neutron Star"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Which scientist is known for their work on radioactivity?",
@@ -519,7 +627,9 @@
             "B": "Louis Pasteur",
             "C": "Michael Faraday",
             "D": "James Watson"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the largest organ in the human body?",
@@ -528,7 +638,9 @@
             "B": "Liver",
             "C": "Skin",
             "D": "Stomach"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Which of the following is NOT an actual scientific unit?",
@@ -537,7 +649,9 @@
             "B": "Ohm",
             "C": "Snickerdoodle",
             "D": "Pascal"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Which is the only planet that spins backward?",
@@ -546,7 +660,9 @@
             "B": "Saturn",
             "C": "Mars",
             "D": "Jupiter"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What do you call the bending of light as it passes from one medium to another?",
@@ -555,7 +671,9 @@
             "B": "Refraction",
             "C": "Diffraction",
             "D": "Dispersion"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Which type of electromagnetic wave has the highest energy?",
@@ -564,7 +682,9 @@
             "B": "Infrared",
             "C": "Ultraviolet",
             "D": "Gamma Rays"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What color does copper turn when it oxidizes?",
@@ -573,7 +693,9 @@
             "B": "Blue",
             "C": "Green",
             "D": "Black"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the largest moon in our solar system?",
@@ -582,7 +704,9 @@
             "B": "Ganymede",
             "C": "Europa",
             "D": "Io"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the name of the galaxy that contains our solar system?",
@@ -591,7 +715,9 @@
             "B": "Milky Way",
             "C": "Whirlpool",
             "D": "Triangulum"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What was the first human-made object to reach space?",
@@ -600,7 +726,9 @@
             "B": "Apollo 11",
             "C": "Voyager 1",
             "D": "Hubble Telescope"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What do you call a scientist who studies earthquakes?",
@@ -609,7 +737,9 @@
             "B": "Seismologist",
             "C": "Meteorologist",
             "D": "Geologist"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Which of the following waves is NOT part of the electromagnetic spectrum?",
@@ -618,7 +748,9 @@
             "B": "Sound Waes",
             "C": "X-Rays",
             "D": "Gamma Rays"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What color of light has the shortest wavelength?",
@@ -627,7 +759,9 @@
             "B": "Green",
             "C": "Blue",
             "D": "Violet"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What type of blood vessel carries blood back to the heart?",
@@ -636,7 +770,9 @@
             "B": "Capillary",
             "C": "Vein",
             "D": "Nerve"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Which animal has the largest brain relative to its body size?",
@@ -645,7 +781,9 @@
             "B": "Elephant",
             "C": "Human",
             "D": "Octopus"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the chemical symbol for gold?",
@@ -654,7 +792,9 @@
             "B": "Au",
             "C": "Pb",
             "D": "Go"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the name of the process in which a ilquid turns into a gas?",
@@ -663,7 +803,9 @@
             "B": "Sublimation",
             "C": "Evaporation",
             "D": "Freezing"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the name of the process in which a liquid turns into a solid?",
@@ -672,7 +814,9 @@
             "B": "Condensation",
             "C": "Freezing",
             "D": "Melting"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the name of the process in which a gas turns into a solid?",
@@ -681,7 +825,9 @@
             "B": "Sublimation",
             "C": "Deposition",
             "D": "Freezing"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "C"
     },
     {
         "question": "Which ocean is the largest?",
@@ -690,7 +836,9 @@
             "B": "Indian",
             "C": "Arctic",
             "D": "Pacific"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What is the deepest place in the ocean?",
@@ -699,7 +847,9 @@
             "B": "Great Barrier Reef",
             "C": "Challenger Deep",
             "D": "Bermuda Triangle"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "Which metal is liquid at room temperature?",
@@ -708,7 +858,9 @@
             "B": "Mercury",
             "C": "Aluminum",
             "D": "Lead"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the only letter that does NOT appear in the periodic table?",
@@ -717,7 +869,9 @@
             "B": "X",
             "C": "W",
             "D": "Z"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "Which acid is found in lemons?",
@@ -726,7 +880,9 @@
             "B": "Hydrochloric Acid",
             "C": "Acetic Acid",
             "D": "Citric Acid"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What type of energy is stored in a stretched rubber band?",
@@ -735,7 +891,9 @@
             "B": "Kinetic Energy",
             "C": "Chemical Energy",
             "D": "Nuclear Energy"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "Which subatomic particle has a negative charge?",
@@ -744,7 +902,9 @@
             "B": "Proton",
             "C": "Neutron",
             "D": "Positron"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What simple machine is a wheel with a rope around it?",
@@ -753,7 +913,9 @@
             "B": "Pulley",
             "C": "Inclined Plane",
             "D": "Wedge"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "Which law states that the total energy of an isolated system remain constant?",
@@ -762,7 +924,9 @@
             "B": "Newton's First Law",
             "C": "Bernoulli's Principle",
             "D": "Law of Conservation of Energy"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What do we call the force that resists motion between two surfaces in contact?",
@@ -771,7 +935,9 @@
             "B": "Momentum",
             "C": "Acceleration",
             "D": "Friction"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What planet do we live on?",
@@ -780,7 +946,9 @@
             "B": "Venus",
             "C": "Jupiter",
             "D": "Earth"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What is the color of sky on a clear day?",
@@ -789,7 +957,9 @@
             "B": "Green",
             "C": "Red",
             "D": "Yellow"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "Which part of your body lets you smell?",
@@ -798,7 +968,9 @@
             "B": "Ears",
             "C": "Hands",
             "D": "Eyes"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What shape is the Earth?",
@@ -807,7 +979,9 @@
             "B": "Cube",
             "C": "Pyramid",
             "D": "Sphere"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What do we call frozen water?",
@@ -816,7 +990,9 @@
             "B": "Vapor",
             "C": "Rain",
             "D": "Ice"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What do fish use to breathe underwater?",
@@ -825,7 +1001,9 @@
             "B": "Lungs",
             "C": "Nostrils",
             "D": "Fins"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "What do birds use to fly?",
@@ -834,7 +1012,9 @@
             "B": "Beak",
             "C": "Legs",
             "D": "Wings"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "How many legs does a spider have?",
@@ -843,7 +1023,9 @@
             "B": "8",
             "C": "4",
             "D": "6"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "B"
     },
     {
         "question": "What do we call young frogs?",
@@ -852,7 +1034,9 @@
             "B": "Caterpillars",
             "C": "Ducklings",
             "D": "Tadpoles"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "Which part of the human body has the most bones?",
@@ -861,7 +1045,9 @@
             "B": "Feet",
             "C": "Skull",
             "D": "Hands"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "Which part of the Earth's structure is the hottest?",
@@ -870,7 +1056,9 @@
             "B": "Mantle",
             "C": "Outer Core",
             "D": "Inner Core"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What is the study of sound called?",
@@ -879,7 +1067,9 @@
             "B": "Optics",
             "C": "Magnetism",
             "D": "Acoustics"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "What common material is made from sand?",
@@ -888,7 +1078,9 @@
             "B": "Plastic",
             "C": "Clay",
             "D": "Glass"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "D"
     },
     {
         "question": "\bWhich of the following animals can survive in space without a spacesuit?",
@@ -897,7 +1089,9 @@
             "B": "Cockroach",
             "C": "Jellyfish",
             "D": "Goldfish"
-        }
+        },
+        "category": "Science",
+        "correctAnswer": "A"
     },
     {
         "question": "In football (soccer), which player is allowed to touch the ball with his hand anywhere on the field of play?",
@@ -906,7 +1100,9 @@
             "B": "Striker",
             "C": "Winger",
             "D": "None"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "One of the differences between rugby union and rugby league is the number of players per team. Which position does not exist in a rugby league side?",
@@ -915,7 +1111,9 @@
             "B": "Full back",
             "C": "Fly half",
             "D": "Hooker"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In the game of cricket, from which wood are the bats traditionally made?",
@@ -924,7 +1122,9 @@
             "B": "Oak",
             "C": "Willow",
             "D": "Beech"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "In international volleyball competitions, how many members are allowed per team, not including substitutes?",
@@ -933,7 +1133,9 @@
             "B": "6",
             "C": "7",
             "D": "8"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In the game of tennis, which of the following is not a type of playing surface?",
@@ -942,7 +1144,9 @@
             "B": "Clay",
             "C": "Hardcourt",
             "D": "Softcourt"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "Kendo is a minority sport outside of Japan. What is the name for someone who practices this martial art?",
@@ -951,7 +1155,9 @@
             "B": "Kendoma",
             "C": "Kendoka",
             "D": "Kendoga"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "The sport of netball led to the introduction of basketball.",
@@ -960,7 +1166,8 @@
             "B": "FALSE",
             "C": "",
             "D": ""
-        }
+        },
+        "category": "Sports"
     },
     {
         "question": "In which country was modern field hockey developed?",
@@ -969,7 +1176,9 @@
             "B": "Pakistan",
             "C": "India",
             "D": "USA"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "There are some very strange sports that happen in various parts of the world. Which one of the listed events is not a real one?",
@@ -978,7 +1187,9 @@
             "B": "Elephant polo",
             "C": "Llama wrestling",
             "D": "Lawn mower racing"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Up to, and including, the 2008 Beijing Olympics, which of the following sports had not been included in any of the official modern Games?",
@@ -987,7 +1198,9 @@
             "B": "Cricket",
             "C": "Croquet",
             "D": "Golf"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which country has won the most Olympic Games gold medals?",
@@ -996,7 +1209,9 @@
             "B": "China",
             "C": "Russia",
             "D": "Germany"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which sport is played on the largest field?",
@@ -1005,7 +1220,9 @@
             "B": "Polo",
             "C": "Cricket",
             "D": "Rugby"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In which sport can you score a 'home run'?",
@@ -1014,7 +1231,9 @@
             "B": "Cricket",
             "C": "Hockey",
             "D": "Football"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "How many players are there on a basketball team?",
@@ -1023,7 +1242,9 @@
             "B": "6",
             "C": "7",
             "D": "8"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which country won the FIFA World Cup in 2018?",
@@ -1032,7 +1253,9 @@
             "B": "Germany",
             "C": "France",
             "D": "Argentina"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the national sport of Japan?",
@@ -1041,7 +1264,9 @@
             "B": "Sumo Wrestling",
             "C": "Judo",
             "D": "Kendo"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which tennis tournament is played on a grass court?",
@@ -1050,7 +1275,9 @@
             "B": "US Open",
             "C": "Australian Open",
             "D": "Wimbledon"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "In which sport would you perform a 'slam dunk'?",
@@ -1059,7 +1286,9 @@
             "B": "Volleyball",
             "C": "Tennis",
             "D": "Badminton"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which country is known as the birthplace of cricket?",
@@ -1068,7 +1297,9 @@
             "B": "India",
             "C": "England",
             "D": "South Africa"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "How many holes are there in a standard round of golf?",
@@ -1077,7 +1308,9 @@
             "B": "12",
             "C": "18",
             "D": "21"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which sport uses a net, a shuttlecock, and rackets?",
@@ -1086,7 +1319,9 @@
             "B": "Badminton",
             "C": "Squash",
             "D": "Table Tennis"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In which sport is the term 'love' used to denote a score of zero?",
@@ -1095,7 +1330,9 @@
             "B": "Tennis",
             "C": "Golf",
             "D": "Basketball"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which country has won the most Rugby World Cups?",
@@ -1104,7 +1341,9 @@
             "B": "England",
             "C": "South Africa",
             "D": "New Zealand"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "In which sport would you find a 'puck'?",
@@ -1113,7 +1352,9 @@
             "B": "Field Hockey",
             "C": "Lacrosse",
             "D": "Curling"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which athlete is known as the 'Fastest Man Alive'?",
@@ -1122,7 +1363,9 @@
             "B": "Usain Bolt",
             "C": "Michael Johnson",
             "D": "Tyson Gay"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which sport is associated with the term 'checkmate'?",
@@ -1131,7 +1374,9 @@
             "B": "Boxing",
             "C": "Fencing",
             "D": "Wrestling"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which sport do teams compete for the 'Stanley Cup'?",
@@ -1140,7 +1385,9 @@
             "B": "Ice Hockey",
             "C": "Baseball",
             "D": "American Football"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which country hosted the 2016 Summer Olympics?",
@@ -1149,7 +1396,9 @@
             "B": "Brazil",
             "C": "UK",
             "D": "Russia"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which sport involves tucks and pikes?",
@@ -1158,7 +1407,9 @@
             "B": "Gymnastics",
             "C": "Figure Skating",
             "D": "All of the above"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "Which country has won the most Cricket World Cups?",
@@ -1167,7 +1418,9 @@
             "B": "Australia",
             "C": "West Indies",
             "D": "England"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In which sport is the 'Vince Lombardi Trophy' awarded?",
@@ -1176,7 +1429,9 @@
             "B": "Baseball",
             "C": "American Football",
             "D": "Ice Hockey"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which sport is known as the 'king of sports'?",
@@ -1185,7 +1440,9 @@
             "B": "Basketball",
             "C": "Tennis",
             "D": "Cricket"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which country is famous for the martial art 'Taekwondo'?",
@@ -1194,7 +1451,9 @@
             "B": "Japan",
             "C": "South Korea",
             "D": "Thailand"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "In which sport would you use a 'putter'?",
@@ -1203,7 +1462,9 @@
             "B": "Croquet",
             "C": "Polo",
             "D": "Billiards"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which sport is associated with the 'Ashes' series?",
@@ -1212,7 +1473,9 @@
             "B": "Cricket",
             "C": "Soccer",
             "D": "Tennis"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which country won the first FIFA World Cup in 1930?",
@@ -1221,7 +1484,9 @@
             "B": "Argentina",
             "C": "Uruguay",
             "D": "Italy"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "In which sport is the term 'bogey' used?",
@@ -1230,7 +1495,9 @@
             "B": "Baseball",
             "C": "Basketball",
             "D": "Soccer"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which sport is played on the 'pitch'?",
@@ -1239,7 +1506,9 @@
             "B": "Soccer",
             "C": "Rugby",
             "D": "All of the above"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "Which country is known for the sport of 'Hurling'?",
@@ -1248,7 +1517,9 @@
             "B": "Ireland",
             "C": "Wales",
             "D": "England"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In which sport would you perform a 'double axel'?",
@@ -1257,7 +1528,9 @@
             "B": "Diving",
             "C": "Figure Skating",
             "D": "Trampolining"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which sport uses the term 'scrum'?",
@@ -1266,7 +1539,9 @@
             "B": "Rugby",
             "C": "Basketball",
             "D": "Water Polo"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which country is known for the sport of 'Kabaddi'?",
@@ -1275,7 +1550,9 @@
             "B": "Pakistan",
             "C": "Bangladsh",
             "D": "Sri Lanka"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which sport is the 'Claret Jug' awarded?",
@@ -1284,7 +1561,9 @@
             "B": "Golf",
             "C": "Polo",
             "D": "Cricket"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which sport is associated with the 'Davis Cup'?",
@@ -1293,7 +1572,9 @@
             "B": "Badminton",
             "C": "Squash",
             "D": "Table Tennis"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which country is famous for the 'Maori Haka' dance?",
@@ -1302,7 +1583,9 @@
             "B": "Australia",
             "C": "South Africa",
             "D": "Fiji"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which sport is associated with the term 'Ace'?",
@@ -1311,7 +1594,9 @@
             "B": "Badminton",
             "C": "Volleyball",
             "D": "Soccer"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which sport is the 'Tour de France' held?",
@@ -1320,7 +1605,9 @@
             "B": "Soccer",
             "C": "Cycling",
             "D": "Tennis"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which country is famous for the sport 'Boxing'?",
@@ -1329,7 +1616,9 @@
             "B": "Mexico",
             "C": "Russia",
             "D": "Thailand"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which sport uses the term 'Par'?",
@@ -1338,7 +1627,9 @@
             "B": "Tennis",
             "C": "Soccer",
             "D": "Basketball"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which is the highest score possible in a game of bowling?",
@@ -1347,7 +1638,9 @@
             "B": "250",
             "C": "300",
             "D": "350"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which country won the most gold medals in the 2008 Beijing Olympics?",
@@ -1356,7 +1649,9 @@
             "B": "China",
             "C": "Russia",
             "D": "Germany"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In which sport do you use a 'cue' stick?",
@@ -1365,7 +1660,9 @@
             "B": "Badminton",
             "C": "Polo ",
             "D": "Table Tennis"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which sport is famous for the 'Grand Slam'?",
@@ -1374,7 +1671,9 @@
             "B": "Tennis",
             "C": "Soccer",
             "D": "Golf"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which athlete holds the record for the most Olympic gold medals?",
@@ -1383,7 +1682,9 @@
             "B": "Michael Phelps",
             "C": "Carl Lewis",
             "D": "Mark Spitz"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "The 'Ashes' is a cricket series played between which two countries?",
@@ -1392,7 +1693,9 @@
             "B": "Australia and England",
             "C": "South Africa and New Zealand",
             "D": "West Indies and Sri Lanka"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In basketball, how many points is a free throw worth?",
@@ -1401,7 +1704,9 @@
             "B": "2",
             "C": "3",
             "D": "Depends"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which year did Roger Federer win his first Wimbledon title?",
@@ -1410,7 +1715,9 @@
             "B": "2003",
             "C": "2005",
             "D": "2007"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In which sport is the term 'birdie' used?",
@@ -1419,7 +1726,9 @@
             "B": "Badminton",
             "C": "Tennis",
             "D": "Cricket"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which female tennis player has won the most Grand Slam titles?",
@@ -1428,7 +1737,9 @@
             "B": "Steffi Graf",
             "C": "Margaret Court",
             "D": "Martina Navratilova"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which boxer was known as 'The Greatest' and 'The People's Champion'?",
@@ -1437,7 +1748,9 @@
             "B": "Muhammad Ali",
             "C": "Joe Frazier",
             "D": "George Foreman"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In which sport would you perform a 'hat-trick'?",
@@ -1446,7 +1759,9 @@
             "B": "Soccer",
             "C": "Ice Hockey",
             "D": "All of the above"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "Which country has won the most Olympic medals in total?",
@@ -1455,7 +1770,9 @@
             "B": "China",
             "C": "USA",
             "D": "Germany"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which female gymnast has won the most Olympic medals?",
@@ -1464,7 +1781,9 @@
             "B": "Simone Biles",
             "C": "Larisa Latynina",
             "D": "Shannon Miller"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which country has won the most FIFA Women's World Cups?",
@@ -1473,7 +1792,9 @@
             "B": "USA",
             "C": "Norway",
             "D": "Japan"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In which sport is the 'Green Jacket' awarded?",
@@ -1482,7 +1803,9 @@
             "B": "Golf",
             "C": "Snooker",
             "D": "Horse Racing"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which male tennis player has won the most Grand Slam titles?",
@@ -1491,7 +1814,9 @@
             "B": "Rafael Nadal",
             "C": "Novak Djokovic",
             "D": "Pete Sampras"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "In which sport would you perform a 'double fault'?",
@@ -1500,7 +1825,9 @@
             "B": "Tennis",
             "C": "Badminton",
             "D": "Squash"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which country won the Rugby World Cup in 2019?",
@@ -1509,7 +1836,9 @@
             "B": "England",
             "C": "South Africa",
             "D": "New Zealand"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which female athlete has won the most Olympic gold medals?",
@@ -1518,7 +1847,9 @@
             "B": "Simone Biles",
             "C": "Jenny Thompson",
             "D": "Birgit Fischer"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which sport would you find a 'knockout'?",
@@ -1527,7 +1858,9 @@
             "B": "Boxing",
             "C": "Karate",
             "D": "Judo"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which country has hosted the most Olympic Games?",
@@ -1536,7 +1869,9 @@
             "B": "UK",
             "C": "France",
             "D": "Japan"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which sport is the term 'offside' used?",
@@ -1545,7 +1880,9 @@
             "B": "Basketball",
             "C": "Cricket",
             "D": "All of the above"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which sport would you find the term 'bullseye'?",
@@ -1554,7 +1891,9 @@
             "B": "Darts",
             "C": "Shooting",
             "D": "All of the above"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "Which country won the first ICC T20 World Cup?",
@@ -1563,7 +1902,9 @@
             "B": "India",
             "C": "Pakistan",
             "D": "South Africa"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Who is known as the 'King of Football'?",
@@ -1572,7 +1913,9 @@
             "B": "Cristiano Ronaldo",
             "C": "Pele",
             "D": "Lionel Messi"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "In which sport is the 'Yellow Jersey' awarded?",
@@ -1581,7 +1924,9 @@
             "B": "Cycling",
             "C": "Swimming",
             "D": "Skiing"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "In which sport is the term 'powerplay' used?",
@@ -1590,7 +1935,9 @@
             "B": "Cricket",
             "C": "Ice Hockey",
             "D": "Both B and C"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "Which player is known as the 'Black Mamba'?",
@@ -1599,7 +1946,9 @@
             "B": "Kobe Bryant",
             "C": "LeBron James",
             "D": "Shaquille O'Neal"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which country won the most medals in the 2016 Rio Olympics?",
@@ -1608,7 +1957,9 @@
             "B": "Russia",
             "C": "USA",
             "D": "Japan"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which female athlete is known as the 'Queen of Track'?",
@@ -1617,7 +1968,9 @@
             "B": "Florence Griffith-Joyner",
             "C": "Allyson Felix",
             "D": "Shelly-Ann Fraser-Pryce"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "In which sport would you perform a 'backflip'?",
@@ -1626,7 +1979,9 @@
             "B": "Diving",
             "C": "Snowboarding",
             "D": "All of the above"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "Which basketball team won the most NBA Championships?",
@@ -1635,7 +1990,9 @@
             "B": "Chicago Bulls",
             "C": "Boston Celtics",
             "D": "Golden State Warriors"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "In which sport would you find a 'maul'?",
@@ -1644,7 +2001,9 @@
             "B": "Soccer",
             "C": "Basketball",
             "D": "Hockey"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which athlete is known as the 'Flying Finn'?",
@@ -1653,7 +2012,9 @@
             "B": "Hannes Kolehmainen",
             "C": "Lasse Viren",
             "D": "All of the above"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which sport is the 'Heisman Trophy' awarded?",
@@ -1662,7 +2023,9 @@
             "B": "Baseball",
             "C": "American Football",
             "D": "Ice Hockey"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which team won the most Super Bowls?",
@@ -1671,7 +2034,9 @@
             "B": "New England Patriots",
             "C": "Pittsburgh Steelers",
             "D": "San Francisco 49ers"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which athlete was known as 'The Invincible'?",
@@ -1680,7 +2045,9 @@
             "B": "Usain Bolt",
             "C": "Serena Williams",
             "D": "Roger Federer"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which sport would you find a 'powerhouse'?",
@@ -1689,7 +2056,9 @@
             "B": "Gymnastics",
             "C": "Boxing",
             "D": "All of the above"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which female tennis player was known as the 'Ice Maiden'?",
@@ -1698,7 +2067,9 @@
             "B": "Steffi Graf",
             "C": "Chris Evert",
             "D": "Martina Navratilova"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "In which sport is the term 'grandmaster' used?",
@@ -1707,7 +2078,9 @@
             "B": "Chess",
             "C": "Table Tennis",
             "D": "Fencing"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Which athlete is known as the 'Iron Man'?",
@@ -1716,7 +2089,9 @@
             "B": "Kobe Bryant",
             "C": "Tom Brady",
             "D": "Cristiano Ronaldo"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "In which sport is the 'Ballon d'Or' awarded?",
@@ -1725,7 +2100,9 @@
             "B": "Tennis",
             "C": "Cricket",
             "D": "Soccer"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "D"
     },
     {
         "question": "Which country has won the most medals in Winter Olympics history?",
@@ -1734,7 +2111,9 @@
             "B": "USA",
             "C": "Germany",
             "D": "Canada"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "A"
     },
     {
         "question": "Which athlete is known as the 'Greatest Olympian of All Time'?",
@@ -1743,7 +2122,9 @@
             "B": "Usain Bolt",
             "C": "Michael Phelps",
             "D": "Mark Spitz"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which country is famous for bullfighting?",
@@ -1752,7 +2133,9 @@
             "B": "Spain",
             "C": "Brazil",
             "D": "Mexico"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the maximum score in a single frame of snooker?",
@@ -1761,7 +2144,9 @@
             "B": "147",
             "C": "155",
             "D": "200"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "B"
     },
     {
         "question": "Who holds the record for the most home runs in MLB history?",
@@ -1770,7 +2155,9 @@
             "B": "Hank Aaron",
             "C": "Barry Bonds",
             "D": "Willie Mays"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "Which chess piece can move in an L-shape?",
@@ -1779,7 +2166,9 @@
             "B": "Bishop",
             "C": "Knight",
             "D": "Queen"
-        }
+        },
+        "category": "Sports",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the name of Tintin's dog? From \"The Adventures of Tintin\".",
@@ -1788,7 +2177,9 @@
             "B": "Buttons",
             "C": "Snowy",
             "D": "Richard"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "Which island does King Kong discover?",
@@ -1797,7 +2188,9 @@
             "B": "Bahamas",
             "C": "Motunui",
             "D": "Skull Island"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "What is the name of Shrek's wife?",
@@ -1806,7 +2199,9 @@
             "B": "Fiona",
             "C": "Jelly",
             "D": "Minnie"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Who released the song \"Despacito\"?",
@@ -1815,7 +2210,9 @@
             "B": "Taylor Swift",
             "C": "Luis Fonsi",
             "D": "Sting"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What color is the capital G in the Google logo?",
@@ -1824,7 +2221,9 @@
             "B": "Red",
             "C": "Yellow",
             "D": "Blue"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "How old was Harry Potter when he entered Hogwarts?",
@@ -1833,7 +2232,9 @@
             "B": "13",
             "C": "15",
             "D": "8"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the minions' favorite fruit?",
@@ -1842,7 +2243,9 @@
             "B": "Papaya",
             "C": "Banana",
             "D": "Pineapple"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What language is used to describe ballet steps?",
@@ -1851,7 +2254,9 @@
             "B": "English",
             "C": "German",
             "D": "French"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "In The Matrix, what colored pill does Neo take?",
@@ -1860,7 +2265,9 @@
             "B": "Blue",
             "C": "Green",
             "D": "Yellow"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "Who plays drums in The Rolling Stones?",
@@ -1869,7 +2276,9 @@
             "B": "Keith Richards",
             "C": "Mickey Mouse",
             "D": "Ringo Starr"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "Who was the lead vocalist of the band Cream?",
@@ -1878,7 +2287,9 @@
             "B": "Santa Claus",
             "C": "Jack Bruce",
             "D": "Eric Clapton"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "In what film did Daniel Craig make his first appearance as James Bond? ",
@@ -1887,7 +2298,9 @@
             "B": "Skyfall",
             "C": "Spectre",
             "D": "Casino Royale"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "Who is the main character of \"A Beautiful Mind\"?",
@@ -1896,7 +2309,9 @@
             "B": "Steven Hawking",
             "C": "Alexander Fleming",
             "D": "John Nash"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "How much time does a sloth need to digest its food?",
@@ -1905,7 +2320,9 @@
             "B": "One milisecond",
             "C": "Two weeks",
             "D": "Three years"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "Who is the lead singer of the band Black Sabbath?",
@@ -1914,7 +2331,9 @@
             "B": "Ozzy Ozbourne",
             "C": "James Hetfield",
             "D": "Ronnie James Dio"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "From which university did Natalie Portman earn a degree in psychology?",
@@ -1923,7 +2342,9 @@
             "B": "Harvard",
             "C": "Oxford",
             "D": "Hogwarts"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Whose novel is the sci-fi movie \"Dune\" based on?",
@@ -1932,7 +2353,9 @@
             "B": "Stephen King",
             "C": "Frank Herbert",
             "D": "Ursula Le Guin"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "Grunge music and fashion notably took root in what U.S. city?",
@@ -1941,7 +2364,9 @@
             "B": "Seattle",
             "C": "NYC",
             "D": "Chicago"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What year was the first Apple iPhone released in the United States?",
@@ -1950,7 +2375,9 @@
             "B": "2003",
             "C": "2007",
             "D": "2010"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "Who is the lead singer of the band Måneskin?",
@@ -1959,7 +2386,9 @@
             "B": "Luciano Pavarotti",
             "C": "Mick Jagger",
             "D": "Dave Grohl"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "What kind of dog is Scooby-Doo?",
@@ -1968,7 +2397,9 @@
             "B": "Golden Retriever",
             "C": "Great Dane",
             "D": "Poodle"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What year was the Moon landing?",
@@ -1977,7 +2408,9 @@
             "B": "1920",
             "C": "1877",
             "D": "1984"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "What group of animal is called a murder?",
@@ -1986,7 +2419,9 @@
             "B": "Racoon",
             "C": "Bat",
             "D": "Crow"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "What does a sommelier specialize in?",
@@ -1995,7 +2430,9 @@
             "B": "Pottery",
             "C": "Classical Music",
             "D": "Wine"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "What type of alcohol is traditionally used in a margarita?",
@@ -2004,7 +2441,9 @@
             "B": "Tequila",
             "C": "Rum",
             "D": "Gin"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Bambi's best friend is named what?",
@@ -2013,7 +2452,9 @@
             "B": "Nala",
             "C": "Thumper",
             "D": "Baloo"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What country is Peppa Pig from?",
@@ -2022,7 +2463,9 @@
             "B": "New Zealand",
             "C": "England",
             "D": "United States"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What kind of painters were Monet, Renoir, and Degas?",
@@ -2031,7 +2474,9 @@
             "B": "Expressionism",
             "C": "Impressionism",
             "D": "Classicism"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "How many wives did King Henry VIII of England have?",
@@ -2040,7 +2485,9 @@
             "B": "4",
             "C": "5",
             "D": "6"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "Which country produces the most coffee in the world?",
@@ -2049,7 +2496,9 @@
             "B": "Guatemala",
             "C": "Brazil",
             "D": "Costa Rica"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What country invented hot dogs?",
@@ -2058,7 +2507,9 @@
             "B": "England",
             "C": "Germany",
             "D": "Spain"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "How many cards are there in a deck of Uno?",
@@ -2067,7 +2518,9 @@
             "B": "81",
             "C": "96",
             "D": "108"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "What is the official animal of Scotland?",
@@ -2076,7 +2529,9 @@
             "B": "Highland cattle",
             "C": "Mountain hare",
             "D": "Unicorn"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "What is the name of the little mermaid in the Disney movie?",
@@ -2085,7 +2540,9 @@
             "B": "Bella",
             "C": "Ariel",
             "D": "John"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the name of the toy cowboy in the movie “Toy Story”?",
@@ -2094,7 +2551,9 @@
             "B": "Mason",
             "C": "Jack",
             "D": "Blake"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the name of Mickey Mouse’s dog?",
@@ -2103,7 +2562,9 @@
             "B": "Goofy",
             "C": "Simba",
             "D": "Pooh"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the main color of the Smurfs?",
@@ -2112,7 +2573,9 @@
             "B": "Red",
             "C": "Green",
             "D": "Blue"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "Which K-pop group released the song \"Dynamite\"?",
@@ -2121,7 +2584,9 @@
             "B": "BTS",
             "C": "Seventeen",
             "D": "BLACKPINK"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the name of BLACKPINK’s official fandom?",
@@ -2130,7 +2595,9 @@
             "B": "ONCE",
             "C": "BLINK",
             "D": "MOA"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What is TWICE's debut song?",
@@ -2139,7 +2606,9 @@
             "B": "Like OOH-AHH",
             "C": "TT",
             "D": "Fancy"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which company is known for managing artists like BTS and TXT?",
@@ -2148,7 +2617,9 @@
             "B": "YG Entertainment",
             "C": "HYBE Corporation",
             "D": "JYP Entertainment"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "Which member of BLACKPINK is from New Zealand?",
@@ -2157,7 +2628,9 @@
             "B": "Jisoo",
             "C": "Jennie",
             "D": "Rosé"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "Which K-pop group released the song \"Fantastic Baby\"?",
@@ -2166,7 +2639,9 @@
             "B": "EXO",
             "C": "SuperM",
             "D": "BIGBANG"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "Who was the first K-pop group to perform at Coachella?",
@@ -2175,7 +2650,9 @@
             "B": "BTS",
             "C": "Epik High",
             "D": "EXO"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "Who were the first K-pop artists to get a nomination at the Grammys?",
@@ -2184,7 +2661,9 @@
             "B": "BTS",
             "C": "PSY",
             "D": "Sunmi"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which rookie group released the hit song \"Next Level\"?",
@@ -2193,7 +2672,9 @@
             "B": "aespa",
             "C": "EVERGLOW",
             "D": "IVE"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Who interrupts Taylor Swift at the VMAs?",
@@ -2202,7 +2683,9 @@
             "B": "Katy Perry",
             "C": "Selena Gomez",
             "D": "Justin Bieber"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "Who played Rose in the move Titanic",
@@ -2211,7 +2694,9 @@
             "B": "Kate Winslet",
             "C": "Cate Blanchett",
             "D": "Emma Thompson"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "When is national Star Wars day?",
@@ -2220,7 +2705,9 @@
             "B": "January 15th",
             "C": "May 4th",
             "D": "July 9th"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "Which movie stars Jennifer Lawrence?",
@@ -2229,7 +2716,9 @@
             "B": "The Hunger Games",
             "C": "Mission Impossible",
             "D": "Blade Runner"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Fill the movie quote from \"Forrest Gump\": Life is a box of __?",
@@ -2238,7 +2727,9 @@
             "B": "Jelly beans",
             "C": "Tissues",
             "D": "Matches"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the company name if the TV show \"The Office\"?",
@@ -2247,7 +2738,9 @@
             "B": "Meta",
             "C": "Netflix",
             "D": "Dunder Mifflin"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "Which movie is not directed by James Cameron?",
@@ -2256,7 +2749,9 @@
             "B": "The Terminator",
             "C": "Inception",
             "D": "Avatar"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What subject did Walter White teach in \"Breaking Bad\"?",
@@ -2265,7 +2760,9 @@
             "B": "Chemistry",
             "C": "Biology",
             "D": "Mathematics"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "How old did Queen Elizabeth II live to be?",
@@ -2274,7 +2771,9 @@
             "B": "99",
             "C": "96",
             "D": "87"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "Camila Cabello used to be member of this popular girl group?",
@@ -2283,7 +2782,9 @@
             "B": "Spice Girls",
             "C": "Fifth Harmony",
             "D": "The Supremes"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What is the grandpa's name in The Simpsons?",
@@ -2292,7 +2793,9 @@
             "B": "Abe",
             "C": "Chester",
             "D": "Henry"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the name of Baby Yoda in \"Mandalorian\"?",
@@ -2301,7 +2804,9 @@
             "B": "Poppi",
             "C": "Kiki",
             "D": "Zavier"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "What breed is Garfield?",
@@ -2310,7 +2815,9 @@
             "B": "British shorthair",
             "C": "Persian",
             "D": "Sphynx"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "What breed is Snoopy?",
@@ -2319,7 +2826,9 @@
             "B": "Beagle",
             "C": "Dachshund",
             "D": "Terrier"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which country is the cartoon character Doraemon from?",
@@ -2328,7 +2837,9 @@
             "B": "Korea",
             "C": "Japan",
             "D": "Thailand"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "C"
     },
     {
         "question": "Where is Starbucks founded?",
@@ -2337,7 +2848,9 @@
             "B": "New York City",
             "C": "San Fransico",
             "D": "Seattle"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "Which anime is about pirates?",
@@ -2346,7 +2859,9 @@
             "B": "Naruto",
             "C": "Clannad",
             "D": "Evangelion"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "Which movie is about time travelling?",
@@ -2355,7 +2870,9 @@
             "B": "Casablanca",
             "C": "Rocky",
             "D": "Princess bride"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "What is the state flower of kansas?",
@@ -2364,7 +2881,9 @@
             "B": "Sunflower",
             "C": "Scarlet Carnation",
             "D": "Rose"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which god is Greek?",
@@ -2373,7 +2892,9 @@
             "B": "Neptune",
             "C": "Jupiter",
             "D": "Apollo"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "Which of following is not done by Michelangelo?",
@@ -2382,7 +2903,9 @@
             "B": "Sistine Chapel",
             "C": "The Last Judgement",
             "D": "The Thinker"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "D"
     },
     {
         "question": "What country is the orgin of Cheddar cheese?",
@@ -2391,7 +2914,9 @@
             "B": "France",
             "C": "Greece",
             "D": "Italy"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "A"
     },
     {
         "question": "Which singer is famous for the album Thriller?",
@@ -2400,7 +2925,9 @@
             "B": "Michael Jackson",
             "C": "Bruno Mars",
             "D": "Prince"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Who is known for the song Rolling in the Deep?",
@@ -2409,7 +2936,9 @@
             "B": "Adele",
             "C": "Ariana Grande",
             "D": "Rihanna"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which Disney princess has a pet tiger named Rajah?",
@@ -2418,7 +2947,9 @@
             "B": "Jasmine",
             "C": "Ariel",
             "D": "Pocahontas"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Who plays Iron Man in the Marvel movies?",
@@ -2427,7 +2958,9 @@
             "B": "Robert Downey Jr. ",
             "C": "Tom Holland",
             "D": "Chris Evans"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which music competition show did Kelly Clarkson win?",
@@ -2436,7 +2969,9 @@
             "B": "American Idol",
             "C": "The X Factor",
             "D": "America’s Got Talent"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which band sang Bohemian Rhapsody?",
@@ -2445,7 +2980,9 @@
             "B": "Queen",
             "C": "Led Zepplin",
             "D": "The Rolling Stones"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which artist sang Uptown Funk with Mark Ronson?",
@@ -2454,7 +2991,9 @@
             "B": "Bruno Mars",
             "C": "Shawn Mendes",
             "D": "The Weeknd"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which Kardashian is married to Travis Barker?",
@@ -2463,7 +3002,9 @@
             "B": "Kourtney",
             "C": "Khloe",
             "D": "Kendall"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which actress played Hermione Granger in Harry Potter?",
@@ -2472,7 +3013,9 @@
             "B": "Emma Watson",
             "C": "Kristen Stewart",
             "D": "Anne Hathaway"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which celebrity is known for saying \"You can’t handle the truth!\"?",
@@ -2481,7 +3024,9 @@
             "B": "Jack Nicholson",
             "C": "Tom Cruise",
             "D": "Robert De Niro"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which game includes the phrase “Victory Royale”?",
@@ -2490,7 +3035,9 @@
             "B": "Fortnite",
             "C": "Apex Legends",
             "D": "Minecraft"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What is SpongeBob’s best friend’s name?",
@@ -2499,7 +3046,9 @@
             "B": "Patrick ",
             "C": "Sandy",
             "D": "Mr. Krabs"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What color are Mickey Mouse’s shorts?",
@@ -2508,7 +3057,9 @@
             "B": "Red",
             "C": "Pink",
             "D": "Gold"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What company made SpongeBob SquarePants?",
@@ -2517,7 +3068,9 @@
             "B": "Nickelodeon",
             "C": "Disney",
             "D": "MGM"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What country is the brand SONY founded in?",
@@ -2526,7 +3079,9 @@
             "B": "Japan",
             "C": "The US",
             "D": "Korea"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which of following animal does not hibernate?",
@@ -2535,7 +3090,9 @@
             "B": "Polar bear",
             "C": "Turtle",
             "D": "Bat"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which flies a green, white, and orange (in that order) tricolor flag?",
@@ -2544,7 +3101,9 @@
             "B": "Ireland",
             "C": "France",
             "D": "Brazil"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which city is home to the Brandenburg Gate?",
@@ -2553,7 +3112,9 @@
             "B": "Berlin",
             "C": "London",
             "D": "Zurich"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which of the following languages has the longest alphabet?",
@@ -2562,7 +3123,9 @@
             "B": "Russian",
             "C": "Arabic",
             "D": "English"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What spirit is used in making a Tom Collins?",
@@ -2571,7 +3134,9 @@
             "B": "Gin",
             "C": "Rum",
             "D": "Whiskey"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which horoscope sign is a fish?",
@@ -2580,7 +3145,9 @@
             "B": "Pisces",
             "C": "Cancer",
             "D": "Taurus"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What is the largest US state (by landmass)?",
@@ -2589,7 +3156,9 @@
             "B": "Alaska",
             "C": "Texas",
             "D": "California"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which of the following languages is NOT driven from Latin?",
@@ -2598,7 +3167,9 @@
             "B": "English",
             "C": "Portugese",
             "D": "Italian"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Arnold Schwarzenegger was married to a member of what famous US political family?",
@@ -2607,7 +3178,9 @@
             "B": "The Kennedys",
             "C": "The Rockefellers",
             "D": "The Roosevelts"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What is a baby kangaroo called?",
@@ -2616,7 +3189,9 @@
             "B": "Joey",
             "C": "Pup",
             "D": "Kit"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which city does \"Big Easy\" refer to?",
@@ -2625,7 +3200,9 @@
             "B": "New Orleans",
             "C": "Seattle",
             "D": "Miami"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which part of your body contains a bone called the ‘Funny Bone’?",
@@ -2634,7 +3211,9 @@
             "B": "Elbow",
             "C": "Knee",
             "D": "Hip"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "Which animal's fingerprints are almost identical to human fingerprints?",
@@ -2643,7 +3222,9 @@
             "B": "Koala",
             "C": "Dolphin",
             "D": "Lizard"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What animal is known for its ability to regenerate lost limbs?",
@@ -2652,7 +3233,9 @@
             "B": "Starfish",
             "C": "Crab",
             "D": "Frog"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "What alcoholic drink is made with juniper berries?",
@@ -2661,7 +3244,9 @@
             "B": "Gin",
             "C": "Rum",
             "D": "Whiskey"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "How can you tell the age of a horse?",
@@ -2670,7 +3255,9 @@
             "B": " The lines on its teeth",
             "C": "The clarity in its eyes",
             "D": "The quality of its hooves"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
         "question": "To which sea does the River Thames flow?",
@@ -2679,33 +3266,74 @@
             "B": "North Sea",
             "C": "Baltic Sea",
             "D": "Firth of Clyde"
-        }
+        },
+        "category": "Entertainment",
+        "correctAnswer": "B"
     },
     {
-        "question": "question1",
+        "question": "what major?",
+        "options": {
+            "A": "MechE",
+            "B": "CivE",
+            "C": "ChemE",
+            "D": "ECE"
+        },
+        "correctAnswer": "D",
+        "category": "Customization"
+    },
+    {
+        "question": "test1",
+        "options": {
+            "A": "h",
+            "B": "i",
+            "C": "h",
+            "D": "i"
+        },
+        "correctAnswer": "B",
+        "category": "Customization"
+    },
+    {
+        "question": "test2",
         "options": {
             "A": "a",
             "B": "b",
             "C": "c",
             "D": "d"
-        }
+        },
+        "correctAnswer": "A",
+        "category": "Customization"
     },
     {
-        "question": "more testing1",
+        "question": "test3",
         "options": {
-            "A": "h",
-            "B": "h",
-            "C": "h",
-            "D": "h"
-        }
+            "A": "hi",
+            "B": "hi",
+            "C": "hey",
+            "D": "hi"
+        },
+        "correctAnswer": "C",
+        "category": "Customization"
     },
     {
-        "question": "more testing2",
+        "question": "whats ur name",
         "options": {
-            "A": "k",
-            "B": "k",
-            "C": "k",
-            "D": "k"
-        }
+            "A": "min",
+            "B": "ji",
+            "C": "ming",
+            "D": "minz"
+        },
+        "correctAnswer": "A",
+        "category": "Customization"
+    },
+    {
+        "question": "where do u live",
+        "options": {
+            "A": "ooc",
+            "B": "campus",
+            "C": "no house",
+            "D": "idk"
+        },
+        "correctAnswer": "A",
+        "category": "Customization"
     }
 ]

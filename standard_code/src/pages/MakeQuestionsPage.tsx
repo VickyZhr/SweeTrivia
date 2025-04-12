@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Download } from 'lucide-react';
-import { sampleTriviaData } from '@/utils/triviaUtils';
+import { useTrivia } from '@/context/TriviaContext';
 
 const MakeQuestionsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -11,18 +11,7 @@ const MakeQuestionsPage: React.FC = () => {
     navigate('/');
   };
 
-  const handleDownloadTemplate = () => {
-    const blob = new Blob([sampleTriviaData], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'trivia_questions_template.csv';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
+  const { loadQuestions } = useTrivia();
   const handleDownloadFromCloud = async () => {
     try {
       const res = await fetch('http://localhost:8083/trigger-fetch-and-prepare', {
@@ -30,6 +19,11 @@ const MakeQuestionsPage: React.FC = () => {
       });
       const text = await res.text();
       alert(text);
+  
+      // 🔄 Reload questions immediately from updated JSON
+      const response = await fetch('/data/questions_and_choices.json');
+      const updatedJson = await response.json();
+      loadQuestions(JSON.stringify(updatedJson));  // load entire updated JSON synchronously
     } catch (err) {
       alert("❌ Failed to fetch: " + err);
     }

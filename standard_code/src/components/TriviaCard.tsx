@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useCallback } from 'react';
 import { TriviaQuestion } from '@/utils/triviaUtils';
 import { useTrivia } from '@/context/TriviaContext';
@@ -82,9 +81,9 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {question.options.map((option, index) => {
+          {Object.entries(question.options).map(([key, value], index) => {
             let correctness: boolean | null = null;
-            const normalizedOption = option.trim().toLowerCase();
+            const normalizedOption = key.trim().toLowerCase();
             const normalizedCorrect = question.correctAnswer
               ? question.correctAnswer.trim().toLowerCase()
               : '';
@@ -92,7 +91,7 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
             if (hasAnswered) {
               if (normalizedOption === normalizedCorrect) {
                 correctness = true;
-              } else if (option === selectedAnswer) {
+              } else if (key === selectedAnswer) {
                 correctness = false;
               }
             }
@@ -101,11 +100,11 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
               <AnswerOption
                 key={index}
                 index={index}
-                option={option}
-                selected={selectedAnswer === option}
+                option={value}
+                selected={selectedAnswer === key}
                 correct={correctness}
                 disabled={!narrationDone || hasAnswered}
-                onSelect={() => handleAnswer(option)}
+                onSelect={() => handleAnswer(key)}
               />
             );
           })}

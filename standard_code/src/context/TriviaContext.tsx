@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { TriviaQuestion, parseCSV, shuffleArray, sampleTriviaData } from '@/utils/triviaUtils';
+import { TriviaQuestion, shuffleArray } from '@/utils/triviaUtils';
 import { toast } from '@/components/ui/use-toast';
 
 interface TriviaContextType {
@@ -16,7 +16,6 @@ interface TriviaContextType {
   timeUp: boolean;
   setTimeUp: React.Dispatch<React.SetStateAction<boolean>>;
   setTimeLeft: React.Dispatch<React.SetStateAction<number>>;
-  loadQuestions: (csvData?: string) => void;
   goToNextQuestion: () => void;
   selectAnswer: (answer: string) => void;
   resetGame: () => void;
@@ -25,7 +24,7 @@ interface TriviaContextType {
   filterQuestionsByCategory: (category: string | null) => void;
   selectedCategory: string | null;
   continueGame: () => void;
-  updateScore: (additionalScore: number) => void; // Add this function to the interface
+  updateScore: (additionalScore: number) => void;
 }
 
 const TriviaContext = createContext<TriviaContextType | undefined>(undefined);
@@ -42,118 +41,116 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [timeUp, setTimeUp] = useState(false);
 
-  // Initialize with sample data
   useEffect(() => {
-    try {
-      loadQuestions();
-    } catch (error) {
-      console.error("Error loading initial questions:", error);
-      setAllQuestions([]);
-      setQuestions([]);
-    }
+    fetch('/data/questions_and_choices.json')
+      .then((res) => res.json())
+      .then((jsonData) => {
+        console.log('✅ Loaded JSON questions:', jsonData);
+        setAllQuestions(shuffleArray(jsonData));
+
+        if (selectedCategory) {
+          filterQuestionsByCategory(selectedCategory);
+        } else {
+          setQuestions(shuffleArray(jsonData));
+        }
+      })
+      .catch((error) => {
+        console.error('❌ Failed to load questions_and_choices.json', error);
+        setAllQuestions([]);
+        setQuestions([]);
+      });
   }, []);
 
-  // Add the updateScore function to update the score directly
   const updateScore = (additionalScore: number) => {
     setScore(additionalScore);
   };
 
-  const loadQuestions = (csvData: string = sampleTriviaData) => {
+  const loadQuestions = (jsonString: string) => {
     try {
-      const parsedQuestions = parseCSV(csvData);
-      setAllQuestions(shuffleArray(parsedQuestions));
-      // If we have a selected category, apply it
+      const parsed = JSON.parse(jsonString);
+      setAllQuestions(shuffleArray(parsed));
+  
       if (selectedCategory) {
         filterQuestionsByCategory(selectedCategory);
       } else {
-        setQuestions(shuffleArray(parsedQuestions));
+        setQuestions(shuffleArray(parsed));
       }
-      resetGame();
+  
+      console.log("✅ Fully reloaded updated JSON question set.");
     } catch (error) {
-      console.error("Error in loadQuestions:", error);
-      throw error;
+      console.error("❌ Failed to load questions from cloud JSON:", error);
     }
   };
-
-  // Function to continue the game without resetting the score
+  
+  
   const continueGame = () => {
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setHasAnswered(false);
     setIsGameOver(false);
     setTimeUp(false);
-    setTimeLeft(10); // Reset the timer when continuing
+    setTimeLeft(10);
   };
 
   const filterQuestionsByCategory = (category: string | null) => {
     setSelectedCategory(category);
-    
+
     if (!category) {
-      // If no category selected, use all questions (mixed)
       setQuestions(shuffleArray([...allQuestions]));
     } else {
-      // Filter questions by selected category
-      const filteredQuestions = allQuestions.filter(q => q.category === category);
-      
+      const filteredQuestions = allQuestions.filter((q) => q.category === category);
+
+      console.log('Filtered questions:', filteredQuestions);
+
       if (filteredQuestions.length === 0) {
-        // If no questions in this category, fallback to all questions
         toast({
-          title: "No questions found for this category",
-          description: "Using a mix of categories instead",
-          variant: "destructive"
+          title: 'No questions found for this category',
+          description: 'Using a mix of categories instead',
+          variant: 'destructive',
         });
         setQuestions(shuffleArray([...allQuestions]));
       } else {
         setQuestions(shuffleArray(filteredQuestions));
       }
     }
-    
-    // Use continueGame instead of resetGame to preserve score
+
     continueGame();
   };
 
   const selectAnswer = (answer: string) => {
     if (hasAnswered) return;
-    
+
     setSelectedAnswer(answer);
     setHasAnswered(true);
-    
-    // Immediately add points if the answer is correct
+
     if (currentQuestion && answer === currentQuestion.correctAnswer) {
-      setScore(prevScore => prevScore + 10);
+      setScore((prevScore) => prevScore + 10);
     }
   };
 
   const goToNextQuestion = () => {
-    // Always go to the next question, regardless of current index
     if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setSelectedAnswer(null);
       setHasAnswered(false);
-      // Don't reset timeLeft here, we want to keep the remaining time from the previous question
     } else {
-      // If we've reached the end of the questions, cycle back to the beginning
-      // This ensures we never run out of questions
       setCurrentQuestionIndex(0);
       setSelectedAnswer(null);
       setHasAnswered(false);
-      // Don't reset timeLeft here either, keep the remaining time
     }
   };
 
   const resetGame = () => {
     setCurrentQuestionIndex(0);
-    setScore(0); // Reset score only on complete game reset
+    setScore(0);
     setSelectedAnswer(null);
     setHasAnswered(false);
     setIsGameOver(false);
     setTimeUp(false);
-    setTimeLeft(10); // Reset timer when starting a completely new game
+    setTimeLeft(10);
   };
 
-  // Add a new stopGame function that sets isGameOver to true
   const stopGame = () => {
-    // Make sure we're not setting isGameOver if timeUp is true
     if (!timeUp) {
       setIsGameOver(true);
     }
@@ -176,7 +173,6 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     timeUp,
     setTimeUp,
     setTimeLeft,
-    loadQuestions,
     goToNextQuestion,
     selectAnswer,
     resetGame,
@@ -185,7 +181,8 @@ export const TriviaProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     filterQuestionsByCategory,
     selectedCategory,
     continueGame,
-    updateScore // Add the new function to the context value
+    updateScore,
+    loadQuestions,
   };
 
   return <TriviaContext.Provider value={value}>{children}</TriviaContext.Provider>;

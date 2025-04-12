@@ -1,14 +1,3 @@
-# from download_questions import download_csv_from_drive
-# import sys, os
-# sys.path.append(os.path.abspath(".."))
-# from standard_code.convert_csv_to_json import convert_and_append
-
-# # Download new question set from Drive
-# download_csv_from_drive('1yrTf1sqcjN6MgihqCUPMmEBwY3pu0Aec', 'questions.csv')
-
-# # Append it to your master JSON DB
-# convert_and_append('questions.csv', 'questions_and_choices.json')
-
 import os
 import sys
 import json
@@ -23,8 +12,8 @@ from standard_code.convert_csv_to_json import convert_and_append
 # ========== CONFIG ==========
 SERVICE_ACCOUNT_FILE = 'service_account_key.json'  # Place in same dir as script
 UPLOAD_FOLDER_ID = '1OFwXpixZoprnl1eC9NIv-vQwzAiU4D3P'  # Your Uploads folder ID
-CSV_DEST_PATH = 'questions.csv'
-JSON_DB_PATH = 'questions_and_choices.json'
+CSV_DEST_PATH = 'public/data/questions.csv'
+JSON_DB_PATH = 'public/data/questions_and_choices.json'
 # ============================
 
 # Authenticate with Google Drive API

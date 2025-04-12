@@ -72,14 +72,14 @@ const Index: React.FC = () => {
         <div className="grid grid-cols-2 gap-10 mb-16 w-full">
           <Button
             onClick={handleStandardMode}
-            className="bg-yellow-300 hover:bg-yellow-400 text-black text-4xl font-mono border-4 border-white h-28 rounded-3xl"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black text-5xl font-mono border-4 border-white h-28 rounded-3xl"
           >
             Standard
           </Button>
           
           <Button
             onClick={handleChallengeMode}
-            className="bg-yellow-300 hover:bg-yellow-400 text-black text-4xl font-mono border-4 border-white h-28 rounded-3xl"
+            className="bg-yellow-300 hover:bg-yellow-400 text-black text-5xl font-mono border-4 border-white h-28 rounded-3xl"
           >
             Challenge
           </Button>
@@ -88,9 +88,9 @@ const Index: React.FC = () => {
         {/* Make My Own Questions button */}
         <Button
           onClick={handleMakeMyOwnQuestions}
-          className="bg-yellow-300 hover:bg-yellow-400 text-black text-2xl font-mono border-4 border-white py-4 px-8 rounded-3xl w-full mb-8 flex items-center justify-center gap-3"
+          className="bg-yellow-300 hover:bg-yellow-400 text-black text-4xl font-mono border-4 border-white py-3 px-8 rounded-3xl w-full mb-8 flex items-center justify-center gap-3 h-20"
         >
-          <Pencil className="h-6 w-6" />
+          <Pencil className="h-6 w-6 mr-2" />
           Make My Own Questions
         </Button>
         
@@ -104,8 +104,6 @@ const Index: React.FC = () => {
           />
         </div>
       </div>
-      
-      {/* No Back Button on Home Page */}
     </div>
   );
 };
