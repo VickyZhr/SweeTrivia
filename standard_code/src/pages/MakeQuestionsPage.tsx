@@ -69,6 +69,15 @@ const MakeQuestionsPage: React.FC = () => {
             Download Question Set From Cloud
           </Button>
         </div>
+
+        {/* QR Code */}
+        <div className="mt-6 text-center">
+          <p className="text-white font-mono text-lg mb-2">
+            Scan this QR code on your phone to upload your question set!
+          </p>
+          <img src="/qr-code.png" alt="QR Code" className="w-40 mx-auto" />
+        </div>
+
       </div>
     
       {/* Go Back button */}
