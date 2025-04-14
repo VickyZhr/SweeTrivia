@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath(".."))
 from standard_code.convert_csv_to_json import convert_and_append
 
 # ========== CONFIG ==========
-SERVICE_ACCOUNT_FILE = 'service_account_key.json'  # Place in same dir as script
+SERVICE_ACCOUNT_FILE = 'public/data/service_account_key.json'  # Place in same dir as script
 UPLOAD_FOLDER_ID = '1OFwXpixZoprnl1eC9NIv-vQwzAiU4D3P'  # Your Uploads folder ID
 CSV_DEST_PATH = 'public/data/questions.csv'
 JSON_DB_PATH = 'public/data/questions_and_choices.json'
