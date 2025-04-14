@@ -17,10 +17,12 @@ app.use(express.json());
 // ====== POST /trigger-fetch-and-prepare ====== //
 app.post('/trigger-fetch-and-prepare', (req, res) => {
   console.log('📥 Triggering fetch_and_prepare.py...');
+  const scriptPath = __dirname + '/fetch_and_prepare.py';
 
-  exec('python3 fetch_and_prepare.py', (err, stdout, stderr) => {
+  exec(`python3 ${scriptPath}`, (err, stdout, stderr) => {
     if (err) {
       console.error('❌ Script failed:', err);
+      if (stderr) console.error('stderr:', stderr);
       return res.status(500).send('Failed to run fetch_and_prepare.py');
     }
 
