@@ -17,7 +17,7 @@ JSON_DB_PATH = 'public/data/questions_and_choices.json'
 # ============================
 
 # Authenticate with Google Drive API
-SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+SCOPES = ['https://www.googleapis.com/auth/drive.readonly'] 
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 drive_service = build('drive', 'v3', credentials=credentials)
