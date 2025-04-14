@@ -1,10 +1,9 @@
-
 import React, { useEffect } from 'react';
 import { speakWithEspeakNg } from '@/utils/speechUtils';
 
 interface NarrationControlProps {
   question: string;
-  options: string[];
+  options: { [key: string]: string };
   onNarrationEnd: () => void;
 }
 
@@ -17,7 +16,11 @@ const NarrationControl: React.FC<NarrationControlProps> = ({
     let isCancelled = false;
 
     const narrate = async () => {
-      const narration = `Question: ${question}. Option A: ${options[0]}. Option B: ${options[1]}. Option C: ${options[2]}. Option D: ${options[3]}.`;
+      const letters = ['A', 'B', 'C', 'D'];
+      const narration = `Question: ${question}. ` + letters
+        .map((letter) => `Option ${letter}: ${options[letter] || '...'}.`)
+        .join(' ');
+
       await speakWithEspeakNg(narration);
       if (!isCancelled) {
         onNarrationEnd();
@@ -29,7 +32,7 @@ const NarrationControl: React.FC<NarrationControlProps> = ({
     return () => {
       isCancelled = true;
     };
-  }, [question]);
+  }, [question, options, onNarrationEnd]);
 
   return null;
 };

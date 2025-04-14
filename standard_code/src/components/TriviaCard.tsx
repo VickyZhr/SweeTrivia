@@ -52,14 +52,24 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
     }
   }, [hasAnswered, timeLeft, isGameOver, narrationDone]);
 
-  const handleAnswer = (answer: string) => {
+  const handleAnswer = (letter: string) => {
     if (!hasAnswered && narrationDone) {
-      selectAnswer(answer);
+      selectAnswer(letter);
       setTimeout(() => {
         goToNextQuestion();
       }, 1000);
     }
   };
+
+  const optionsArray = question.options
+    ? Object.entries(question.options)
+    : [];
+
+  useEffect(() => {
+    if (optionsArray.length === 0) {
+      console.error("❌ Malformed question object:", question);
+    }
+  }, [question]);
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -71,56 +81,34 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
       <div className="relative bg-hot-pink p-6 rounded-lg">
         <div className="mb-6 flex justify-between items-center">
           <span className="pixel-text text-2xl font-semibold">
-            TIME: {timeLeft}s
+            Score: {score}
           </span>
-          <span className="pixel-text text-2xl font-semibold">SCORE: {score}</span>
+          <span className="pixel-text text-2xl font-semibold">
+            Time Left: {timeLeft}s
+          </span>
+        </div>
+        <div className="mb-4">
+          <h2 className="pixel-text text-xl font-bold">{question.question}</h2>
         </div>
 
-        <h2 className="pixel-text-lg text-3xl font-bold mb-6 tracking-wide">
-          {question.question}
-        </h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {Object.entries(question.options).map(([key, value], index) => {
-            let correctness: boolean | null = null;
-            const normalizedOption = key.trim().toLowerCase();
-            const normalizedCorrect = question.correctAnswer
-              ? question.correctAnswer.trim().toLowerCase()
-              : '';
-
-            if (hasAnswered) {
-              if (normalizedOption === normalizedCorrect) {
-                correctness = true;
-              } else if (key === selectedAnswer) {
-                correctness = false;
-              }
-            }
-
-            return (
+        {optionsArray.length > 0 ? (
+          <div className="grid grid-cols-1 gap-4">
+            {optionsArray.map(([letter, text]) => (
               <AnswerOption
-                key={index}
-                index={index}
-                option={value}
-                selected={selectedAnswer === key}
-                correct={correctness}
-                disabled={!narrationDone || hasAnswered}
-                onSelect={() => handleAnswer(key)}
+                key={letter}
+                option={`${letter}: ${text}`}
+                selected={selectedAnswer === letter}
+                correct={question.correctAnswer === letter}
+                showResult={hasAnswered}
+                onClick={() => handleAnswer(letter)}
+                disabled={!narrationDone}
               />
-            );
-          })}
-        </div>
-
-        {isGameOver && (
-          <div className="mt-6 text-center">
-            <p className="pixel-text-lg text-3xl font-bold mb-2">GAME OVER!</p>
-            <p className="pixel-text text-2xl mb-4">FINAL SCORE: {score}</p>
-            <Button 
-              className="bg-yellow-300 hover:bg-yellow-400 text-black text-2xl font-mono border-4 border-white py-2 px-6 rounded-full" 
-              onClick={() => navigate('/')}
-            >
-              Return to Home
-            </Button>
+            ))}
           </div>
+        ) : (
+          <p className="text-white text-lg font-semibold mt-4">
+            ⚠️ This question is missing valid answer choices.
+          </p>
         )}
       </div>
     </div>

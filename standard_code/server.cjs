@@ -1,51 +1,3 @@
-// const express = require('express');
-// const cors = require('cors');
-// const { exec } = require('child_process');
-// const path = require('path');
-
-// const app = express();
-// const PORT = 8080;
-
-// app.use(cors());
-// app.use(express.json());
-
-// // POST endpoint to run fetch_and_prepare.py
-// app.post('/trigger-fetch-and-prepare', (req, res) => {
-//   const scriptPath = path.join(__dirname, 'fetch_and_prepare.py');
-
-//   exec(`python3 "${scriptPath}"`, (error, stdout, stderr) => {
-//     if (error) {
-//       console.error(`❌ Error: ${stderr}`);
-//       return res.status(500).send(`Error: ${stderr}`);
-//     }
-
-//     console.log(`✅ Output:\n${stdout}`);
-//     res.send('✅ Question set downloaded & appended!');
-//   });
-// });
-
-// // Start the server
-// app.listen(PORT, () => {
-//   console.log(`🚀 Backend server is running on http://localhost:${PORT}`);
-// });
-
-
-
-// import express from 'express';
-// import cors from 'cors';
-// import { exec } from 'child_process';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-
-// const app = express();
-// const PORT = 8082;
-
-// app.use(cors());
-// app.use(express.json());
-
-// // Used to determine directory location
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
 const express = require('express');
 const cors = require('cors');
 const { exec } = require('child_process');
@@ -74,4 +26,22 @@ app.post('/trigger-fetch-and-prepare', (req, res) => {
 // Run server
 app.listen(PORT, () => {
   console.log(`🚀 Backend server running at http://localhost:${PORT}`);
+});
+
+app.post('/narrate', async (req, res) => {
+  const { text } = req.body;
+  if (!text) {
+    return res.status(400).json({ error: 'No text provided' });
+  }
+
+  const { exec } = require('child_process');
+  const cmd = `espeak-ng -v en+f2 -s 130 "${text.replace(/"/g, '\\"')}"`;
+
+  exec(cmd, (error, stdout, stderr) => {
+    if (error) {
+      console.error("Narration error:", stderr);
+      return res.status(500).json({ error: 'Narration failed' });
+    }
+    res.status(200).json({ success: true });
+  });
 });
