@@ -18,7 +18,7 @@ app.use(express.json());
 app.post('/trigger-fetch-and-prepare', (req, res) => {
   console.log('📥 Triggering fetch_and_prepare.py...');
 
-  exec('python3 public/data/fetch_and_prepare.py', (err, stdout, stderr) => {
+  exec('python3 fetch_and_prepare.py', (err, stdout, stderr) => {
     if (err) {
       console.error('❌ Script failed:', err);
       return res.status(500).send('Failed to run fetch_and_prepare.py');
