@@ -14,7 +14,7 @@ const MakeQuestionsPage: React.FC = () => {
   const { loadQuestions } = useTrivia();
   const handleDownloadFromCloud = async () => {
     try {
-      const res = await fetch('http://localhost:8083/trigger-fetch-and-prepare', {
+      const res = await fetch('http://172.26.192.237:8083/trigger-fetch-and-prepare', {
         method: 'POST',
       });
       const text = await res.text();
