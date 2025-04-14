@@ -14,7 +14,7 @@ SERVICE_ACCOUNT_FILE = os.path.join(SCRIPT_DIR, 'service_account_key.json')
 CSV_DEST_PATH = os.path.join(SCRIPT_DIR, 'public', 'data', 'questions.csv')
 JSON_DEST_PATH = os.path.join(SCRIPT_DIR, 'public', 'data', 'questions_and_choices.json')
 
-UPLOAD_FOLDER_ID = "1xb0WS2-pVgkVpVXkgvppRP7KRpsDTWEP"
+UPLOAD_FOLDER_ID = "1OFwXpixZoprnl1eC9NIv-vQwzAiU4D3P"
 
 # 🔐 Load credentials
 credentials = service_account.Credentials.from_service_account_file(
