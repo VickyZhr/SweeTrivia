@@ -90,7 +90,7 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
             {optionsArray.map(([letter, text], index) => (
               <AnswerOption
                 key={letter}
-                option={`${letter}: ${text}`}
+                option={text}
                 index={index}
                 selected={selectedAnswer === letter}
                 correct={
