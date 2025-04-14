@@ -3269,5 +3269,16 @@
         },
         "category": "Entertainment",
         "correctAnswer": "B"
+    },
+    {
+        "question": "when's minji's bday?",
+        "options": {
+            "A": "jan",
+            "B": "feb",
+            "C": "march",
+            "D": "april"
+        },
+        "correctAnswer": "A",
+        "category": "Customization"
     }
 ]
