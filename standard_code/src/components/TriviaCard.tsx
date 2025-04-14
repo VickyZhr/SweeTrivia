@@ -65,12 +65,6 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
     ? Object.entries(question.options)
     : [];
 
-  useEffect(() => {
-    if (optionsArray.length === 0) {
-      console.error("❌ Malformed question object:", question);
-    }
-  }, [question]);
-
   return (
     <div className="w-full max-w-3xl mx-auto">
       <NarrationControl
@@ -92,16 +86,21 @@ const TriviaCard: React.FC<TriviaCardProps> = ({ question }) => {
         </div>
 
         {optionsArray.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4">
-            {optionsArray.map(([letter, text]) => (
+          <div className="grid grid-cols-2 gap-4"> {/* 2-column layout */}
+            {optionsArray.map(([letter, text], index) => (
               <AnswerOption
                 key={letter}
                 option={`${letter}: ${text}`}
+                index={index}
                 selected={selectedAnswer === letter}
-                correct={question.correctAnswer === letter}
+                correct={
+                  hasAnswered
+                    ? question.correctAnswer === letter
+                    : null
+                }
                 showResult={hasAnswered}
-                onClick={() => handleAnswer(letter)}
-                disabled={!narrationDone}
+                onSelect={() => handleAnswer(letter)}
+                disabled={!narrationDone || hasAnswered}
               />
             ))}
           </div>
