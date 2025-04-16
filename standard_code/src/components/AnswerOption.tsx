@@ -1,6 +1,7 @@
 import React from 'react';
 import { getOptionLetter } from '@/utils/triviaUtils';
 import { Check, X } from 'lucide-react';
+import { playSound } from '@/utils/soundUtils';
 
 interface AnswerOptionProps {
   option: string;
@@ -37,7 +38,15 @@ const AnswerOption: React.FC<AnswerOptionProps> = ({
   return (
     <button
       className={`w-full py-4 px-5 rounded-full border-4 flex justify-between items-center ${getOptionClass()}`}
-      onClick={onSelect}
+      onClick={() => {
+        if (showResult) return;
+        onSelect();
+        if (correct === true) {
+          playSound("correct_sound.mp3");
+        } else if (correct === false && selected) {
+          playSound("incorrect_sound.wav");
+        }
+      }}
       disabled={disabled}
     >
       <span className="font-game-text font-bold text-2xl text-left text-green-800">
