@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTrivia } from '@/context/TriviaContext';
 import { Circle, Triangle, Square, Star } from 'lucide-react';
@@ -19,7 +19,7 @@ const CandySelectionScreen = () => {
       }
     };
   }, []);
-  
+
   const navigate = useNavigate();
   const location = useLocation();
   const { score: contextScore } = useTrivia();
