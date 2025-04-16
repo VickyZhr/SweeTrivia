@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useTrivia } from '@/context/TriviaContext';
 import { Button } from '@/components/ui/button';
 import { Candy } from 'lucide-react';
@@ -9,7 +9,6 @@ const ExitScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const candyAudioRef = useRef<HTMLAudioElement>(null);
   const isFromChallenge = location.state?.fromChallenge || false;
 
   useEffect(() => {
@@ -28,9 +27,8 @@ const ExitScreen: React.FC = () => {
       if (finalScore <= 0) {
         navigate('/');
       } else {
-        candyAudioRef.current?.play().catch(err => {
-          console.warn("Audio error:", err);
-        });
+        const audio = new Audio("/sounds/candy_selection_page.mp3");
+        audio.play().catch(err => console.warn("Audio error:", err));
         navigate('/selection', { state: { finalScore } });
       }
     }
@@ -42,16 +40,14 @@ const ExitScreen: React.FC = () => {
     if (finalScore <= 0) {
       navigate('/');
     } else {
-      candyAudioRef.current?.play().catch(err => {
-        console.warn("Audio error:", err);
-      });
+      const audio = new Audio("/sounds/candy_selection_page.mp3");
+      audio.play().catch(err => console.warn("Audio error:", err));
       navigate('/selection', { state: { finalScore } });
     }
   };
 
   return (
     <div className="w-full h-screen flex items-center justify-center p-6 relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
-      <audio ref={candyAudioRef} src="/sounds/candy_selection_page_cleaned.mp3" preload="auto" />
       <div className="absolute top-5 w-[95%] mx-auto">
         <img src="/lovable-uploads/92149b53-6c92-4ab5-b43e-94cf49eea917.png" alt="Top shapes" className="w-full" />
       </div>
@@ -86,10 +82,10 @@ const ExitScreen: React.FC = () => {
         )}
 
         <div className="mt-4 text-white/70 animate-pulse">
-          {isFromChallenge 
-            ? "Auto-continuing challenge in 10 seconds..." 
-            : score > 0 
-              ? "Proceeding to candy selection in 10 seconds..." 
+          {isFromChallenge
+            ? "Auto-continuing challenge in 10 seconds..."
+            : score > 0
+              ? "Proceeding to candy selection in 10 seconds..."
               : "Returning to home page in 10 seconds..."}
         </div>
       </div>

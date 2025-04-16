@@ -9,8 +9,8 @@ import { ArrowLeft } from 'lucide-react';
 import RoundUp from '@/components/RoundUp';
 
 const TriviaGame: React.FC = () => {
-  const { 
-    currentQuestion, 
+  const {
+    currentQuestion,
     isGameOver,
     score,
     questions,
@@ -21,32 +21,32 @@ const TriviaGame: React.FC = () => {
   const location = useLocation();
   const totalQuestions = questions.length;
 
-  const roundOverAudioRef = useRef<HTMLAudioElement>(null);
+  const roundOverAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (timeUp && roundOverAudioRef.current) {
+    if (timeUp) {
+      roundOverAudioRef.current = new Audio("/sounds/round_over.mp3");
       roundOverAudioRef.current.play().catch(err => {
         console.warn("Audio error:", err);
       });
     }
+
+    return () => {
+      if (roundOverAudioRef.current) {
+        roundOverAudioRef.current.pause();
+        roundOverAudioRef.current.currentTime = 0;
+      }
+    };
   }, [timeUp]);
 
   if (!currentQuestion && !isGameOver && !timeUp) {
     return (
       <div className="flex flex-col h-screen items-center justify-center p-4 relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
         <div className="absolute top-5 w-[95%] mx-auto">
-          <img 
-            src="/lovable-uploads/92149b53-6c92-4ab5-b43e-94cf49eea917.png" 
-            alt="Top shapes" 
-            className="w-full"
-          />
+          <img src="/lovable-uploads/92149b53-6c92-4ab5-b43e-94cf49eea917.png" alt="Top shapes" className="w-full" />
         </div>
         <div className="absolute bottom-0 w-[95%] mx-auto">
-          <img 
-            src="/lovable-uploads/f4358604-0ca8-4f42-b36a-1c87c99ef22d.png" 
-            alt="Bottom shapes" 
-            className="w-full"
-          />
+          <img src="/lovable-uploads/f4358604-0ca8-4f42-b36a-1c87c99ef22d.png" alt="Bottom shapes" className="w-full" />
         </div>
         <div className="z-10">
           <h1 className="text-2xl font-bold text-red-500 mb-4">Error Loading Questions</h1>
@@ -63,30 +63,16 @@ const TriviaGame: React.FC = () => {
     );
   }
 
-  if (timeUp) return (
-    <>
-      <audio ref={roundOverAudioRef} src="/sounds/round_over_cleaned.mp3" preload="auto" />
-      <RoundUp />
-    </>
-  );
-
+  if (timeUp) return <RoundUp />;
   if (isGameOver) return <ResultScreen score={score} totalQuestions={totalQuestions} />;
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4 relative overflow-hidden" style={{ backgroundColor: '#E0178C' }}>
       <div className="absolute top-5 w-[95%] mx-auto">
-        <img 
-          src="/lovable-uploads/92149b53-6c92-4ab5-b43e-94cf49eea917.png" 
-          alt="Top shapes" 
-          className="w-full"
-        />
+        <img src="/lovable-uploads/92149b53-6c92-4ab5-b43e-94cf49eea917.png" alt="Top shapes" className="w-full" />
       </div>
       <div className="absolute bottom-0 w-[95%] mx-auto">
-        <img 
-          src="/lovable-uploads/f4358604-0ca8-4f42-b36a-1c87c99ef22d.png" 
-          alt="Bottom shapes" 
-          className="w-full"
-        />
+        <img src="/lovable-uploads/f4358604-0ca8-4f42-b36a-1c87c99ef22d.png" alt="Bottom shapes" className="w-full" />
       </div>
 
       <TriviaSettings />

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getOptionLetter } from '@/utils/triviaUtils';
 import { Check, X } from 'lucide-react';
-import { playSound } from '@/utils/soundUtils';
 
 interface AnswerOptionProps {
   option: string;
@@ -22,6 +21,18 @@ const AnswerOption: React.FC<AnswerOptionProps> = ({
   disabled,
   onSelect,
 }) => {
+  useEffect(() => {
+    if (showResult && selected) {
+      if (correct === true) {
+        const audio = new Audio("/sounds/correct_sound.mp3");
+        audio.play().catch(err => console.warn("Audio error:", err));
+      } else if (correct === false) {
+        const audio = new Audio("/sounds/incorrect_sound.mp3");
+        audio.play().catch(err => console.warn("Audio error:", err));
+      }
+    }
+  }, [showResult, selected, correct]);
+
   const getOptionClass = () => {
     if (showResult && correct === true) return 'bg-green-400 border-white';
     if (showResult && correct === false && selected) return 'bg-red-400 border-white';
@@ -41,11 +52,6 @@ const AnswerOption: React.FC<AnswerOptionProps> = ({
       onClick={() => {
         if (showResult) return;
         onSelect();
-        if (correct === true) {
-          playSound("correct_sound.mp3");
-        } else if (correct === false && selected) {
-          playSound("incorrect_sound.wav");
-        }
       }}
       disabled={disabled}
     >

@@ -6,6 +6,20 @@ import { Circle, Triangle, Square, Star } from 'lucide-react';
 import { toast } from 'sonner';
 
 const CandySelectionScreen = () => {
+  const candyAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    candyAudioRef.current = new Audio("/sounds/candy_selection_page.mp3");
+    candyAudioRef.current.play().catch(err => console.warn("Audio error:", err));
+
+    return () => {
+      if (candyAudioRef.current) {
+        candyAudioRef.current.pause();
+        candyAudioRef.current.currentTime = 0;
+      }
+    };
+  }, []);
+  
   const navigate = useNavigate();
   const location = useLocation();
   const { score: contextScore } = useTrivia();
