@@ -31,7 +31,7 @@ const CandyDispensingScreen: React.FC = () => {
       });
       
       // Send the request to the server
-      const response = await fetch('http://localhost:3001/dispense', {
+      const response = await fetch('http://localhost:8083/dispense', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
