@@ -1,4 +1,3 @@
-
 // Utility functions and constants for the Flappy Challenge game
 
 export interface Bird {
@@ -16,31 +15,6 @@ export interface Pipe {
   gap: number;
 }
 
-export interface Question {
-  question: string;
-  options: string[];
-  correct: string;
-}
-
-// Sample questions for the game
-export const sampleQuestions: Question[] = [
-  {
-    question: "How many legs does a spider have?",
-    options: ["2", "4", "6", "8"],
-    correct: "A"
-  },
-  {
-    question: "What is the capital of France?",
-    options: ["Berlin", "Madrid", "Paris", "Rome"],
-    correct: "A"
-  },
-  {
-    question: "What is 5 + 5?",
-    options: ["8", "9", "10", "11"],
-    correct: "A"
-  }
-];
-
 // Fixed positions for the gap in pipes
 export const gapPositions = [150, 250, 350, 450];
 
@@ -52,11 +26,6 @@ export const movingRate = 10;
 
 // Flash effect duration
 export const flashDuration = 20;
-
-// Get a random question from the sample questions
-export const getRandomQuestion = (): Question => {
-  return sampleQuestions[Math.floor(Math.random() * sampleQuestions.length)];
-};
 
 // Initialize bird object with default values
 export const initializeBird = (): Bird => ({

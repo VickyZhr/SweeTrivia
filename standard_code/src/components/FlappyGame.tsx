@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,7 +6,7 @@ import { useTrivia } from '@/context/TriviaContext';
 
 const FlappyGame: React.FC = () => {
   const navigate = useNavigate();
-  const { updateScore } = useTrivia();
+  const { questions, updateScore } = useTrivia();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
@@ -65,23 +64,7 @@ const FlappyGame: React.FC = () => {
     const gapSize = 6 * bird.radius;
     const movingRate = 10;
 
-    const questions = [
-      {
-        question: "How many legs does a spider have?",
-        options: ["2", "4", "6", "8"],
-        correct: "A"
-      },
-      {
-        question: "What is the capital of France?",
-        options: ["Berlin", "Madrid", "Paris", "Rome"],
-        correct: "A"
-      },
-      {
-        question: "What is 5 + 5?",
-        options: ["8", "9", "10", "11"],
-        correct: "A"
-      }
-    ];
+    // 🧠 Replaced hardcoded questions with dynamic context-based questions
 
     let currentQuestion = questions[Math.floor(Math.random() * questions.length)];
 
