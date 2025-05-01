@@ -6,7 +6,7 @@
  const express = require('express');
  const cors = require('cors');
  const { exec } = require('child_process');
- const i2c = require('i2c-bus'); // 🧠 Required for I2C communication
+//  const i2c = require('i2c-bus'); // 🧠 Required for I2C communication
  
  const app = express();
  const port = 8083;

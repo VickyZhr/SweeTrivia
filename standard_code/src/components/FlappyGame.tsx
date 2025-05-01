@@ -20,6 +20,8 @@ const FlappyGame: React.FC = () => {
   const missedPipeRef = useRef(false);
   const flashTimerRef = useRef(0);
   const flashActiveRef = useRef(false);
+  const answeredCorrectlyRef = useRef(false);
+
 
   // Get initial score from location state if available
   useEffect(() => {
@@ -32,6 +34,8 @@ const FlappyGame: React.FC = () => {
       
       // Clear storage after retrieving
       sessionStorage.removeItem('flappyScore');
+      setScore(0);
+      currentScoreRef.current = 0;
     }
   }, []);
 
@@ -62,7 +66,7 @@ const FlappyGame: React.FC = () => {
 
     const gapPositions = [150, 250, 350, 450];
     const gapSize = 6 * bird.radius;
-    const movingRate = 10;
+    const movingRate = 5;
 
     // 🧠 Replaced hardcoded questions with dynamic context-based questions
 
@@ -114,38 +118,40 @@ const FlappyGame: React.FC = () => {
 
     const drawPipes = () => {
       const labels = ["A", "B", "C", "D"];
-      const options = currentQuestion.options;
+      const options = labels.map(label => currentQuestion.options[label]);
+    
       ctx.fillStyle = '#00c800';
-
+    
       const drawPipeSection = (x: number, y: number, width: number, height: number) => {
         ctx.fillRect(x, y, width, height);
         ctx.strokeStyle = '#000000';
         ctx.lineWidth = 3;
         ctx.strokeRect(x, y, width, height);
       };
-
+    
       drawPipeSection(pipe.x, 0, pipe.width, gapPositions[0]);
       drawPipeSection(pipe.x, gapPositions[0] + gapSize, pipe.width, gapPositions[1] - (gapPositions[0] + gapSize));
       drawPipeSection(pipe.x, gapPositions[1] + gapSize, pipe.width, gapPositions[2] - (gapPositions[1] + gapSize));
       drawPipeSection(pipe.x, gapPositions[2] + gapSize, pipe.width, gapPositions[3] - (gapPositions[2] + gapSize));
       drawPipeSection(pipe.x, gapPositions[3] + gapSize, pipe.width, canvas.height - (gapPositions[3] + gapSize));
-
+    
       ctx.fillStyle = '#000000';
       ctx.font = '20px Arial';
       ctx.textAlign = 'center';
-
+    
       for (let i = 0; i < 4; i++) {
         let textX = pipe.x + pipe.width / 2;
         let textY = gapPositions[i] + gapSize / 2;
         ctx.fillText(labels[i], textX, textY - 10);
         ctx.fillText(options[i], textX, textY + 15);
       }
-
-      const correctIndex = labels.indexOf(currentQuestion.correct);
-
+    
+      const correctIndex = labels.indexOf(currentQuestion.correctAnswer);
+    
       if (pipe.x < bird.x && pipe.x + pipe.width > bird.x) {
         if (!(bird.y >= gapPositions[correctIndex] && bird.y <= gapPositions[correctIndex] + gapSize)) {
           if (!missedPipeRef.current) {
+            answeredCorrectlyRef.current = false;
             currentLivesRef.current--;
             setLives(currentLivesRef.current);
             flashActiveRef.current = true;
@@ -154,26 +160,28 @@ const FlappyGame: React.FC = () => {
             toast.error("Wrong answer!");
           }
         } else if (!passedPipeRef.current) {
-          currentScoreRef.current += 10;
+          currentScoreRef.current += 15;
           setScore(currentScoreRef.current);
           passedPipeRef.current = true;
-          toast.success("Correct answer! +10 points");
+          answeredCorrectlyRef.current = true;
+          toast.success("Correct answer! +15 points");
         }
       }
-
+    
       let textColor = '#FFFFFF';
       let fontSize = '30px';
-
+    
       if (flashActiveRef.current && flashTimerRef.current > 0) {
         textColor = flashTimerRef.current % 10 < 5 ? '#FF0000' : '#FFFFFF';
         fontSize = '50px';
       }
-
+    
       ctx.fillStyle = textColor;
       ctx.font = fontSize + ' Arial';
       ctx.fillText(`Score: ${currentScoreRef.current}`, canvas.width - 200, 30);
       ctx.fillText(`Lives: ${currentLivesRef.current}`, canvas.width - 200, 70);
     };
+    
 
     const drawBird = () => {
       if (birdImg.complete) {
@@ -189,11 +197,35 @@ const FlappyGame: React.FC = () => {
     const drawQuestion = () => {
       const padding = 15;
       const lineHeight = 30;
+      const maxLineWidth = canvas.width / 2;
     
-      // Match the pixel font and size
-      ctx.font = '30px monospace'; // Simulates pixel-text look
-      const textWidths = [ctx.measureText(currentQuestion.question).width];
+      // Set font before measuring
+      ctx.font = '30px monospace';
     
+      // Function to wrap text into lines based on max width
+      const wrapText = (text, maxWidth) => {
+        const words = text.split(' ');
+        const lines = [];
+        let currentLine = words[0];
+    
+        for (let i = 1; i < words.length; i++) {
+          const word = words[i];
+          const testLine = currentLine + ' ' + word;
+          const testWidth = ctx.measureText(testLine).width;
+          if (testWidth < maxWidth) {
+            currentLine = testLine;
+          } else {
+            lines.push(currentLine);
+            currentLine = word;
+          }
+        }
+        lines.push(currentLine);
+        return lines;
+      };
+    
+      const questionLines = wrapText(currentQuestion.question, maxLineWidth);
+    
+      const textWidths = questionLines.map(line => ctx.measureText(line).width);
       for (let i = 0; i < currentQuestion.options.length; i++) {
         textWidths.push(ctx.measureText(`${String.fromCharCode(65 + i)}. ${currentQuestion.options[i]}`).width);
       }
@@ -201,7 +233,7 @@ const FlappyGame: React.FC = () => {
       const boxWidth = Math.max(...textWidths) + 2 * padding;
       const boxX = 10;
       const boxY = 50;
-      const numLines = 1 + currentQuestion.options.length;
+      const numLines = questionLines.length + currentQuestion.options.length;
       const boxHeight = padding * 2 + numLines * lineHeight;
     
       // Semi-transparent background box
@@ -213,23 +245,24 @@ const FlappyGame: React.FC = () => {
       ctx.textAlign = "left";
       ctx.textBaseline = "middle";
     
-      // Set shadow to simulate white outline
+      // Outline shadow
       ctx.shadowColor = '#ffffff';
       ctx.shadowBlur = 0;
       ctx.lineWidth = 4;
-    
-      // Draw outline stroke first
       ctx.strokeStyle = '#ffffff';
-      ctx.fillStyle = '#006400'; // Deep green to match text-green-800
+      ctx.fillStyle = '#006400';
     
-      // Draw question with outline
-      ctx.strokeText(currentQuestion.question, boxX + padding, boxY + padding + lineHeight);
-      ctx.fillText(currentQuestion.question, boxX + padding, boxY + padding + lineHeight);
+      // Draw question lines
+      for (let i = 0; i < questionLines.length; i++) {
+        const y = boxY + padding + (i + 1) * lineHeight;
+        ctx.strokeText(questionLines[i], boxX + padding, y);
+        ctx.fillText(questionLines[i], boxX + padding, y);
+      }
     
-      // Draw options with outline
+      // Draw options
       for (let i = 0; i < currentQuestion.options.length; i++) {
         const text = `${String.fromCharCode(65 + i)}. ${currentQuestion.options[i]}`;
-        const y = boxY + padding + (i + 2) * lineHeight;
+        const y = boxY + padding + (questionLines.length + i + 1) * lineHeight;
         ctx.strokeText(text, boxX + padding, y);
         ctx.fillText(text, boxX + padding, y);
       }
@@ -273,10 +306,15 @@ const FlappyGame: React.FC = () => {
             flashTimerRef.current = 20;
             bird.y = canvas.height / 2;
             bird.velocity = 0;
-            toast.warning("Hit the boundary! Lost a life.");
+        
+            if (answeredCorrectlyRef.current) {
+              toast.warning("You answered correctly but hit the boundary! Life lost.");
+            } else {
+              toast.warning("Hit the boundary! Lost a life.");
+            }
           }
         }
-
+        
         if (currentLivesRef.current <= 0) {
           gameRunningRef.current = false;
           if (!gameOver) {
@@ -357,12 +395,12 @@ const FlappyGame: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-pink-500 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden">
       <div className="w-full max-w-5xl mx-auto z-10">
         <header className="mb-8 flex justify-between items-center">
           <h1 className="text-3xl font-bold text-green-800 font-mono">Flappy Bird - Challenge Mode</h1>
         </header>
-
+  
         <div className="relative mb-8 p-4 bg-white/20 backdrop-blur-sm rounded-xl border-2 border-white/30 flex justify-center">
           <canvas
             ref={canvasRef}
@@ -372,18 +410,18 @@ const FlappyGame: React.FC = () => {
             Your browser does not support canvas.
           </canvas>
         </div>
-
-        <div className="flex justify-between">
+  
+        <div className="flex justify-between w-full">
           <div className="text-white bg-black/50 backdrop-blur-sm p-4 rounded-lg max-w-xs">
             <h3 className="font-bold mb-2">How to Play:</h3>
             <ul className="list-disc pl-5 text-xs">
               <li>Press SPACE or click to make the bird jump</li>
               <li>Fly through the gap with the correct answer</li>
-              <li>Get 10 points for each correct answer</li>
+              <li>Get 15 points for each correct answer</li>
               <li>You have 3 lives - don't hit the pipes or boundaries!</li>
             </ul>
           </div>
-
+  
           <Button
             onClick={handleExit}
             variant="yellow"
@@ -395,7 +433,7 @@ const FlappyGame: React.FC = () => {
         </div>
       </div>
     </div>
-  );
+  );  
 };
 
 export default FlappyGame;
