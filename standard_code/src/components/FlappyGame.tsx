@@ -388,7 +388,7 @@ const FlappyGame: React.FC = () => {
   }, [gameOver, navigate, updateScore]);
 
   const handleExit = () => {
-    // Save score before navigating
+  // Save score before navigating
     updateScore(currentScoreRef.current);
     sessionStorage.setItem('flappyScore', currentScoreRef.current.toString());
     navigate('/roundup', { state: { fromChallenge: true } });
